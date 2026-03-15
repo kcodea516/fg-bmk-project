@@ -115,9 +115,11 @@ body {
 
 /* Publication Content Styling */
 .publication-title {
-    font-family: 'Inter', sans-serif !important;
+    font-family: 'Outfit', sans-serif !important;
     font-weight: 800 !important;
-    color: var(--text-primary) !important;
+    background: var(--gradient-linear);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
     margin-bottom: 2rem !important;
     line-height: 1.1 !important;
 }
