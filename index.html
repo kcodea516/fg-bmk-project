@@ -237,12 +237,9 @@
                 <span class="author-block">
                   <a href="http://www.weixiushen.com" target="_blank">Xiu-Shen Wei</a><sup>1†</sup>,</span>
                 <span class="author-block">
-                  <a href="https://www.icst.pku.edu.cn/struct/people/pengyuxin.html" target="_blank">Yuxin
-                    Peng</a><sup>2</sup>,</span>
+                  Yuxin Peng<sup>2</sup>,</span>
                 <span class="author-block">
-                  <a href="https://vision.cornell.edu/searchexp/people/belongie-serge" target="_blank">Serge
-                    Belongie</a><sup>3</sup>
-                </span>
+                  Serge Belongie<sup>3</sup></span>
               </div>
 
               <div class="is-size-5 publication-authors">
@@ -307,39 +304,93 @@
     </section>
 
 
-    <!-- Dataset Overview Image -->
-    <section class="hero teaser" style="margin-top: -40px;">
+    <!-- Top Highlights Dashboard (Hero Teaser Replacement) -->
+    <section class="hero teaser" style="margin-top: -30px; margin-bottom: 20px;">
       <div class="container is-max-desktop">
         <div class="hero-body">
-          <!-- TODO: Replace with your dataset overview image -->
-          <img src="static/pdfs/intro.png" alt="FG-BMK Overview" id="teaser-image" style="width: 100%; margin-bottom: 5px;">
-          <h2 class="subtitle has-text-centered" style="margin-top: 5px; font-size: 1.1rem;">
-            Overview of the FG-BMK benchmark. It systematically examines LVLMs from human-oriented and machine-oriented
-            perspectives, focusing on semantic recognition and fine-grained feature representation.
+          <div class="columns is-multiline is-centered">
+            <!-- Scale Card -->
+            <div class="column is-one-third">
+              <div class="abstract-box"
+                style="text-align: center; padding: 25px !important; transition: transform 0.3s ease;"
+                onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
+                <span style="font-size: 2.5rem;">📊</span>
+                <h3 class="title is-4" style="margin-top: 10px; margin-bottom: 5px;">Massive Scale</h3>
+                <p style="font-size: 1.1rem; color: #4f46e5; font-weight: 800;">1.01M+ <span
+                    style="color: #64748b; font-weight: 400; font-size: 0.9rem;">Questions</span></p>
+                <p style="font-size: 1.1rem; color: #4f46e5; font-weight: 800;">280K+ <span
+                    style="color: #64748b; font-weight: 400; font-size: 0.9rem;">Images</span></p>
+              </div>
+            </div>
+            <!-- Paradigm Card -->
+            <div class="column is-one-third">
+              <div class="abstract-box"
+                style="text-align: center; padding: 25px !important; transition: transform 0.3s ease;"
+                onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
+                <span style="font-size: 2.5rem;">🧪</span>
+                <h3 class="title is-4" style="margin-top: 10px; margin-bottom: 5px;">Dual Paradigm</h3>
+                <p style="font-size: 0.95rem; color: var(--text-secondary);">Simultaneous Evaluation of
+                  <b>Human-oriented</b> & <b>Machine-oriented</b> Alignment.
+                </p>
+              </div>
+            </div>
+            <!-- Granularity Card -->
+            <div class="column is-one-third">
+              <div class="abstract-box"
+                style="text-align: center; padding: 25px !important; transition: transform 0.3s ease;"
+                onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
+                <span style="font-size: 2.5rem;">🔍</span>
+                <h3 class="title is-4" style="margin-top: 10px; margin-bottom: 5px;">Fine-Grained</h3>
+                <p style="font-size: 0.95rem; color: var(--text-secondary);">In-depth analysis of <b>Hierarchical
+                    Species</b> and minute visual attribute recognition.</p>
+              </div>
+            </div>
+          </div>
+          <h2 class="subtitle has-text-centered mt-5" style="font-size: 1.1rem; font-style: italic;">
+            "A comprehensive benchmark pinpointing the <b>Alignment Gap</b> in fine-grained multimodal scenarios."
           </h2>
         </div>
       </div>
     </section>
-    <!-- End teaser image -->
+    <!-- End Hero Teaser Replacement -->
 
-    <!-- News section -->
-    <section class="section pt-0" style="background: transparent;">
+    <!-- Section 2: Dataset Composition (Moved Up) -->
+    <section class="section is-light" style="padding-top: 20px; padding-bottom: 20px;">
       <div class="container is-max-desktop">
-        <div class="news-card">
-          <h2 class="title is-4" style="display: flex; align-items: center; gap: 10px;">
-            <span style="font-size: 1.5rem;">🔔</span> Latest News
-          </h2>
-          <div class="content" style="max-height: 250px; overflow-y: auto;">
-            <div class="news-item">
-              <span class="news-date" style="font-weight: 800; color: #4f46e5;">[2025-02-06]</span> 
-              🔥 We have released our <b>FG-BMK benchmark!</b>
+        <h2 class="title is-4 has-text-centered">📚 Dataset Composition</h2>
+        <div class="columns is-multiline is-centered">
+          <div class="column is-full">
+            <div class="tags is-centered" style="justify-content: center;">
+              <a href="http://www.vision.caltech.edu/visipedia/CUB-200-2011.html" class="tag is-info is-light is-medium"
+                target="_blank">CUB-200 (Birds)</a>
+              <a href="https://github.com/visipedia/inat_comp/tree/master/2021" class="tag is-info is-light is-medium"
+                target="_blank">iNat2021</a>
+              <a href="http://vision.stanford.edu/aditya86/ImageNetDogs/" class="tag is-info is-light is-medium"
+                target="_blank">Stanford Dog</a>
+              <a href="https://www.robots.ox.ac.uk/~vgg/data/flowers/102/" class="tag is-info is-light is-medium"
+                target="_blank">Oxford 102 Flower</a>
+              <a href="https://www.robots.ox.ac.uk/~vgg/data/fgvc-aircraft/" class="tag is-link is-light is-medium"
+                target="_blank">FGVC-Aircraft</a>
+              <a href="https://ai.stanford.edu/~jkrause/cars/car_dataset.html" class="tag is-link is-light is-medium"
+                target="_blank">Stanford Car</a>
+              <a href="https://github.com/zhoudaxia241/VegFru" class="tag is-success is-light is-medium"
+                target="_blank">VegFru</a>
+              <a href="https://data.deepai.org/food101.zip" class="tag is-success is-light" target="_blank">Food-101</a>
+              <a href="https://github.com/JerryLi2x/Products-10K" class="tag is-success is-light"
+                target="_blank">Products-10K</a>
+              <a href="https://mmfashion.readthedocs.io/en/latest/" class="tag is-success is-light"
+                target="_blank">DeepFashion</a>
+              <a href="https://archive.ics.uci.edu/ml/datasets/wine" class="tag is-success is-light"
+                target="_blank">Wine</a>
+              <a href="https://skincon-dataset.github.io/" class="tag is-danger is-light is-medium"
+                target="_blank">SkinCon</a>
             </div>
-            <!-- Future news items -->
           </div>
         </div>
       </div>
     </section>
-    <!-- End news section -->
+
+
 
 
     <!-- Paper abstract -->
@@ -350,149 +401,324 @@
             <div class="abstract-box">
               <h2 class="title is-3">Abstract</h2>
               <div class="content has-text-justified">
-              <!-- TODO: Replace with your paper abstract -->
-              <p>
-                Recent advancements in Large Vision-Language Models (LVLMs) have demonstrated remarkable multimodal
-                perception capabilities, garnering significant attention. While numerous evaluation studies have
-                emerged, assessing LVLMs both holistically and on specialized tasks, fine-grained image
-                tasks—fundamental to computer vision—remain largely unexplored. To fill this gap, we introduce a
-                comprehensive fine-grained evaluation benchmark, <i>i.e.</i>, FG-BMK, comprising <b>1.01 million
-                  questions</b> and <b>0.28 million images</b>. Our evaluation systematically examines LVLMs from both
-                human-oriented and machine-oriented perspectives, focusing on their semantic recognition and
-                fine-grained feature representation capabilities. Through extensive experiments on twelve representative
-                LVLMs/VLMs, we uncover key findings regarding the influence of training paradigms, modality alignment,
-                perturbation susceptibility, and fine-grained category reasoning on task performance. This work provides
-                critical insights into the limitations of current LVLMs and offers guidance for future data construction
-                and model design in the development of more advanced LVLMs. Our code is open-source and available at
-                <a href="https://anonymous.4open.science/r/FG-BMK-7B51"
-                  target="_blank">https://anonymous.4open.science/r/FG-BMK-7B51</a>.
-              </p>
+                <!-- TODO: Replace with your paper abstract -->
+                <p>
+                  Recent advancements in Large Vision-Language Models (LVLMs) have demonstrated remarkable multimodal
+                  perception capabilities, garnering significant attention. While numerous evaluation studies have
+                  emerged, assessing LVLMs both holistically and on specialized tasks, fine-grained image
+                  tasks—fundamental to computer vision—remain largely unexplored. To fill this gap, we introduce a
+                  comprehensive fine-grained evaluation benchmark, <i>i.e.</i>, FG-BMK, comprising <b>1.01 million
+                    questions</b> and <b>0.28 million images</b>. Our evaluation systematically examines LVLMs from both
+                  human-oriented and machine-oriented perspectives, focusing on their semantic recognition and
+                  fine-grained feature representation capabilities. Through extensive experiments on twelve
+                  representative
+                  LVLMs/VLMs, we uncover key findings regarding the influence of training paradigms, modality alignment,
+                  perturbation susceptibility, and fine-grained category reasoning on task performance. This work
+                  provides
+                  critical insights into the limitations of current LVLMs and offers guidance for future data
+                  construction
+                  and model design in the development of more advanced LVLMs. Our code is open-source and available at
+                  <a href="https://anonymous.4open.science/r/FG-BMK-7B51"
+                    target="_blank">https://anonymous.4open.science/r/FG-BMK-7B51</a>.
+                </p>
+              </div>
             </div>
           </div>
         </div>
-      </div>
     </section>
     <!-- End paper abstract -->
 
 
-    <!-- Image carousel -->
-    <section class="hero is-small">
-      <div class="hero-body">
-        <div class="container">
-          <div id="results-carousel" class="carousel results-carousel">
-            <div class="item">
-              <!-- TODO: Replace with your research result images -->
-              <img src="static/images/carousel1.jpg" alt="First research result visualization" loading="lazy" />
-              <!-- TODO: Replace with description of this result -->
-              <h2 class="subtitle has-text-centered">
-                First image description.
-              </h2>
+    <!-- Section 1: Evaluation Framework -->
+    <section class="section">
+      <div class="container is-max-desktop">
+        <h2 class="title is-3 has-text-centered">🛠️ Evaluation Framework</h2>
+
+        <!-- Summary Text -->
+        <div class="content has-text-justified mb-6">
+          <p>
+            To comprehensively assess Large Vision-Language Models (LVLMs) in fine-grained scenarios, <b>FG-BMK</b>
+            introduces a <b>dual evaluation paradigm</b>. This framework bridges the gap between how humans perceive
+            visual information and how machines perceive visual features, revealing the critical "Alignment Gap" in
+            current multimodal models.
+          </p>
+        </div>
+
+        <div class="columns is-centered">
+          <!-- Human-oriented Column -->
+          <div class="column is-half" style="display: flex;">
+            <div class="abstract-box" style="border-top: 5px solid #4f46e5; flex: 1;">
+              <h3 class="title is-4" style="color: #4f46e5;">1. Human-oriented Evaluation</h3>
+              <div class="content">
+                <p><b>Focus: Semantic Recognition & Interaction</b></p>
+                <p>
+                  This paradigm employs <b>dialogue-like interactions</b> to simulate real-world human queries. We
+                  evaluate models through:
+                </p>
+                <ul>
+                  <li><b>Attribute Recognition</b>: Testing sensitivity to minute visual details (color, shape).</li>
+                  <li><b>Knowledge Bias</b>: Identifying if models rely on prior "guessing" rather than actual visual
+                    cues.</li>
+                  <li><b>Hierarchical Reasoning</b>: Assessing logical category depth (Class → Genus → Species).</li>
+                </ul>
+                <p
+                  style="font-style: italic; color: var(--text-light); font-size: 0.9rem; margin-top: 15px; border-top: 1px solid #eee; padding-top: 10px;">
+                  Core Discovery: Measures how well the model "understands" and communicates fine-grained semantics in
+                  conversational AI.
+                </p>
+              </div>
             </div>
-            <div class="item">
-              <!-- Your image here -->
-              <img src="static/images/carousel2.jpg" alt="Second research result visualization" loading="lazy" />
-              <h2 class="subtitle has-text-centered">
-                Second image description.
-              </h2>
-            </div>
-            <div class="item">
-              <!-- Your image here -->
-              <img src="static/images/carousel3.jpg" alt="Third research result visualization" loading="lazy" />
-              <h2 class="subtitle has-text-centered">
-                Third image description.
-              </h2>
-            </div>
-            <div class="item">
-              <!-- Your image here -->
-              <img src="static/images/carousel4.jpg" alt="Fourth research result visualization" loading="lazy" />
-              <h2 class="subtitle has-text-centered">
-                Fourth image description.
-              </h2>
+          </div>
+
+          <!-- Machine-oriented Column -->
+          <div class="column is-half" style="display: flex;">
+            <div class="abstract-box" style="border-top: 5px solid #8b5cf6; flex: 1;">
+              <h3 class="title is-4" style="color: #8b5cf6;">2. Machine-oriented Evaluation</h3>
+              <div class="content">
+                <p><b>Focus: Feature Representation Strength</b></p>
+                <p>
+                  This paradigm directly measures the model's <b>underlying visual backbone</b> using objective vision
+                  tasks:
+                </p>
+                <ul>
+                  <li><b>Fine-grained Retrieval</b>: Finding specific species among highly similar categories.</li>
+                  <li><b>Fine-grained Classification</b>: Forcing Distinguishing between visually indistinguishable
+                    samples.</li>
+                </ul>
+                <p>By bypassing the language generation layer, we isolate the model's pure visual perception
+                  capabilities.</p>
+                <p
+                  style="font-style: italic; color: var(--text-light); font-size: 0.9rem; margin-top: 15px; border-top: 1px solid #eee; padding-top: 10px;">
+                  Core Discovery: Reveals the "Alignment Gap" between frozen visual encoders and multimodal projectors.
+                </p>
+              </div>
             </div>
           </div>
         </div>
+
+        <!-- Integrated Image Reference -->
+        <div class="column is-full mt-6">
+          <div class="has-text-centered">
+            <img src="static/images/intro.png" alt="Evaluation Framework Overview"
+              style="border-radius: 20px; box-shadow: var(--shadow-lg); max-width: 100%;">
+            <p class="subtitle is-6 mt-3">Figure 1: Illustration of our Human-oriented and Machine-oriented evaluation
+              tasks.</p>
+          </div>
+        </div>
+
       </div>
     </section>
-    <!-- End image carousel -->
+    <!-- End Section 1 -->
 
+    <!-- Key Findings -->
+    <section class="section is-light">
+      <div class="container is-max-desktop">
+        <h2 class="title is-3 has-text-centered">💡 Key Findings</h2>
+        <p class="subtitle has-text-centered" style="color: var(--text-secondary); margin-bottom: 2rem;">
+          Five core insights uncovered through extensive experiments on 12 LVLMs.
+        </p>
 
+        <div class="columns is-multiline">
+          <!-- Finding 1 -->
+          <div class="column is-12">
+            <div class="abstract-box" style="padding: 20px 30px !important; display: flex; align-items: flex-start; gap: 20px;">
+              <span style="font-size: 2rem; line-height: 1; flex-shrink: 0;">1</span>
+              <div>
+                <h4 class="title is-5" style="margin-bottom: 8px;">LVLMs cannot distinguish excessively fine-grained categories</h4>
+                <p style="color: var(--text-secondary); font-size: 0.95rem; margin: 0;">
+                  Accuracy drops drastically as granularity narrows: from <b>99.97%</b> at the class level to just <b>42.58%</b> at the species level — a <b>57%</b> decline.
+                </p>
+              </div>
+            </div>
+          </div>
 
+          <!-- Finding 2 -->
+          <div class="column is-12">
+            <div class="abstract-box" style="padding: 20px 30px !important; display: flex; align-items: flex-start; gap: 20px;">
+              <span style="font-size: 2rem; line-height: 1; flex-shrink: 0;">2</span>
+              <div>
+                <h4 class="title is-5" style="margin-bottom: 8px;">Severe knowledge bias across fine-grained categories</h4>
+                <p style="color: var(--text-secondary); font-size: 0.95rem; margin: 0;">
+                  Recognition accuracy varies wildly — <b>~90%</b> for some categories but as low as <b>~20%</b> for others — revealing biases inherited from training data and base LLMs.
+                </p>
+              </div>
+            </div>
+          </div>
 
-    <!-- Youtube video -->
-    <section class="hero is-small is-light">
-      <div class="hero-body">
-        <div class="container">
-          <!-- Paper video. -->
-          <h2 class="title is-3">Video Presentation</h2>
-          <div class="columns is-centered has-text-centered">
-            <div class="column is-four-fifths">
+          <!-- Finding 3 -->
+          <div class="column is-12">
+            <div class="abstract-box" style="padding: 20px 30px !important; display: flex; align-items: flex-start; gap: 20px;">
+              <span style="font-size: 2rem; line-height: 1; flex-shrink: 0;">3</span>
+              <div>
+                <h4 class="title is-5" style="margin-bottom: 8px;">Contrastive training significantly outperforms generative/reconstruction paradigms</h4>
+                <p style="color: var(--text-secondary); font-size: 0.95rem; margin: 0;">
+                  Models trained with contrastive objectives (EVA-CLIP, InternVL, DINOv2) consistently outperform those using reconstruction (BEiT3) or generative (Qwen) paradigms on fine-grained tasks.
+                </p>
+              </div>
+            </div>
+          </div>
 
-              <div class="publication-video">
-                <!-- TODO: Replace with your YouTube video ID -->
+          <!-- Finding 4 -->
+          <div class="column is-6">
+            <div class="abstract-box" style="padding: 20px 30px !important; height: 100%;">
+              <div style="display: flex; align-items: flex-start; gap: 15px;">
+                <span style="font-size: 2rem; line-height: 1; flex-shrink: 0;">4</span>
+                <div>
+                  <h4 class="title is-5" style="margin-bottom: 8px;">Alignment can <em>impair</em> visual discriminability</h4>
+                  <p style="color: var(--text-secondary); font-size: 0.95rem; margin: 0;">
+                    Aligning visual features to text reduces classification accuracy by <b>3.39%</b> on average, especially when image-text granularity is mismatched.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
 
+          <!-- Finding 5 -->
+          <div class="column is-6">
+            <div class="abstract-box" style="padding: 20px 30px !important; height: 100%;">
+              <div style="display: flex; align-items: flex-start; gap: 15px;">
+                <span style="font-size: 2rem; line-height: 1; flex-shrink: 0;">5</span>
+                <div>
+                  <h4 class="title is-5" style="margin-bottom: 8px;">Fine-grained features are more vulnerable to perturbations</h4>
+                  <p style="color: var(--text-secondary); font-size: 0.95rem; margin: 0;">
+                    Perturbations cause accuracy on CUB-200 to plummet from <b>88.95%</b> to <b>24.94%</b>, far worse than on generic datasets like CIFAR-100.
+                  </p>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
     </section>
-    <!-- End youtube video -->
+    <!-- End Key Findings -->
 
 
-    <!-- Video carousel -->
-    <section class="hero is-small">
-      <div class="hero-body">
-        <div class="container">
-          <h2 class="title is-3">Another Carousel</h2>
-          <div id="results-carousel" class="carousel results-carousel">
-            <div class="item item-video1">
-              <!-- TODO: Add poster image for better preview -->
-              <video poster="" id="video1" controls muted loop height="100%" preload="metadata">
-                <!-- Your video file here -->
-                <source src="static/videos/carousel1.mp4" type="video/mp4">
-              </video>
+
+    <!-- Global Results Comparison (Radar Charts) -->
+    <section class="section">
+      <div class="container is-max-desktop">
+        <h2 class="title is-3 has-text-centered">📊 Global Results Comparison</h2>
+        <div class="columns is-centered">
+          <!-- Classification Radar -->
+          <div class="column is-half">
+            <div class="abstract-box" style="height: 100%; text-align: center;">
+              <h3 class="title is-4">Fine-Grained Classification</h3>
+              <img src="static/images/sec4_rader_cls.png" alt="Classification Radar Chart"
+                style="width: 100%; border-radius: 10px;">
+              <p class="is-size-7 mt-2">Comparison of 12 LVLMs across multiple fine-grained classification tasks.</p>
             </div>
-            <div class="item item-video2">
-              <!-- TODO: Add poster image for better preview -->
-              <video poster="" id="video2" controls muted loop height="100%" preload="metadata">
-                <!-- Your video file here -->
-                <source src="static/videos/carousel2.mp4" type="video/mp4">
-              </video>
-            </div>
-            <div class="item item-video3">
-              <!-- TODO: Add poster image for better preview -->
-              <video poster="" id="video3" controls muted loop height="100%" preload="metadata">
-                <!-- Your video file here -->
-                <source src="static/videos/carousel3.mp4" type="video/mp4">
-              </video>
+          </div>
+          <!-- Retrieval Radar -->
+          <div class="column is-half">
+            <div class="abstract-box" style="height: 100%; text-align: center;">
+              <h3 class="title is-4">Fine-Grained Retrieval</h3>
+              <img src="static/images/sec4_rader_retri.png" alt="Retrieval Radar Chart"
+                style="width: 100%; border-radius: 10px;">
+              <p class="is-size-7 mt-2">Evaluation of zero-shot retrieval capabilities on diverse dataset categories.
+              </p>
             </div>
           </div>
         </div>
       </div>
     </section>
-    <!-- End video carousel -->
+    <!-- End Radar Charts -->
 
+    <!-- Leaderboard -->
+    <section class="section is-light" id="leaderboard">
+      <div class="container is-max-desktop">
+        <h2 class="title is-3 has-text-centered">🏆 Leaderboard</h2>
+        <p class="subtitle has-text-centered" style="color: var(--text-secondary); margin-bottom: 2rem;">
+          Human-oriented evaluation accuracy (%) across 12 fine-grained datasets. Higher is better.
+        </p>
 
-
-
-
-
-    <!-- Paper poster -->
-    <section class="hero is-small is-light">
-      <div class="hero-body">
-        <div class="container">
-          <h2 class="title">Poster</h2>
-
-          <!-- TODO: Replace with your poster PDF -->
-          <iframe src="static/pdfs/sample.pdf" width="100%" height="550">
-          </iframe>
-
+        <div style="overflow-x: auto; border-radius: var(--border-radius-lg); box-shadow: var(--shadow-lg);">
+          <table class="table is-hoverable is-fullwidth"
+            style="background: white; margin-bottom: 0; font-size: 0.9rem;">
+            <thead>
+              <tr style="background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);">
+                <th style="color: white; border: none; padding: 14px 16px;">Rank</th>
+                <th style="color: white; border: none; padding: 14px 16px;">Model</th>
+                <th style="color: white; border: none; padding: 14px 16px; text-align: center;">CUB</th>
+                <th style="color: white; border: none; padding: 14px 16px; text-align: center;">Dog</th>
+                <th style="color: white; border: none; padding: 14px 16px; text-align: center;">Car</th>
+                <th style="color: white; border: none; padding: 14px 16px; text-align: center;">Aircraft</th>
+                <th style="color: white; border: none; padding: 14px 16px; text-align: center;">Flower</th>
+                <th style="color: white; border: none; padding: 14px 16px; text-align: center; font-weight: 800;">Avg.
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="background: linear-gradient(90deg, #fef9c3, #ffffff);">
+                <td style="font-weight: 800; color: #ca8a04;">🥇</td>
+                <td style="font-weight: 700;">GPT-4o</td>
+                <td style="text-align: center;">—</td>
+                <td style="text-align: center;">—</td>
+                <td style="text-align: center;">—</td>
+                <td style="text-align: center;">—</td>
+                <td style="text-align: center;">—</td>
+                <td style="text-align: center; font-weight: 800; color: #ca8a04;">—</td>
+              </tr>
+              <tr style="background: linear-gradient(90deg, #f0f0f0, #ffffff);">
+                <td style="font-weight: 800; color: #6b7280;">🥈</td>
+                <td style="font-weight: 700;">InternVL-2</td>
+                <td style="text-align: center;">—</td>
+                <td style="text-align: center;">—</td>
+                <td style="text-align: center;">—</td>
+                <td style="text-align: center;">—</td>
+                <td style="text-align: center;">—</td>
+                <td style="text-align: center; font-weight: 800; color: #6b7280;">—</td>
+              </tr>
+              <tr style="background: linear-gradient(90deg, #fef3e2, #ffffff);">
+                <td style="font-weight: 800; color: #b45309;">🥉</td>
+                <td style="font-weight: 700;">Qwen-VL</td>
+                <td style="text-align: center;">—</td>
+                <td style="text-align: center;">—</td>
+                <td style="text-align: center;">—</td>
+                <td style="text-align: center;">—</td>
+                <td style="text-align: center;">—</td>
+                <td style="text-align: center; font-weight: 800; color: #b45309;">—</td>
+              </tr>
+              <tr>
+                <td>4</td>
+                <td>Gemini-2.0-Flash</td>
+                <td style="text-align: center;">—</td>
+                <td style="text-align: center;">—</td>
+                <td style="text-align: center;">—</td>
+                <td style="text-align: center;">—</td>
+                <td style="text-align: center;">—</td>
+                <td style="text-align: center; font-weight: 600;">—</td>
+              </tr>
+              <tr>
+                <td>5</td>
+                <td>LLaVA-1.5</td>
+                <td style="text-align: center;">—</td>
+                <td style="text-align: center;">—</td>
+                <td style="text-align: center;">—</td>
+                <td style="text-align: center;">—</td>
+                <td style="text-align: center;">—</td>
+                <td style="text-align: center; font-weight: 600;">—</td>
+              </tr>
+              <tr>
+                <td>6</td>
+                <td>BLIP-2</td>
+                <td style="text-align: center;">—</td>
+                <td style="text-align: center;">—</td>
+                <td style="text-align: center;">—</td>
+                <td style="text-align: center;">—</td>
+                <td style="text-align: center;">—</td>
+                <td style="text-align: center; font-weight: 600;">—</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
+
+        <p class="has-text-centered mt-4" style="font-size: 0.85rem; color: var(--text-light);">
+          <i class="fas fa-info-circle mr-1"></i>
+          Scores will be populated with official benchmark results. "—" indicates pending data.
+        </p>
       </div>
     </section>
-    <!--End paper poster -->
-
-
+    <!-- End Leaderboard -->
 
     <!--BibTex citation -->
     <section class="section" id="BibTeX">
