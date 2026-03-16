@@ -162,3 +162,107 @@ $(document).ready(function () {
     setupVideoCarouselAutoplay();
 
 })
+
+// --- Per-Dataset Results Chart Logic (Moved from index.html) ---
+// TODO: Replace ALL zeros below with EXACT values from the paper.
+// Order: [EVA-CLIP, CoCa, DINOv2, BEiT3, LLaVA, InternVL, Qwen]
+const modelColors = ['#dc2626', '#2563eb', '#16a34a', '#ca8a04', '#db2777', '#ea580c', '#7c3aed'];
+const modelNames = ['EVA-CLIP', 'CoCa', 'DINOv2', 'BEiT3', 'LLaVA', 'InternVL', 'Qwen'];
+
+// Classification Top-1 Accuracy (%) — FILL IN exact values from paper Figure 5
+const clsData = {
+  'chart-cub': [0, 0, 0, 0, 0, 0, 0],
+  'chart-dogs': [0, 0, 0, 0, 0, 0, 0],
+  'chart-cars': [0, 0, 0, 0, 0, 0, 0],
+  'chart-aircraft': [0, 0, 0, 0, 0, 0, 0],
+  'chart-flowers': [0, 0, 0, 0, 0, 0, 0],
+  'chart-inat': [0, 0, 0, 0, 0, 0, 0],
+  'chart-food': [0, 0, 0, 0, 0, 0, 0],
+  'chart-clothes': [0, 0, 0, 0, 0, 0, 0],
+  'chart-vegfru': [0, 0, 0, 0, 0, 0, 0],
+  'chart-products': [0, 0, 0, 0, 0, 0, 0],
+  'chart-skincon': [0, 0, 0, 0, 0, 0, 0],
+  'chart-wine': [0, 0, 0, 0, 0, 0, 0]
+};
+
+// Retrieval mAP (%) — FILL IN exact values from paper Figure 5
+const retriData = {
+  'chart-cub': [0, 0, 0, 0, 0, 0, 0],
+  'chart-dogs': [0, 0, 0, 0, 0, 0, 0],
+  'chart-cars': [0, 0, 0, 0, 0, 0, 0],
+  'chart-aircraft': [0, 0, 0, 0, 0, 0, 0],
+  'chart-flowers': [0, 0, 0, 0, 0, 0, 0],
+  'chart-inat': [0, 0, 0, 0, 0, 0, 0],
+  'chart-food': [0, 0, 0, 0, 0, 0, 0],
+  'chart-clothes': [0, 0, 0, 0, 0, 0, 0],
+  'chart-vegfru': [0, 0, 0, 0, 0, 0, 0],
+  'chart-products': [0, 0, 0, 0, 0, 0, 0],
+  'chart-skincon': [0, 0, 0, 0, 0, 0, 0],
+  'chart-wine': [0, 0, 0, 0, 0, 0, 0]
+};
+
+let charts = {};
+let currentView = 'cls';
+
+function createChart(canvasId, data) {
+  const canvas = document.getElementById(canvasId);
+  if (!canvas) return null;
+  const ctx = canvas.getContext('2d');
+  return new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: modelNames,
+      datasets: [{
+        data: data,
+        backgroundColor: modelColors.map(c => c + '33'),
+        borderColor: modelColors,
+        borderWidth: 1.5,
+        borderRadius: 3
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: true,
+      plugins: {
+        legend: { display: false }, tooltip: {
+          callbacks: { label: ctx => ctx.parsed.y + '%' }
+        }
+      },
+      scales: {
+        y: { beginAtZero: true, max: 100, ticks: { font: { size: 9 }, stepSize: 25 }, grid: { color: '#f0f0f0' } },
+        x: { display: false }
+      }
+    }
+  });
+}
+
+function initCharts() {
+  const data = currentView === 'cls' ? clsData : retriData;
+  Object.keys(data).forEach(id => {
+    let chart = createChart(id, data[id]);
+    if (chart) charts[id] = chart;
+  });
+}
+
+function switchView(view) {
+  currentView = view;
+  const data = view === 'cls' ? clsData : retriData;
+  Object.keys(charts).forEach(id => {
+    if (charts[id]) {
+      charts[id].data.datasets[0].data = data[id];
+      charts[id].update('none');
+    }
+  });
+  const btnCls = document.getElementById('btn-cls');
+  const btnRetri = document.getElementById('btn-retri');
+  if (btnCls) {
+    btnCls.style.background = view === 'cls' ? '#4f46e5' : 'white';
+    btnCls.style.color = view === 'cls' ? 'white' : '#4f46e5';
+  }
+  if (btnRetri) {
+    btnRetri.style.background = view === 'retri' ? '#4f46e5' : 'white';
+    btnRetri.style.color = view === 'retri' ? 'white' : '#4f46e5';
+  }
+}
+
+document.addEventListener('DOMContentLoaded', initCharts);

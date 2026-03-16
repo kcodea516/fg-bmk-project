@@ -157,52 +157,7 @@
     ]
   }
   </script>
-  <!-- Global Premium Styles Add-on -->
-  <style>
-    :root {
-      --gradient-line: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
-    }
 
-    .publication-title {
-      background: var(--gradient-line) !important;
-      -webkit-background-clip: text !important;
-      background-clip: text !important;
-      -webkit-text-fill-color: transparent !important;
-      transition: all 0.3s ease;
-    }
-
-    .news-card {
-      background: rgba(255, 255, 255, 0.8);
-      backdrop-filter: blur(8px);
-      border-radius: 20px;
-      padding: 25px;
-      border: 1px solid rgba(79, 70, 229, 0.1);
-      box-shadow: 0 10px 30px -5px rgba(79, 70, 229, 0.1);
-      margin-bottom: 40px;
-    }
-
-    .news-item {
-      padding: 10px 0;
-      border-bottom: 1px dashed #e2e8f0;
-      transition: transform 0.3s ease;
-    }
-
-    .news-item:last-child {
-      border-bottom: none;
-    }
-
-    .news-item:hover {
-      transform: translateX(5px);
-    }
-
-    .abstract-box {
-      background: #f8fafc;
-      border-radius: 24px;
-      padding: 40px !important;
-      box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.05);
-      border: 1px solid #e2e8f0;
-    }
-  </style>
 </head>
 
 <body>
@@ -437,6 +392,38 @@
     </section>
     <!-- End paper abstract -->
 
+    <!-- Qualitative Analysis / Motivation -->
+    <section class="section">
+      <div class="container is-max-desktop">
+        <h2 class="title is-3 has-text-centered">Why FG-BMK?</h2>
+        <h3 class="subtitle is-5 has-text-centered" style="color: var(--text-secondary); margin-bottom: 2rem;">
+          Bridging the Alignment Gap in Granularity Inconsistencies
+        </h3>
+
+        <div class="columns is-centered">
+          <div class="column is-full has-text-centered">
+            <div class="content has-text-justified" style="margin-bottom: 20px;">
+              <p>
+                Current multimodal models and datasets often exhibit severe <b>granularity inconsistencies</b>. When
+                presented with fine-grained visual inputs, standard data generation pipelines and models naturally
+                prioritize generic, coarse-grained objects (e.g., "bird", "dog", "cat") instead of specific
+                sub-categories or species. FG-BMK constructs rigorously aligned fine-grained samples to evaluate and
+                mitigate this "Alignment Gap."
+              </p>
+            </div>
+            <img src="static/images/app_dis_math_granularity.png"
+              alt="Qualitative Analysis of Granularity Inconsistencies"
+              style="width: 100%; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);">
+            <p style="font-size: 0.9rem; color: #64748b; margin-top: 15px; font-style: italic;">
+              Figure: Qualitative analysis of granularity inconsistencies in LVLMs' alignment data compared to our
+              constructed granularity-aligned sample.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- End Motivation -->
+
 
     <!-- Section 1: Evaluation Framework -->
     <section class="section">
@@ -456,7 +443,8 @@
         <div class="columns is-centered">
           <!-- Human-oriented Column -->
           <div class="column is-half" style="display: flex;">
-            <div class="abstract-box" style="border: 1px solid #dadce0; border-top: 4px solid #1a73e8; background: #ffffff; flex: 1;">
+            <div class="abstract-box"
+              style="border: 1px solid #dadce0; border-top: 4px solid #1a73e8; background: #ffffff; flex: 1;">
               <h3 class="title is-4" style="color: #202124;">1. Human-oriented Evaluation</h3>
               <div class="content">
                 <p><b>Focus: Semantic Recognition & Interaction</b></p>
@@ -481,7 +469,8 @@
 
           <!-- Machine-oriented Column -->
           <div class="column is-half" style="display: flex;">
-            <div class="abstract-box" style="border: 1px solid #dadce0; border-top: 4px solid #34a853; background: #ffffff; flex: 1;">
+            <div class="abstract-box"
+              style="border: 1px solid #dadce0; border-top: 4px solid #34a853; background: #ffffff; flex: 1;">
               <h3 class="title is-4" style="color: #202124;">2. Machine-oriented Evaluation</h3>
               <div class="content">
                 <p><b>Focus: Feature Representation Strength</b></p>
@@ -518,101 +507,6 @@
       </div>
     </section>
     <!-- End Section 1 -->
-
-    <!-- Key Findings -->
-    <section class="section is-light">
-      <div class="container is-max-desktop">
-        <h2 class="title is-3 has-text-centered">Key Findings</h2>
-        <p class="subtitle has-text-centered" style="color: var(--text-secondary); margin-bottom: 2rem;">
-          Five core insights uncovered through extensive experiments on 12 LVLMs.
-        </p>
-
-        <div class="columns is-multiline">
-          <!-- Finding 1 -->
-          <div class="column is-12">
-            <div class="abstract-box"
-              style="padding: 20px 30px !important; display: flex; align-items: flex-start; gap: 20px;">
-              <span style="font-size: 2rem; line-height: 1; flex-shrink: 0;">1</span>
-              <div>
-                <h4 class="title is-5" style="margin-bottom: 8px;">LVLMs cannot distinguish excessively fine-grained
-                  categories</h4>
-                <p style="color: var(--text-secondary); font-size: 0.95rem; margin: 0;">
-                  Accuracy drops drastically as granularity narrows: from <b>99.97%</b> at the class level to just
-                  <b>42.58%</b> at the species level — a <b>57%</b> decline.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <!-- Finding 2 -->
-          <div class="column is-12">
-            <div class="abstract-box"
-              style="padding: 20px 30px !important; display: flex; align-items: flex-start; gap: 20px;">
-              <span style="font-size: 2rem; line-height: 1; flex-shrink: 0;">2</span>
-              <div>
-                <h4 class="title is-5" style="margin-bottom: 8px;">Severe knowledge bias across fine-grained categories
-                </h4>
-                <p style="color: var(--text-secondary); font-size: 0.95rem; margin: 0;">
-                  Recognition accuracy varies wildly — <b>~90%</b> for some categories but as low as <b>~20%</b> for
-                  others — revealing biases inherited from training data and base LLMs.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <!-- Finding 3 -->
-          <div class="column is-12">
-            <div class="abstract-box"
-              style="padding: 20px 30px !important; display: flex; align-items: flex-start; gap: 20px;">
-              <span style="font-size: 2rem; line-height: 1; flex-shrink: 0;">3</span>
-              <div>
-                <h4 class="title is-5" style="margin-bottom: 8px;">Contrastive training significantly outperforms
-                  generative/reconstruction paradigms</h4>
-                <p style="color: var(--text-secondary); font-size: 0.95rem; margin: 0;">
-                  Models trained with contrastive objectives (EVA-CLIP, InternVL, DINOv2) consistently outperform those
-                  using reconstruction (BEiT3) or generative (Qwen) paradigms on fine-grained tasks.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <!-- Finding 4 -->
-          <div class="column is-6">
-            <div class="abstract-box" style="padding: 20px 30px !important; height: 100%;">
-              <div style="display: flex; align-items: flex-start; gap: 15px;">
-                <span style="font-size: 2rem; line-height: 1; flex-shrink: 0;">4</span>
-                <div>
-                  <h4 class="title is-5" style="margin-bottom: 8px;">Alignment can <em>impair</em> visual
-                    discriminability</h4>
-                  <p style="color: var(--text-secondary); font-size: 0.95rem; margin: 0;">
-                    Aligning visual features to text reduces classification accuracy by <b>3.39%</b> on average,
-                    especially when image-text granularity is mismatched.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Finding 5 -->
-          <div class="column is-6">
-            <div class="abstract-box" style="padding: 20px 30px !important; height: 100%;">
-              <div style="display: flex; align-items: flex-start; gap: 15px;">
-                <span style="font-size: 2rem; line-height: 1; flex-shrink: 0;">5</span>
-                <div>
-                  <h4 class="title is-5" style="margin-bottom: 8px;">Fine-grained features are more vulnerable to
-                    perturbations</h4>
-                  <p style="color: var(--text-secondary); font-size: 0.95rem; margin: 0;">
-                    Perturbations cause accuracy on CUB-200 to plummet from <b>88.95%</b> to <b>24.94%</b>, far worse
-                    than on generic datasets like CIFAR-100.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <!-- End Key Findings -->
 
     <!-- Leaderboard -->
     <section class="section is-light" id="leaderboard">
@@ -821,99 +715,6 @@
     <!-- End Per-Dataset Results -->
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
-    <script>
-      // TODO: Replace ALL zeros below with EXACT values from the paper.
-      // Order: [EVA-CLIP, CoCa, DINOv2, BEiT3, LLaVA, InternVL, Qwen]
-      const modelColors = ['#dc2626', '#2563eb', '#16a34a', '#ca8a04', '#db2777', '#ea580c', '#7c3aed'];
-      const modelNames = ['EVA-CLIP', 'CoCa', 'DINOv2', 'BEiT3', 'LLaVA', 'InternVL', 'Qwen'];
-
-      // Classification Top-1 Accuracy (%) — FILL IN exact values from paper Figure 5
-      const clsData = {
-        'chart-cub': [0, 0, 0, 0, 0, 0, 0],
-        'chart-dogs': [0, 0, 0, 0, 0, 0, 0],
-        'chart-cars': [0, 0, 0, 0, 0, 0, 0],
-        'chart-aircraft': [0, 0, 0, 0, 0, 0, 0],
-        'chart-flowers': [0, 0, 0, 0, 0, 0, 0],
-        'chart-inat': [0, 0, 0, 0, 0, 0, 0],
-        'chart-food': [0, 0, 0, 0, 0, 0, 0],
-        'chart-clothes': [0, 0, 0, 0, 0, 0, 0],
-        'chart-vegfru': [0, 0, 0, 0, 0, 0, 0],
-        'chart-products': [0, 0, 0, 0, 0, 0, 0],
-        'chart-skincon': [0, 0, 0, 0, 0, 0, 0],
-        'chart-wine': [0, 0, 0, 0, 0, 0, 0]
-      };
-
-      // Retrieval mAP (%) — FILL IN exact values from paper Figure 5
-      const retriData = {
-        'chart-cub': [0, 0, 0, 0, 0, 0, 0],
-        'chart-dogs': [0, 0, 0, 0, 0, 0, 0],
-        'chart-cars': [0, 0, 0, 0, 0, 0, 0],
-        'chart-aircraft': [0, 0, 0, 0, 0, 0, 0],
-        'chart-flowers': [0, 0, 0, 0, 0, 0, 0],
-        'chart-inat': [0, 0, 0, 0, 0, 0, 0],
-        'chart-food': [0, 0, 0, 0, 0, 0, 0],
-        'chart-clothes': [0, 0, 0, 0, 0, 0, 0],
-        'chart-vegfru': [0, 0, 0, 0, 0, 0, 0],
-        'chart-products': [0, 0, 0, 0, 0, 0, 0],
-        'chart-skincon': [0, 0, 0, 0, 0, 0, 0],
-        'chart-wine': [0, 0, 0, 0, 0, 0, 0]
-      };
-
-      let charts = {};
-      let currentView = 'cls';
-
-      function createChart(canvasId, data) {
-        const ctx = document.getElementById(canvasId).getContext('2d');
-        return new Chart(ctx, {
-          type: 'bar',
-          data: {
-            labels: modelNames,
-            datasets: [{
-              data: data,
-              backgroundColor: modelColors.map(c => c + '33'),
-              borderColor: modelColors,
-              borderWidth: 1.5,
-              borderRadius: 3
-            }]
-          },
-          options: {
-            responsive: true,
-            maintainAspectRatio: true,
-            plugins: {
-              legend: { display: false }, tooltip: {
-                callbacks: { label: ctx => ctx.parsed.y + '%' }
-              }
-            },
-            scales: {
-              y: { beginAtZero: true, max: 100, ticks: { font: { size: 9 }, stepSize: 25 }, grid: { color: '#f0f0f0' } },
-              x: { display: false }
-            }
-          }
-        });
-      }
-
-      function initCharts() {
-        const data = currentView === 'cls' ? clsData : retriData;
-        Object.keys(data).forEach(id => {
-          charts[id] = createChart(id, data[id]);
-        });
-      }
-
-      function switchView(view) {
-        currentView = view;
-        const data = view === 'cls' ? clsData : retriData;
-        Object.keys(charts).forEach(id => {
-          charts[id].data.datasets[0].data = data[id];
-          charts[id].update('none');
-        });
-        document.getElementById('btn-cls').style.background = view === 'cls' ? '#4f46e5' : 'white';
-        document.getElementById('btn-cls').style.color = view === 'cls' ? 'white' : '#4f46e5';
-        document.getElementById('btn-retri').style.background = view === 'retri' ? '#4f46e5' : 'white';
-        document.getElementById('btn-retri').style.color = view === 'retri' ? 'white' : '#4f46e5';
-      }
-
-      document.addEventListener('DOMContentLoaded', initCharts);
-    </script>
 
     <!--BibTex citation -->
     <section class="section" id="BibTeX">
