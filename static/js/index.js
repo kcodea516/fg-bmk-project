@@ -1,5 +1,227 @@
 window.HELP_IMPROVE_VIDEOJS = false;
 
+// Leaderboard column-group expand/collapse (MMMU-style)
+function toggleLbGroup(group) {
+    const table = document.querySelector('#leaderboard table');
+    const arrow = document.getElementById('lb-' + group + '-arrow');
+    const headerRow = table.querySelector('thead tr:first-child');
+    const subRow = table.querySelector('thead tr:nth-child(2)');
+    const groupHeader = headerRow.querySelector('[onclick*="' + group + '"]');
+
+    // Tasks for each group (from the paper to avoid horizontal protrusion)
+    const humanCols = ['HGR', 'KBE', 'AR'];
+    const machineCols = ['CLS', 'RET'];
+    const cols = group === 'human' ? humanCols : machineCols;
+
+    const isExpanded = groupHeader.getAttribute('data-expanded') === 'true';
+
+    if (isExpanded) {
+        // Collapse: remove extra columns
+        groupHeader.setAttribute('data-expanded', 'false');
+        groupHeader.style.background = 'linear-gradient(to bottom, #f8fafc, #ffffff)';
+        arrow.style.transform = 'rotate(-90deg)';
+        groupHeader.setAttribute('colspan', '1');
+
+        // Remove the Expanded sub-headers that belong to this group
+        const allSubThs = Array.from(subRow.querySelectorAll('th'));
+        for (let i = 0; i < allSubThs.length; i++) {
+            if (allSubThs[i].getAttribute('data-group') === group && allSubThs[i].getAttribute('data-col') !== 'overall') {
+                allSubThs[i].remove();
+            }
+        }
+
+        // Remove dataset cells from each body row
+        const rows = table.querySelectorAll('tbody tr');
+        rows.forEach(row => {
+            const tds = row.querySelectorAll('td');
+            for (let i = 0; i < tds.length; i++) {
+                if (tds[i].getAttribute('data-group') === group && tds[i].getAttribute('data-col') !== 'overall') {
+                    tds[i].remove();
+                }
+            }
+        });
+    } else {
+        // Expand: add dataset columns
+        groupHeader.setAttribute('data-expanded', 'true');
+        groupHeader.style.background = '#ffffff';
+        arrow.style.transform = 'rotate(0deg)';
+        groupHeader.setAttribute('colspan', String(cols.length + 1));
+
+        // Find the Overall sub-header for this group
+        const allSubThs = subRow.querySelectorAll('th');
+        let overallTh = null;
+        let gIndex = group === 'human' ? 3 : 4; // Name, Size, Date are 0, 1, 2
+        
+        // Ensure "Overall" th has data-group mark
+        if (!allSubThs[gIndex].getAttribute('data-group')) {
+            allSubThs[3].setAttribute('data-group', 'human');
+            allSubThs[3].setAttribute('data-col', 'overall');
+            allSubThs[4].setAttribute('data-group', 'machine');
+            allSubThs[4].setAttribute('data-col', 'overall');
+        }
+        
+        for (let i = 0; i < allSubThs.length; i++) {
+            if (allSubThs[i].getAttribute('data-group') === group && allSubThs[i].getAttribute('data-col') === 'overall') {
+                overallTh = allSubThs[i];
+                break;
+            }
+        }
+
+        // Insert task sub-headers after Overall
+        for (let i = cols.length - 1; i >= 0; i--) {
+            const th = document.createElement('th');
+            th.textContent = cols[i];
+            th.setAttribute('data-group', group);
+            th.setAttribute('data-col', cols[i]);
+            th.setAttribute('title', 'Click to sort');
+            th.style.cssText = 'border: 1px solid #e5e7eb; padding: 10px 16px; text-align: center; font-weight: 600; font-size: 0.8rem; color: #4b5563; cursor: pointer; user-select: none;';
+            overallTh.after(th);
+        }
+
+        // Insert task cells in each body row
+        const rows = table.querySelectorAll('tbody tr');
+        rows.forEach(row => {
+            const tds = row.querySelectorAll('td');
+            
+            // First time marking
+            if (!tds[3].getAttribute('data-group')) {
+                tds[3].setAttribute('data-group', 'human');
+                tds[3].setAttribute('data-col', 'overall');
+                tds[4].setAttribute('data-group', 'machine');
+                tds[4].setAttribute('data-col', 'overall');
+            }
+
+            let overallTd = null;
+            for (let i = 0; i < tds.length; i++) {
+                if (tds[i].getAttribute('data-group') === group && tds[i].getAttribute('data-col') === 'overall') {
+                    overallTd = tds[i];
+                    break;
+                }
+            }
+
+            for (let i = cols.length - 1; i >= 0; i--) {
+                const td = document.createElement('td');
+                td.textContent = '\u2014';
+                td.setAttribute('data-group', group);
+                td.setAttribute('data-col', cols[i]);
+                td.style.cssText = 'text-align: center; padding: 10px; border: 1px solid #e5e7eb; color: #9ca3af; font-size: 0.85rem;';
+                overallTd.after(td);
+            }
+        });
+    }
+}
+
+function resetLeaderboard() {
+    const table = document.querySelector('#leaderboard table');
+    const headerRow = table.querySelector('thead tr:first-child');
+    
+    // Collapse Human
+    const humanHeader = headerRow.querySelector('[onclick*="human"]');
+    if (humanHeader.getAttribute('data-expanded') === 'true') {
+        toggleLbGroup('human');
+    }
+    
+    // Collapse Machine
+    const machineHeader = headerRow.querySelector('[onclick*="machine"]');
+    if (machineHeader.getAttribute('data-expanded') === 'true') {
+        toggleLbGroup('machine');
+    }
+}
+
+// Sorting logic
+let sortState = { colIndex: -1, ascending: true };
+
+document.addEventListener('DOMContentLoaded', () => {
+    const table = document.querySelector('#leaderboard table');
+    if (table) {
+        const thead = table.querySelector('thead');
+        thead.addEventListener('click', (e) => {
+            const th = e.target.closest('th');
+            if (!th) return;
+            const tr = th.closest('tr');
+            // Check if it's the second row
+            if (tr.rowIndex === 1) { // 0-indexed in DOM table rows
+                if (th.textContent.includes('Size')) return; // size这一个不要排序
+                const allThs = Array.from(tr.querySelectorAll('th'));
+                const colIndex = allThs.indexOf(th);
+                sortTable(table, colIndex, th);
+            }
+        });
+    }
+});
+
+function sortTable(table, colIndex, th) {
+    const tbody = table.querySelector('tbody');
+    const rows = Array.from(tbody.querySelectorAll('tr'));
+    
+    // Toggle sort direction
+    if (sortState.colIndex === colIndex) {
+        sortState.ascending = !sortState.ascending;
+    } else {
+        sortState.colIndex = colIndex;
+        sortState.ascending = false; // Default descending for scores/dates
+        if (colIndex === 0) sortState.ascending = true; // Name default ascending
+    }
+
+    // Update icons
+    const allThs = th.closest('tr').querySelectorAll('th');
+    allThs.forEach(t => {
+        const span = t.querySelector('.sort-icon');
+        if (span) span.remove();
+    });
+    
+    const icon = document.createElement('span');
+    icon.className = 'sort-icon';
+    icon.style.cssText = 'font-size: 0.7rem; margin-left: 4px;';
+    icon.innerHTML = sortState.ascending ? '&uarr;' : '&darr;';
+    th.appendChild(icon);
+
+    rows.sort((a, b) => {
+        const tdA = a.querySelectorAll('td')[colIndex];
+        const tdB = b.querySelectorAll('td')[colIndex];
+        if (!tdA || !tdB) return 0;
+        
+        let valA = tdA.textContent.trim();
+        let valB = tdB.textContent.trim();
+
+        // Handle empty or missing values
+        const isEmptyA = (valA === '-' || valA === '—' || valA === '&mdash;' || valA === '');
+        const isEmptyB = (valB === '-' || valB === '—' || valB === '&mdash;' || valB === '');
+        
+        if (isEmptyA && isEmptyB) return 0;
+        if (isEmptyA) return 1; // Always push empty to bottom
+        if (isEmptyB) return -1;
+
+        // Try numeric sort
+        const numA = parseFloat(valA.replace(/[^0-9.-]/g, ''));
+        const numB = parseFloat(valB.replace(/[^0-9.-]/g, ''));
+
+        if (valA.match(/^\d{4}-\d{2}-\d{2}$/)) {
+            const dateA = new Date(valA).getTime();
+            const dateB = new Date(valB).getTime();
+            return sortState.ascending ? dateA - dateB : dateB - dateA;
+        }
+
+        if (!isNaN(numA) && !isNaN(numB) && !valA.match(/[a-zA-Z]/) && !valB.match(/[a-zA-Z]/)) {
+            return sortState.ascending ? numA - numB : numB - numA;
+        }
+
+        // String sort
+        valA = valA.toLowerCase();
+        valB = valB.toLowerCase();
+        if (valA < valB) return sortState.ascending ? -1 : 1;
+        if (valA > valB) return sortState.ascending ? 1 : -1;
+        return 0;
+    });
+
+    // Re-append rows
+    rows.forEach((row, index) => {
+        row.style.background = (index % 2 === 1) ? '#f9fafb' : '#ffffff';
+        tbody.appendChild(row);
+    });
+}
+
+
 // More Works Dropdown Functionality
 function toggleMoreWorks() {
     const dropdown = document.getElementById('moreWorksDropdown');
