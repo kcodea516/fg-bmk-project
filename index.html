@@ -107,6 +107,7 @@
   <script defer src="static/js/fontawesome.all.min.js"></script>
   <script defer src="static/js/bulma-carousel.min.js"></script>
   <script defer src="static/js/bulma-slider.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
   <script defer src="static/js/index.js"></script>
 
   <!-- Structured Data for Academic Papers -->
@@ -327,15 +328,18 @@
     <style>
       .dataset-dashboard {
         background: #ffffff;
-        border-radius: 20px;
-        border: 1px solid rgba(229, 231, 235, 0.8);
-        box-shadow: 0 20px 40px rgba(0,0,0,0.04), 0 1px 3px rgba(0,0,0,0.02);
-        padding: 3rem;
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 2rem;
+        border-radius: 12px;
+        border: 1px solid #e5e7eb;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+        padding: 2.5rem;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1.2rem;
         position: relative;
         overflow: hidden;
+        max-width: 780px;
+        margin: 0 auto;
       }
       .dataset-dashboard::before {
         content: '';
@@ -344,13 +348,15 @@
         background: linear-gradient(90deg, #4285F4, #9b72cb, #d96570);
       }
       .dataset-domain {
-        background: #fdfdfd;
-        border-radius: 16px;
-        padding: 1.5rem;
-        border: 1px solid #f3f4f6;
+        background: #fafafa;
+        border-radius: 8px;
+        padding: 1.25rem 1rem;
+        border: 1px solid #e2e8f0;
         transition: all 0.3s ease;
         display: flex;
         flex-direction: column;
+        width: calc(33.333% - 0.8rem);
+        min-width: 190px;
       }
       .dataset-domain:hover {
         transform: translateY(-2px);
@@ -361,37 +367,62 @@
       .domain-header {
         display: flex;
         align-items: center;
+        justify-content: center;
         margin-bottom: 1.2rem;
         padding-bottom: 1rem;
-        border-bottom: 1px dashed #e5e7eb;
+        border-bottom: 1px solid #eaeaea;
       }
       .domain-icon {
-        width: 40px; height: 40px;
-        border-radius: 10px;
+        width: 36px; height: 36px;
+        border-radius: 8px;
         display: flex; align-items: center; justify-content: center;
-        margin-right: 14px;
-        font-size: 1.3rem;
+        margin-right: 12px;
+        font-size: 1.2rem;
+        background: transparent !important;
       }
       .domain-title {
-        font-weight: 600; font-size: 1.1rem; color: #374151; margin: 0;
+        font-weight: 600; font-size: 1.05rem; color: #334155; margin: 0; letter-spacing: -0.01em;
       }
       
-      .domain-animals .domain-icon { background: #eff6ff; color: #3b82f6; } /* Blue */
-      .domain-plants .domain-icon { background: #f0fdf4; color: #22c55e; } /* Green */
-      .domain-consumer .domain-icon { background: #fefce8; color: #eab308; } /* Yellow */
-      .domain-vehicles .domain-icon { background: #fff1f2; color: #f43f5e; } /* Rose */
-      .domain-medical .domain-icon { background: #f3e8ff; color: #a855f7; } /* Purple */
+      .domain-animals .domain-icon { color: #3b82f6; } /* Blue */
+      .domain-plants .domain-icon { color: #16a34a; } /* Green */
+      .domain-consumer .domain-icon { color: #d97706; } /* Darker Yellow */
+      .domain-vehicles .domain-icon { color: #e11d48; } /* Rose/Red */
+      .domain-medical .domain-icon { color: #9333ea; } /* Purple */
       
       .dataset-tag {
         transition: all 0.2s;
-        border-radius: 8px !important;
+        border-radius: 6px !important;
         font-weight: 500;
-        padding: 1.2rem 1rem !important;
+        padding: 0.85rem 0.8rem !important;
+        font-size: 0.85rem !important;
+        box-shadow: 0 1px 2px rgba(0,0,0,0.02);
       }
       .dataset-tag:hover {
         transform: translateY(-1.5px);
         box-shadow: 0 4px 10px rgba(0,0,0,0.06);
-        filter: brightness(0.97);
+      }
+      
+      .domain-animals .dataset-tag { background: rgba(59, 130, 246, 0.06) !important; border: 1px solid rgba(59, 130, 246, 0.2) !important; color: #1e3a8a !important; }
+      .domain-animals .dataset-tag:hover { background: rgba(59, 130, 246, 0.12) !important; border-color: rgba(59, 130, 246, 0.4) !important; }
+      
+      .domain-plants .dataset-tag { background: rgba(22, 163, 74, 0.06) !important; border: 1px solid rgba(22, 163, 74, 0.2) !important; color: #14532d !important; }
+      .domain-plants .dataset-tag:hover { background: rgba(22, 163, 74, 0.12) !important; border-color: rgba(22, 163, 74, 0.4) !important; }
+
+      .domain-consumer .dataset-tag { background: rgba(217, 119, 6, 0.06) !important; border: 1px solid rgba(217, 119, 6, 0.2) !important; color: #78350f !important; }
+      .domain-consumer .dataset-tag:hover { background: rgba(217, 119, 6, 0.12) !important; border-color: rgba(217, 119, 6, 0.4) !important; }
+
+      .domain-vehicles .dataset-tag { background: rgba(225, 29, 72, 0.06) !important; border: 1px solid rgba(225, 29, 72, 0.2) !important; color: #881337 !important; }
+      .domain-vehicles .dataset-tag:hover { background: rgba(225, 29, 72, 0.12) !important; border-color: rgba(225, 29, 72, 0.4) !important; }
+
+      .domain-medical .dataset-tag { background: rgba(147, 51, 234, 0.06) !important; border: 1px solid rgba(147, 51, 234, 0.2) !important; color: #581c87 !important; }
+      .domain-medical .dataset-tag:hover { background: rgba(147, 51, 234, 0.12) !important; border-color: rgba(147, 51, 234, 0.4) !important; }
+      .dataset-domain .tags {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        align-content: center;
+        margin-bottom: 0 !important;
       }
     </style>
 
@@ -476,7 +507,7 @@
     <section class="section">
       <div class="container is-max-desktop">
         <div class="columns is-centered has-text-centered">
-          <div class="column is-four-fifths">
+          <div class="column is-full">
             <div class="abstract-box">
               <h2 class="title is-3">Abstract</h2>
               <div class="content has-text-justified">
@@ -666,7 +697,7 @@
           <!-- Human-oriented Column -->
           <div class="column is-half" style="display: flex;">
             <div class="abstract-box"
-              style="border: 1px solid #dadce0; border-top: 4px solid #1a73e8; background: #ffffff; flex: 1;">
+              style="border: 1px solid #cbd5e1; border-top: 4px solid #1a73e8; background: #ffffff; flex: 1; border-radius: 6px;">
               <h3 class="title is-4" style="color: #202124;">1. Human-oriented Evaluation</h3>
               <div class="content">
                 <p><b>Focus: Semantic Recognition & Interaction</b></p>
@@ -692,7 +723,7 @@
           <!-- Machine-oriented Column -->
           <div class="column is-half" style="display: flex;">
             <div class="abstract-box"
-              style="border: 1px solid #dadce0; border-top: 4px solid #34a853; background: #ffffff; flex: 1;">
+              style="border: 1px solid #cbd5e1; border-top: 4px solid #34a853; background: #ffffff; flex: 1; border-radius: 6px;">
               <h3 class="title is-4" style="color: #202124;">2. Machine-oriented Evaluation</h3>
               <div class="content">
                 <p><b>Focus: Feature Representation Strength</b></p>
@@ -973,7 +1004,7 @@
     </section>
     <!-- End Per-Dataset Results -->
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+
 
     <!--BibTex citation -->
     <section class="section" id="BibTeX">
