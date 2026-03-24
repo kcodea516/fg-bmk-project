@@ -589,30 +589,86 @@
           <h2 class="title is-3 has-text-centered" style="margin-bottom: 2rem;">Abstract</h2>
           <div class="content has-text-justified" style="font-size: 1.1rem; line-height: 1.8; color: #374151;">
             <p>
-              Recent advancements in Large Vision-Language Models (LVLMs) have demonstrated remarkable multimodal
-              perception capabilities, garnering significant attention. While numerous evaluation studies have
-              emerged, assessing LVLMs both holistically and on specialized tasks, fine-grained image
-              tasks—fundamental to computer vision—remain largely unexplored. To fill this gap, we introduce a
-              comprehensive fine-grained evaluation benchmark, <i>i.e.</i>, FG-BMK, comprising <b>1.01 million
-                questions</b> and <b>0.28 million images</b>. Our evaluation systematically examines LVLMs from both
-              human-oriented and machine-oriented perspectives, focusing on their semantic recognition and
-              fine-grained feature representation capabilities. Through extensive experiments on twelve
-              representative
-              LVLMs/VLMs, we uncover key findings regarding the influence of training paradigms, modality alignment,
-              perturbation susceptibility, and fine-grained category reasoning on task performance. This work
-              provides
-              critical insights into the limitations of current LVLMs and offers guidance for future data
-              construction
-              and model design in the development of more advanced LVLMs. Our code is open-source and available at
-              <a href="https://github.com/SEU-VIPGroup/FG-BMK"
-                target="_blank">https://github.com/SEU-VIPGroup/FG-BMK</a>.
+              Recent advancements in Large Vision-Language Models (LVLMs) have demonstrated remarkable multimodal perception capabilities. However, while numerous evaluation studies have emerged, <strong>fine-grained image tasks</strong>—fundamental to computer vision—remain largely unexplored.
+            </p>
+            <p>
+              To fill this gap, we introduce a comprehensive fine-grained evaluation benchmark, <strong>FG-BMK</strong>, comprising <strong>1.01 million questions</strong> and <strong>0.28 million images</strong>. Our evaluation systematically examines LVLMs from both human-oriented (semantic recognition) and machine-oriented (feature representation) perspectives.
+            </p>
+            <p>
+              Through extensive experiments on twelve representative LVLMs/VLMs, this work provides critical insights into the limitations of current models and offers guidance for future data construction and architecture design.
             </p>
           </div>
         </div>
       </div>
     </section>
     <!-- End paper abstract -->
-    <!-- End paper abstract -->
+
+    <!-- Key Findings Module -->
+    <section class="section key-findings-section" id="key-findings">
+      <div class="container is-max-desktop">
+        <div class="has-text-centered" style="margin-bottom: 3.5rem;">
+          <h2 class="title is-3">Key Findings from FG-BMK</h2>
+          <p style="color: #64748b; font-size: 1.1rem; max-width: 700px; margin: 0.5rem auto 0;">Crucial insights derived from our large-scale evaluation of 12 representative LVLMs/VLMs.</p>
+        </div>
+        
+        <div class="findings-list">
+          <!-- Finding 1 -->
+          <div class="finding-card">
+            <div class="finding-icon-wrap" style="background: #eef2ff; color: #4f46e5;">
+              <i class="fas fa-layer-group"></i>
+            </div>
+            <div class="finding-content">
+              <h4>Contrastive Training Prevails</h4>
+              <p>The contrastive training paradigm is significantly more effective at enhancing fine-grained visual feature discriminability than generative or reconstruction-based paradigms.</p>
+            </div>
+          </div>
+          
+          <!-- Finding 2 -->
+          <div class="finding-card">
+            <div class="finding-icon-wrap" style="background: #f0fdf4; color: #16a34a;">
+              <i class="fas fa-link-slash"></i>
+            </div>
+            <div class="finding-content">
+              <h4>The Alignment Trap</h4>
+              <p>Aligning visual features with textual features can unexpectedly impair fine-grained discriminability, particularly when granularity mismatches exist in the image-text data.</p>
+            </div>
+          </div>
+          
+          <!-- Finding 3 -->
+          <div class="finding-card">
+            <div class="finding-icon-wrap" style="background: #fef2f2; color: #dc2626;">
+              <i class="fas fa-shield-virus"></i>
+            </div>
+            <div class="finding-content">
+              <h4>Vulnerability to Perturbations</h4>
+              <p>Both LVLMs and pure LVMs are much more susceptible to feature perturbations in fine-grained tasks compared to generic vision tasks.</p>
+            </div>
+          </div>
+          
+          <!-- Finding 4 -->
+          <div class="finding-card">
+            <div class="finding-icon-wrap" style="background: #f5f3ff; color: #7c3aed;">
+              <i class="fas fa-brain"></i>
+            </div>
+            <div class="finding-content">
+              <h4>Appearance vs. Reasoning</h4>
+              <p>While LVLMs show strong capabilities in perceiving visual appearances, they face notable challenges in fine-grained category reasoning (which depends on recognizing subtle attributes).</p>
+            </div>
+          </div>
+          
+          <!-- Finding 5 -->
+          <div class="finding-card">
+            <div class="finding-icon-wrap" style="background: #fff7ed; color: #ea580c;">
+              <i class="fas fa-graduation-cap"></i>
+            </div>
+            <div class="finding-content">
+              <h4>The Specialization Gap</h4>
+              <p>Despite rapid advancements, general-purpose LVLMs still lag behind fine-grained tailored models in handling domain-specific visual tasks.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
 
     <section class="section" id="motivation" style="padding: 4rem 1.5rem;">
@@ -627,7 +683,7 @@
           <button class="qa-tab-btn is-active" onclick="switchQATab(0, this)">Attribute Recognition</button>
           <button class="qa-tab-btn" onclick="switchQATab(1, this)">Knowledge Bias</button>
           <button class="qa-tab-btn" onclick="switchQATab(2, this)">Hierarchical Granularity</button>
-          <button class="qa-tab-btn" onclick="switchQATab(3, this)">Granularity Alignment</button>
+          <button class="qa-tab-btn" onclick="switchQATab(3, this)">Feature Representation</button>
         </div>
     
         <!-- Main Showcase Card -->
@@ -658,10 +714,9 @@
     <section class="section" id="leaderboard" style="padding: 3rem 1.5rem;">
       <div class="container is-max-widescreen">
         <h2 class="title is-3 has-text-centered" style="margin-bottom: 0.5rem;">Core Evaluation Results</h2>
-        <p class="has-text-centered"
+        <p class="has-text-centered" id="leaderboard-footnote"
           style="color: #64748b; margin-bottom: 2.5rem; font-size: 1.1rem; max-width: 800px; margin-left: auto; margin-right: auto;">
-          Comprehensive benchmark results across zero-shot and fine-tuned paradigms.
-          Click headers to sort performance metrics.
+          Top-1 accuracy performance on fine-grained image classification tasks. Showing representative models; please refer to our paper for the full results of all 12 evaluated models.
         </p>
 
         <div class="evaluation-tabs-container">

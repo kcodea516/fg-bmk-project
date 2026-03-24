@@ -15,6 +15,18 @@ function switchTab(event, tabId) {
 
   // Activate selected tab (works for both div and button)
   event.currentTarget.classList.add('is-active');
+
+  // Update dynamic footnote
+  const footnote = document.getElementById('leaderboard-footnote');
+  if (footnote) {
+    if (tabId === 'tab-classification') {
+      footnote.textContent = 'Top-1 accuracy performance on fine-grained image classification tasks. Showing representative models; please refer to our paper for the full results of all 12 evaluated models.';
+    } else if (tabId === 'tab-attribute') {
+      footnote.textContent = 'Accuracy performance on fine-grained human-oriented tasks (e.g., Attribute Recognition on CUB-200-2011). Showing representative models; please refer to our paper for full results.';
+    } else if (tabId === 'tab-retrieval') {
+      footnote.textContent = 'mAP (mean Average Precision) performance on fine-grained image retrieval tasks. Showing representative models; please refer to our paper for the full results of all 12 evaluated models.';
+    }
+  }
 }
 
 // Global sort state per table
@@ -663,11 +675,12 @@ const qaTasks = [
     `
   },
   {
-    title: "Constructed Granularity Aligned Sample",
+    title: "The visual feature problem: Image Retrieval & Classification",
     image: "static/images/app_dis_math_granularity.png",
     content: `
-      <div class="qa-q">Q: What is the object species?</div>
-      <div class="qa-ans">Answer: The object species is great crested flycatcher.</div>
+      <div class="qa-q">Instead of relying on language generation, this paradigm directly evaluates the discriminability of visual features.</div>
+      <div class="qa-q" style="margin-top: 1.5rem;"><span style="color: #fbbf24; font-weight: 700;">Task 1: Image Retrieval (mAP)</span><br>Goal: Retrieve images belonging to multiple subordinate categories of a meta-category based on visual feature similarity.</div>
+      <div class="qa-q" style="margin-top: 1rem;"><span style="color: #fbbf24; font-weight: 700;">Task 2: Image Classification (Top-1 Acc)</span><br>Goal: Recognize images into fine-grained categories, either within a single meta-category or across multiple meta-categories.</div>
     `
   }
 ];
