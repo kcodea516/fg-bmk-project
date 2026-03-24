@@ -614,305 +614,45 @@
     <!-- End paper abstract -->
     <!-- End paper abstract -->
 
-    <!-- Key Findings from Paper -->
-    <section class="section" id="key-findings" style="padding-top: 60px; padding-bottom: 60px; clear: both;">
-      <div class="container is-max-desktop">
-        <h2 class="title is-3 has-text-centered" style="margin-bottom: 1rem;">Key Findings</h2>
-        <p class="has-text-centered" style="color: var(--text-secondary); margin-bottom: 3rem; font-size: 1rem;">
-          Core insights from extensive experiments on 12 representative LVLMs/VLMs
-        </p>
-        <div class="columns is-multiline is-centered mt-5">
-          <!-- Finding 1 -->
-          <div class="column is-6">
-            <div class="kf-card" style="height: 100%;">
-              <div class="kf-icon" style="background: #eff6ff; color: #2563eb;">
-                <i class="fas fa-layer-group"></i>
-              </div>
-              <div>
-                <div class="kf-title">Training Paradigm is Crucial</div>
-                <div class="kf-desc">Contrastive training paradigms are significantly more effective at enhancing
-                  fine-grained visual discriminability compared to generative or reconstruction-based approaches.</div>
-              </div>
-            </div>
-          </div>
-          <!-- Finding 2 -->
-          <div class="column is-6">
-            <div class="kf-card" style="height: 100%;">
-              <div class="kf-icon" style="background: #fefce8; color: #ca8a04;">
-                <i class="fas fa-unlink"></i>
-              </div>
-              <div>
-                <div class="kf-title">Penalty for Granularity Mismatch</div>
-                <div class="kf-desc">Aligning visual and text features can actually impair fine-grained discriminability
-                  if there is a severe mismatch in data granularity.</div>
-              </div>
-            </div>
-          </div>
-          <!-- Finding 3 -->
-          <div class="column is-6">
-            <div class="kf-card" style="height: 100%;">
-              <div class="kf-icon" style="background: #fff1f2; color: #e11d48;">
-                <i class="fas fa-shield-alt"></i>
-              </div>
-              <div>
-                <div class="kf-title">Vulnerability to Perturbations</div>
-                <div class="kf-desc">LVLMs and VLMs are far more sensitive to feature perturbations in fine-grained
-                  tasks than in generic vision tasks.</div>
-              </div>
-            </div>
-          </div>
-          <!-- Finding 4 -->
-          <div class="column is-6">
-            <div class="kf-card" style="height: 100%;">
-              <div class="kf-icon" style="background: #f0fdf4; color: #16a34a;">
-                <i class="fas fa-brain"></i>
-              </div>
-              <div>
-                <div class="kf-title">Perception vs. Reasoning</div>
-                <div class="kf-desc">While LVLMs show strong appearance perception, they struggle with reasoning for
-                  fine-grained categories that rely on subtle visual attributes.</div>
-              </div>
-            </div>
-          </div>
-          <!-- Finding 5 -->
-          <div class="column is-6">
-            <div class="kf-card" style="height: 100%;">
-              <div class="kf-icon" style="background: #f5f3ff; color: #7c3aed;">
-                <i class="fas fa-star"></i>
-              </div>
-              <div>
-                <div class="kf-title">Advantage of Specialized Models</div>
-                <div class="kf-desc">Current LVLMs still lag behind specialized fine-grained tailored models when
-                  handling complex, domain-specific visual recognition.</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
 
-    <!-- Qualitative Analysis / Motivation -->
     <section class="section" id="motivation" style="padding: 4rem 1.5rem;">
       <div class="container is-max-desktop">
         <h2 class="title is-3 has-text-centered">Why FG-BMK?</h2>
-        <p class="has-text-centered"
-          style="color: var(--text-secondary); margin-bottom: 3rem; font-size: 1rem; max-width: 800px; margin-left: auto; margin-right: auto;">
-          FG-BMK introduces <strong>Two Complementary Evaluation Perspectives</strong> to systematically evaluate both
-          conversational multimodal understanding and direct visual feature representation.
+        <p class="has-text-centered" style="color: var(--text-secondary); margin-bottom: 2.5rem; font-size: 0.95rem;">
+          Bridging the gap between human perception and machine representation through four core evaluation tasks.
         </p>
+        
+        <!-- Task Selection Tabs -->
+        <div class="qa-tabs-wrapper">
+          <button class="qa-tab-btn is-active" onclick="switchQATab(0, this)">Attribute Recognition</button>
+          <button class="qa-tab-btn" onclick="switchQATab(1, this)">Knowledge Bias</button>
+          <button class="qa-tab-btn" onclick="switchQATab(2, this)">Hierarchical Granularity</button>
+          <button class="qa-tab-btn" onclick="switchQATab(3, this)">Granularity Alignment</button>
+        </div>
+    
+        <!-- Main Showcase Card -->
+        <div class="qa-showcase-container">
+          <div class="qa-image-side">
+            <img id="qa-display-img" src="static/images/task_multimodal_alignment_flowers_1774338441347.png" alt="Task Example">
+          </div>
+          <div class="qa-console-side">
+            <div class="qa-console-header">
+              <span id="qa-display-title" class="qa-console-title">The original VL problem: Attribute Recognition</span>
+            </div>
+            <div id="qa-display-content" class="qa-console-content">
+              <div class="qa-q">Q: What is the eye color of the bird in this image? Choose one answer from the following list: [blue, black, ..., red, rufous]</div>
+              <div class="qa-ans">GT: black</div>
+              <div class="qa-q" style="margin-top: 1.5rem;">Q: Is the eye color of the bird in this image black?</div>
+              <div class="qa-ans">GT: True</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
         <div class="columns is-centered is-multiline" style="gap: 30px;">
-          <!-- Task 1 -->
-          <div class="column is-full">
-            <div
-              style="background: #ffffff; border-radius: 16px; border: 1px solid #f3f4f6; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.03); display: flex; min-height: 280px; flex-direction: row;"
-              class="task-card">
-              <div
-                style="width: 40%; background: #f8fafc; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center;">
-                <img
-                  src="C:\Users\10264\.gemini\antigravity\brain\70ca0b10-540e-45d7-8751-1e438e880bf1\task_hierarchical_bird_retry_1774338592770.png"
-                  alt="Hierarchical Granularity Task" style="width: 100%; height: 100%; object-fit: cover;">
-                <div
-                  style="position: absolute; top: 12px; right: 12px; background: rgba(255,255,255,0.85); padding: 4px 10px; border-radius: 8px; font-size: 0.7rem; font-weight: 700; color: #4f46e5; border: 1px solid #eef2ff; backdrop-filter: blur(4px);">
-                  Human-oriented</div>
-              </div>
-              <div style="width: 60%; padding: 32px; display: flex; flex-direction: column; justify-content: center;">
-                <h4
-                  style="font-size: 1.15rem; font-weight: 800; color: #1e293b; margin-bottom: 16px; letter-spacing: -0.01em;">
-                  Task 1: Hierarchical Granularity Recognition</h4>
-                <div
-                  style="background: #f8fafc; border-radius: 10px; padding: 16px; border-left: 4px solid #4f46e5; margin-bottom: 16px;">
-                  <p style="font-size: 0.95rem; line-height: 1.6; color: #334155;">
-                    <span style="color: #64748b; font-weight: 600;">Q:</span> What is the <strong
-                      style="color: #4f46e5;">species</strong> of the bird in this image?
-                  </p>
-                  <div style="margin-top: 10px; font-size: 0.88rem; color: #475569;">
-                    (A) Great Crested Flycatcher &nbsp; (B) Eastern Phoebe ...
-                  </div>
-                </div>
-                <p style="font-size: 0.85rem; color: #64748b; line-height: 1.5; margin-bottom: 0;">
-                  Testing the model's domain-specific knowledge across different taxonomic levels (e.g., Class &rarr;
-                  Genus &rarr; Species) within the same meta-category.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <!-- Task 2 -->
-          <div class="column is-full">
-            <div
-              style="background: #ffffff; border-radius: 16px; border: 1px solid #f3f4f6; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.03); display: flex; min-height: 280px; flex-direction: row;"
-              class="task-card">
-              <div
-                style="width: 40%; background: #1e293b; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center;">
-                <!-- Using a high-end icon placeholder for aircraft as model generation was unavailable -->
-                <div style="color: #60a5fa; text-align: center; padding: 40px;">
-                  <i class="fas fa-plane-departure"
-                    style="font-size: 4rem; opacity: 0.2; position: absolute; top: 20%; left: 10%; transform: rotate(-15deg);"></i>
-                  <i class="fas fa-plane" style="font-size: 6rem; position: relative; z-index: 1;"></i>
-                  <p
-                    style="margin-top: 20px; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; opacity: 0.6;">
-                    Aviation Dataset Preview</p>
-                </div>
-                <div
-                  style="position: absolute; top: 12px; right: 12px; background: rgba(255,255,255,0.85); padding: 4px 10px; border-radius: 8px; font-size: 0.7rem; font-weight: 700; color: #4f46e5; border: 1px solid #eef2ff; backdrop-filter: blur(4px);">
-                  Human-oriented</div>
-              </div>
-              <div style="width: 60%; padding: 32px; display: flex; flex-direction: column; justify-content: center;">
-                <h4
-                  style="font-size: 1.15rem; font-weight: 800; color: #1e293b; margin-bottom: 16px; letter-spacing: -0.01em;">
-                  Task 2: Knowledge Bias Estimation</h4>
-                <div
-                  style="background: #f8fafc; border-radius: 10px; padding: 16px; border-left: 4px solid #e11d48; margin-bottom: 16px;">
-                  <p style="font-size: 0.95rem; line-height: 1.6; color: #334155;">
-                    <span style="color: #64748b; font-weight: 600;">Q:</span> Is the aircraft model in this image a
-                    <strong>Boeing 737-800</strong>?
-                  </p>
-                  <div style="margin-top: 10px; font-size: 0.88rem; color: #475569;">
-                    (A) True &nbsp; (B) False
-                  </div>
-                </div>
-                <p style="font-size: 0.85rem; color: #64748b; line-height: 1.5; margin-bottom: 0;">
-                  Uncovering potential blind spots and language-prior biases where models may rely on prior knowledge
-                  rather than visual cues for highly similar categories.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <!-- Task 3 -->
-          <div class="column is-full">
-            <div
-              style="background: #ffffff; border-radius: 16px; border: 1px solid #f3f4f6; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.03); display: flex; min-height: 280px; flex-direction: row;"
-              class="task-card">
-              <div
-                style="width: 40%; background: #f8fafc; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center;">
-                <img
-                  src="C:\Users\10264\.gemini\antigravity\brain\70ca0b10-540e-45d7-8751-1e438e880bf1\task_multimodal_alignment_flowers_1774338441347.png"
-                  alt="Attribute Recognition Task" style="width: 100%; height: 100%; object-fit: cover;">
-                <div
-                  style="position: absolute; top: 12px; right: 12px; background: rgba(255,255,255,0.85); padding: 4px 10px; border-radius: 8px; font-size: 0.7rem; font-weight: 700; color: #4f46e5; border: 1px solid #eef2ff; backdrop-filter: blur(4px);">
-                  Human-oriented</div>
-              </div>
-              <div style="width: 60%; padding: 32px; display: flex; flex-direction: column; justify-content: center;">
-                <h4
-                  style="font-size: 1.15rem; font-weight: 800; color: #1e293b; margin-bottom: 16px; letter-spacing: -0.01em;">
-                  Task 3: Attribute Recognition</h4>
-                <div
-                  style="background: #f8fafc; border-radius: 10px; padding: 16px; border-left: 4px solid #16a34a; margin-bottom: 16px;">
-                  <p style="font-size: 0.95rem; line-height: 1.6; color: #334155;">
-                    <span style="color: #64748b; font-weight: 600;">Q:</span> Is the <strong
-                      style="color: #16a34a;">petal color</strong> of the flower in this image pink?
-                  </p>
-                  <div style="margin-top: 10px; font-size: 0.88rem; color: #475569;">
-                    (A) True &nbsp; (B) False
-                  </div>
-                </div>
-                <p style="font-size: 0.85rem; color: #64748b; line-height: 1.5; margin-bottom: 0;">
-                  Evaluates sensitivity to minute visual details such as color, shape, and texture at the fine-grained
-                  level, bypassing coarse category recognition.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
     </section>
-    <!-- End Motivation -->
-
-
-    <!-- Section 1: Evaluation Framework -->
-    <section class="section" id="evaluation-framework">
-      <div class="container is-max-desktop">
-        <h2 class="title is-3 has-text-centered" style="margin-bottom: 0.5rem;">Evaluation Framework</h2>
-        <p class="has-text-centered" style="color: var(--text-secondary); margin-bottom: 2.5rem; font-size: 0.95rem;">
-          A dual paradigm bridging human perception and machine feature representation
-        </p>
-
-        <div class="columns is-centered" style="gap: 20px;">
-          <!-- Human-oriented Column -->
-          <div class="column is-half" style="display: flex;">
-            <div
-              style="background: #ffffff; border-radius: 12px; border: 1px solid #f3f4f6; border-top: 3px solid #2563eb; padding: 32px 28px; box-shadow: 0 2px 8px rgba(0,0,0,0.02); flex: 1;">
-              <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 20px;">
-                <div
-                  style="width: 36px; height: 36px; border-radius: 8px; background: #dbeafe; color: #2563eb; display: flex; align-items: center; justify-content: center; font-size: 1rem;">
-                  <i class="fas fa-comments"></i>
-                </div>
-                <h3 style="font-size: 1.1rem; font-weight: 700; color: #111827; margin: 0;">Human-oriented</h3>
-              </div>
-              <p style="font-size: 0.88rem; color: #6b7280; margin-bottom: 16px;">Dialogue-based evaluation of semantic
-                recognition through conversational queries.</p>
-              <div style="display: flex; flex-direction: column; gap: 10px;">
-                <div style="display: flex; align-items: flex-start; gap: 10px;">
-                  <span
-                    style="min-width: 6px; height: 6px; border-radius: 50%; background: #2563eb; margin-top: 7px;"></span>
-                  <span style="font-size: 0.85rem; color: #374151;"><strong>Attribute Recognition</strong> — sensitivity
-                    to color, shape, texture</span>
-                </div>
-                <div style="display: flex; align-items: flex-start; gap: 10px;">
-                  <span
-                    style="min-width: 6px; height: 6px; border-radius: 50%; background: #2563eb; margin-top: 7px;"></span>
-                  <span style="font-size: 0.85rem; color: #374151;"><strong>Knowledge Bias</strong> — visual cues vs.
-                    language priors</span>
-                </div>
-                <div style="display: flex; align-items: flex-start; gap: 10px;">
-                  <span
-                    style="min-width: 6px; height: 6px; border-radius: 50%; background: #2563eb; margin-top: 7px;"></span>
-                  <span style="font-size: 0.85rem; color: #374151;"><strong>Hierarchical Reasoning</strong> — Class →
-                    Genus → Species</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Machine-oriented Column -->
-          <div class="column is-half" style="display: flex;">
-            <div
-              style="background: #ffffff; border-radius: 12px; border: 1px solid #f3f4f6; border-top: 3px solid #16a34a; padding: 32px 28px; box-shadow: 0 2px 8px rgba(0,0,0,0.02); flex: 1;">
-              <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 20px;">
-                <div
-                  style="width: 36px; height: 36px; border-radius: 8px; background: #dcfce7; color: #16a34a; display: flex; align-items: center; justify-content: center; font-size: 1rem;">
-                  <i class="fas fa-microchip"></i>
-                </div>
-                <h3 style="font-size: 1.1rem; font-weight: 700; color: #111827; margin: 0;">Machine-oriented</h3>
-              </div>
-              <p style="font-size: 0.88rem; color: #6b7280; margin-bottom: 16px;">Direct assessment of visual backbone
-                feature representation quality.</p>
-              <div style="display: flex; flex-direction: column; gap: 10px;">
-                <div style="display: flex; align-items: flex-start; gap: 10px;">
-                  <span
-                    style="min-width: 6px; height: 6px; border-radius: 50%; background: #16a34a; margin-top: 7px;"></span>
-                  <span style="font-size: 0.85rem; color: #374151;"><strong>Fine-grained Retrieval</strong> — mAP across
-                    subordinate categories</span>
-                </div>
-                <div style="display: flex; align-items: flex-start; gap: 10px;">
-                  <span
-                    style="min-width: 6px; height: 6px; border-radius: 50%; background: #16a34a; margin-top: 7px;"></span>
-                  <span style="font-size: 0.85rem; color: #374151;"><strong>Fine-grained Classification</strong> — Top-1
-                    accuracy on visual features</span>
-                </div>
-              </div>
-              <p
-                style="font-size: 0.82rem; color: #9ca3af; margin-top: 16px; padding-top: 12px; border-top: 1px solid #f3f4f6; font-style: italic;">
-                Bypasses language generation to isolate pure visual perception.</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Integrated Image Reference -->
-        <div class="column is-full mt-6">
-          <div class="has-text-centered">
-            <img src="static/images/intro.png" alt="Evaluation Framework Overview"
-              style="border-radius: 20px; box-shadow: var(--shadow-lg); max-width: 100%;">
-            <p class="subtitle is-6 mt-3">Figure 1: Illustration of our Human-oriented and Machine-oriented evaluation
-              tasks.</p>
-          </div>
-        </div>
-
-      </div>
-    </section>
-    <!-- End Section 1 -->
 
     <!-- Core Evaluation Results -->
     <section class="section" id="leaderboard" style="padding: 3rem 1.5rem;">
@@ -939,7 +679,8 @@
               <table class="evaluation-table" id="table-classification">
                 <thead>
                   <tr>
-                    <th class="rank-cell" onclick="sortTable('table-classification', 0)" style="cursor: pointer;" title="Reset to original order">#</th>
+                    <th class="rank-cell" onclick="sortTable('table-classification', 0)" style="cursor: pointer;"
+                      title="Reset to original order">#</th>
                     <th class="left-align" onclick="sortTable('table-classification', 1)">Model <span
                         class="sort-icon">⇅</span></th>
                     <th onclick="sortTable('table-classification', 2)">Vision Encoder <span class="sort-icon">⇅</span>
@@ -999,7 +740,8 @@
               <table class="evaluation-table" id="table-attribute">
                 <thead>
                   <tr>
-                    <th class="rank-cell" onclick="sortTable('table-attribute', 0)" style="cursor: pointer;" title="Reset to original order">#</th>
+                    <th class="rank-cell" onclick="sortTable('table-attribute', 0)" style="cursor: pointer;"
+                      title="Reset to original order">#</th>
                     <th class="left-align" onclick="sortTable('table-attribute', 1)">Model <span
                         class="sort-icon">⇅</span></th>
                     <th onclick="sortTable('table-attribute', 2)">Color Acc <span class="sort-icon">⇅</span></th>
@@ -1064,7 +806,8 @@
               <table class="evaluation-table" id="table-retrieval">
                 <thead>
                   <tr>
-                    <th class="rank-cell" onclick="sortTable('table-retrieval', 0)" style="cursor: pointer;" title="Reset to original order">#</th>
+                    <th class="rank-cell" onclick="sortTable('table-retrieval', 0)" style="cursor: pointer;"
+                      title="Reset to original order">#</th>
                     <th class="left-align" onclick="sortTable('table-retrieval', 1)">Model <span
                         class="sort-icon">⇅</span></th>
                     <th onclick="sortTable('table-retrieval', 2)">CUB-200 (mAP) <span class="sort-icon">⇅</span></th>
@@ -1129,9 +872,10 @@
           We compare the performance of 7 representative vision models across 12 fine-grained datasets.
           Models with contrastive training (EVA-CLIP, DINOv2) consistently outperform others.
         </p>
-        
+
         <!-- Unified Legend for all Per-Dataset Charts -->
-        <div class="results-legend" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 24px; margin-bottom: 2.5rem; padding: 10px; background: rgba(255,255,255,0.4); border-radius: 12px; border: 1px solid rgba(226, 232, 240, 0.6);">
+        <div class="results-legend"
+          style="display: flex; flex-wrap: wrap; justify-content: center; gap: 24px; margin-bottom: 2.5rem; padding: 10px; background: rgba(255,255,255,0.4); border-radius: 12px; border: 1px solid rgba(226, 232, 240, 0.6);">
           <div style="display: flex; align-items: center; gap: 8px;">
             <span style="width: 10px; height: 10px; border-radius: 50%; background: #94a3b8;"></span>
             <span style="font-size: 0.85rem; font-weight: 500; color: #64748b;">EVA-CLIP</span>
@@ -1166,7 +910,8 @@
         <!-- Toggle Buttons -->
         <div class="evaluation-tabs-container">
           <div class="pill-tabs-container">
-            <button id="btn-cls" class="eval-tab is-active" onclick="switchView('cls')">Classification (Top-1 Acc%)</button>
+            <button id="btn-cls" class="eval-tab is-active" onclick="switchView('cls')">Classification (Top-1
+              Acc%)</button>
             <button id="btn-retri" class="eval-tab" onclick="switchView('retri')">Retrieval (mAP%)</button>
           </div>
         </div>

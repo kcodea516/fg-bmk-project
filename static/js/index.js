@@ -2,19 +2,19 @@ window.HELP_IMPROVE_VIDEOJS = false;
 
 // Evaluation Results Tab Switching
 function switchTab(event, tabId) {
-    // Hide all tab content
-    const contents = document.querySelectorAll('.tab-content');
-    contents.forEach(content => content.classList.remove('is-active'));
+  // Hide all tab content
+  const contents = document.querySelectorAll('.tab-content');
+  contents.forEach(content => content.classList.remove('is-active'));
 
-    // Deactivate all tabs
-    const tabs = document.querySelectorAll('.eval-tab');
-    tabs.forEach(tab => tab.classList.remove('is-active'));
+  // Deactivate all tabs
+  const tabs = document.querySelectorAll('.eval-tab');
+  tabs.forEach(tab => tab.classList.remove('is-active'));
 
-    // Show selected tab content
-    document.getElementById(tabId).classList.add('is-active');
+  // Show selected tab content
+  document.getElementById(tabId).classList.add('is-active');
 
-    // Activate selected tab (works for both div and button)
-    event.currentTarget.classList.add('is-active');
+  // Activate selected tab (works for both div and button)
+  event.currentTarget.classList.add('is-active');
 }
 
 // Global sort state per table
@@ -26,248 +26,248 @@ const sortStateMap = {};
  * @param {number} colIndex - Index of the column to sort
  */
 function sortTable(tableId, colIndex) {
-    const table = document.getElementById(tableId);
-    if (!table) return;
-    const tbody = table.querySelector('tbody');
-    const rows = Array.from(tbody.querySelectorAll('tr'));
-    
-    // Initialize or toggle sort state
-    if (!sortStateMap[tableId]) sortStateMap[tableId] = { colIndex: -1, ascending: true };
-    const state = sortStateMap[tableId];
-    
-    if (state.colIndex === colIndex) {
-        state.ascending = !state.ascending;
-    } else {
-        state.colIndex = colIndex;
-        // Default to descending for numbers (performance scores), ascending for text
-        state.ascending = (colIndex === 1 || colIndex === 2); // Model and Vision Encoder default ascending
+  const table = document.getElementById(tableId);
+  if (!table) return;
+  const tbody = table.querySelector('tbody');
+  const rows = Array.from(tbody.querySelectorAll('tr'));
+
+  // Initialize or toggle sort state
+  if (!sortStateMap[tableId]) sortStateMap[tableId] = { colIndex: -1, ascending: true };
+  const state = sortStateMap[tableId];
+
+  if (state.colIndex === colIndex) {
+    state.ascending = !state.ascending;
+  } else {
+    state.colIndex = colIndex;
+    // Default to descending for numbers (performance scores), ascending for text
+    state.ascending = (colIndex === 1 || colIndex === 2); // Model and Vision Encoder default ascending
+  }
+
+  // Update icons in header
+  const ths = table.querySelectorAll('thead th');
+  ths.forEach((th, i) => {
+    const icon = th.querySelector('.sort-icon');
+    if (icon) {
+      if (i === colIndex) {
+        icon.innerHTML = state.ascending ? '▲' : '▼';
+        icon.style.opacity = '1';
+        icon.style.color = '#2563eb';
+      } else {
+        icon.innerHTML = '⇅';
+        icon.style.opacity = '0.5';
+        icon.style.color = 'inherit';
+      }
+    }
+  });
+
+  // Sort rows
+  rows.sort((a, b) => {
+    // Special case for colIndex 0: Reset to original order
+    if (colIndex === 0) {
+      const indexA = parseInt(a.dataset.originalIndex || 0);
+      const indexB = parseInt(b.dataset.originalIndex || 0);
+      return indexA - indexB;
     }
 
-    // Update icons in header
-    const ths = table.querySelectorAll('thead th');
-    ths.forEach((th, i) => {
-        const icon = th.querySelector('.sort-icon');
-        if (icon) {
-            if (i === colIndex) {
-                icon.innerHTML = state.ascending ? '▲' : '▼';
-                icon.style.opacity = '1';
-                icon.style.color = '#2563eb';
-            } else {
-                icon.innerHTML = '⇅';
-                icon.style.opacity = '0.5';
-                icon.style.color = 'inherit';
-            }
-        }
-    });
+    const tdA = a.cells[colIndex];
+    const tdB = b.cells[colIndex];
+    if (!tdA || !tdB) return 0;
 
-    // Sort rows
-    rows.sort((a, b) => {
-        // Special case for colIndex 0: Reset to original order
-        if (colIndex === 0) {
-            const indexA = parseInt(a.dataset.originalIndex || 0);
-            const indexB = parseInt(b.dataset.originalIndex || 0);
-            return indexA - indexB;
-        }
+    let valA = tdA.textContent.trim();
+    let valB = tdB.textContent.trim();
 
-        const tdA = a.cells[colIndex];
-        const tdB = b.cells[colIndex];
-        if (!tdA || !tdB) return 0;
+    // Handle numerical values (including percentages)
+    const numA = parseFloat(valA.replace(/[^0-9.-]/g, ''));
+    const numB = parseFloat(valB.replace(/[^0-9.-]/g, ''));
 
-        let valA = tdA.textContent.trim();
-        let valB = tdB.textContent.trim();
+    if (!isNaN(numA) && !isNaN(numB) && !valA.match(/[a-zA-Z]{5,}/)) { // Simple heuristic to ignore model names with numbers
+      return state.ascending ? numA - numB : numB - numA;
+    }
 
-        // Handle numerical values (including percentages)
-        const numA = parseFloat(valA.replace(/[^0-9.-]/g, ''));
-        const numB = parseFloat(valB.replace(/[^0-9.-]/g, ''));
+    // String sort
+    valA = valA.toLowerCase();
+    valB = valB.toLowerCase();
+    if (valA < valB) return state.ascending ? -1 : 1;
+    if (valA > valB) return state.ascending ? 1 : -1;
+    return 0;
+  });
 
-        if (!isNaN(numA) && !isNaN(numB) && !valA.match(/[a-zA-Z]{5,}/)) { // Simple heuristic to ignore model names with numbers
-             return state.ascending ? numA - numB : numB - numA;
-        }
-
-        // String sort
-        valA = valA.toLowerCase();
-        valB = valB.toLowerCase();
-        if (valA < valB) return state.ascending ? -1 : 1;
-        if (valA > valB) return state.ascending ? 1 : -1;
-        return 0;
-    });
-
-    // Re-append rows and update rank numbers (#)
-    rows.forEach((row, index) => {
-        tbody.appendChild(row);
-        // Correct the rank column (#) to always be 1, 2, 3... based on current view
-        const rankTd = row.cells[0]; // Assumes first column is rank
-        if (rankTd && rankTd.classList.contains('rank-cell')) {
-            rankTd.textContent = index + 1;
-        }
-    });
+  // Re-append rows and update rank numbers (#)
+  rows.forEach((row, index) => {
+    tbody.appendChild(row);
+    // Correct the rank column (#) to always be 1, 2, 3... based on current view
+    const rankTd = row.cells[0]; // Assumes first column is rank
+    if (rankTd && rankTd.classList.contains('rank-cell')) {
+      rankTd.textContent = index + 1;
+    }
+  });
 }
 
 
 // More Works Dropdown Functionality
 function toggleMoreWorks() {
-    const dropdown = document.getElementById('moreWorksDropdown');
-    const button = document.querySelector('.more-works-btn');
+  const dropdown = document.getElementById('moreWorksDropdown');
+  const button = document.querySelector('.more-works-btn');
 
-    if (dropdown.classList.contains('show')) {
-        dropdown.classList.remove('show');
-        button.classList.remove('active');
-    } else {
-        dropdown.classList.add('show');
-        button.classList.add('active');
-    }
+  if (dropdown.classList.contains('show')) {
+    dropdown.classList.remove('show');
+    button.classList.remove('active');
+  } else {
+    dropdown.classList.add('show');
+    button.classList.add('active');
+  }
 }
 
 // Close dropdown when clicking outside
 document.addEventListener('click', function (event) {
-    const container = document.querySelector('.more-works-container');
-    const dropdown = document.getElementById('moreWorksDropdown');
-    const button = document.querySelector('.more-works-btn');
+  const container = document.querySelector('.more-works-container');
+  const dropdown = document.getElementById('moreWorksDropdown');
+  const button = document.querySelector('.more-works-btn');
 
-    if (container && !container.contains(event.target)) {
-        dropdown.classList.remove('show');
-        button.classList.remove('active');
-    }
+  if (container && !container.contains(event.target)) {
+    dropdown.classList.remove('show');
+    button.classList.remove('active');
+  }
 });
 
 // Close dropdown on escape key
 document.addEventListener('keydown', function (event) {
-    if (event.key === 'Escape') {
-        const dropdown = document.getElementById('moreWorksDropdown');
-        const button = document.querySelector('.more-works-btn');
-        dropdown.classList.remove('show');
-        button.classList.remove('active');
-    }
+  if (event.key === 'Escape') {
+    const dropdown = document.getElementById('moreWorksDropdown');
+    const button = document.querySelector('.more-works-btn');
+    dropdown.classList.remove('show');
+    button.classList.remove('active');
+  }
 });
 
 // Copy BibTeX to clipboard
 function copyBibTeX() {
-    const bibtexElement = document.getElementById('bibtex-code');
-    const button = document.querySelector('.copy-bibtex-btn');
-    const copyText = button.querySelector('.copy-text');
+  const bibtexElement = document.getElementById('bibtex-code');
+  const button = document.querySelector('.copy-bibtex-btn');
+  const copyText = button.querySelector('.copy-text');
 
-    if (bibtexElement) {
-        navigator.clipboard.writeText(bibtexElement.textContent).then(function () {
-            // Success feedback
-            button.classList.add('copied');
-            copyText.textContent = 'Cop';
+  if (bibtexElement) {
+    navigator.clipboard.writeText(bibtexElement.textContent).then(function () {
+      // Success feedback
+      button.classList.add('copied');
+      copyText.textContent = 'Cop';
 
-            setTimeout(function () {
-                button.classList.remove('copied');
-                copyText.textContent = 'Copy';
-            }, 2000);
-        }).catch(function (err) {
-            console.error('Failed to copy: ', err);
-            // Fallback for older browsers
-            const textArea = document.createElement('textarea');
-            textArea.value = bibtexElement.textContent;
-            document.body.appendChild(textArea);
-            textArea.select();
-            document.execCommand('copy');
-            document.body.removeChild(textArea);
+      setTimeout(function () {
+        button.classList.remove('copied');
+        copyText.textContent = 'Copy';
+      }, 2000);
+    }).catch(function (err) {
+      console.error('Failed to copy: ', err);
+      // Fallback for older browsers
+      const textArea = document.createElement('textarea');
+      textArea.value = bibtexElement.textContent;
+      document.body.appendChild(textArea);
+      textArea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textArea);
 
-            button.classList.add('copied');
-            copyText.textContent = 'Cop';
-            setTimeout(function () {
-                button.classList.remove('copied');
-                copyText.textContent = 'Copy';
-            }, 2000);
-        });
-    }
+      button.classList.add('copied');
+      copyText.textContent = 'Cop';
+      setTimeout(function () {
+        button.classList.remove('copied');
+        copyText.textContent = 'Copy';
+      }, 2000);
+    });
+  }
 }
 
 // Scroll to top functionality with improved performance
 // Scroll to top functionality with native smooth behavior
 // Optimized Scroll-to-Top with immediate feedback
 function scrollToTop() {
-    // Immediate visual feedback on the button
-    const scrollButton = document.querySelector('.scroll-to-top');
-    if (scrollButton) {
-        scrollButton.classList.add('active');
-        setTimeout(() => scrollButton.classList.remove('active'), 200);
-    }
+  // Immediate visual feedback on the button
+  const scrollButton = document.querySelector('.scroll-to-top');
+  if (scrollButton) {
+    scrollButton.classList.add('active');
+    setTimeout(() => scrollButton.classList.remove('active'), 200);
+  }
 
-    // Instantaneous return to top as requested
-    window.scrollTo({
-        top: 0,
-        behavior: 'auto'
-    });
+  // Instantaneous return to top as requested
+  window.scrollTo({
+    top: 0,
+    behavior: 'auto'
+  });
 }
 
 // Throttled scroll listener
 let isScrolling = false;
 window.addEventListener('scroll', function () {
-    if (!isScrolling) {
-        window.requestAnimationFrame(function () {
-            const scrollButton = document.querySelector('.scroll-to-top');
-            if (scrollButton) {
-                if (window.pageYOffset > 300) {
-                    scrollButton.classList.add('visible');
-                } else {
-                    scrollButton.classList.remove('visible');
-                }
-            }
-            isScrolling = false;
-        });
-        isScrolling = true;
-    }
+  if (!isScrolling) {
+    window.requestAnimationFrame(function () {
+      const scrollButton = document.querySelector('.scroll-to-top');
+      if (scrollButton) {
+        if (window.pageYOffset > 300) {
+          scrollButton.classList.add('visible');
+        } else {
+          scrollButton.classList.remove('visible');
+        }
+      }
+      isScrolling = false;
+    });
+    isScrolling = true;
+  }
 });
 
 // Video carousel autoplay when in view
 function setupVideoCarouselAutoplay() {
-    const carouselVideos = document.querySelectorAll('.results-carousel video');
+  const carouselVideos = document.querySelectorAll('.results-carousel video');
 
-    if (carouselVideos.length === 0) return;
+  if (carouselVideos.length === 0) return;
 
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            const video = entry.target;
-            if (entry.isIntersecting) {
-                // Video is in view, play it
-                video.play().catch(e => {
-                    // Autoplay failed, probably due to browser policy
-                    console.log('Autoplay prevented:', e);
-                });
-            } else {
-                // Video is out of view, pause it
-                video.pause();
-            }
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      const video = entry.target;
+      if (entry.isIntersecting) {
+        // Video is in view, play it
+        video.play().catch(e => {
+          // Autoplay failed, probably due to browser policy
+          console.log('Autoplay prevented:', e);
         });
-    }, {
-        threshold: 0.5 // Trigger when 50% of the video is visible
+      } else {
+        // Video is out of view, pause it
+        video.pause();
+      }
     });
+  }, {
+    threshold: 0.5 // Trigger when 50% of the video is visible
+  });
 
-    carouselVideos.forEach(video => {
-        observer.observe(video);
-    });
+  carouselVideos.forEach(video => {
+    observer.observe(video);
+  });
 }
 
 $(document).ready(function () {
-    // Check for click events on the navbar burger icon
+  // Check for click events on the navbar burger icon
 
-    var options = {
-        slidesToScroll: 1,
-        slidesToShow: 1,
-        loop: true,
-        infinite: true,
-        autoplay: true,
-        autoplaySpeed: 5000,
-    }
+  var options = {
+    slidesToScroll: 1,
+    slidesToShow: 1,
+    loop: true,
+    infinite: true,
+    autoplay: true,
+    autoplaySpeed: 5000,
+  }
 
-    // Initialize all div with carousel class
-    var carousels = bulmaCarousel.attach('.carousel', options);
+  // Initialize all div with carousel class
+  var carousels = bulmaCarousel.attach('.carousel', options);
 
-    bulmaSlider.attach();
+  bulmaSlider.attach();
 
-    // Setup video autoplay for carousel
-    setupVideoCarouselAutoplay();
+  // Setup video autoplay for carousel
+  setupVideoCarouselAutoplay();
 
-    // Initialize original order for evaluation tables
-    document.querySelectorAll('.evaluation-table tbody').forEach(tbody => {
-        Array.from(tbody.querySelectorAll('tr')).forEach((row, index) => {
-            row.dataset.originalIndex = index;
-        });
+  // Initialize original order for evaluation tables
+  document.querySelectorAll('.evaluation-table tbody').forEach(tbody => {
+    Array.from(tbody.querySelectorAll('tr')).forEach((row, index) => {
+      row.dataset.originalIndex = index;
     });
+  });
 })
 
 // --- Per-Dataset Results Chart Logic ---
@@ -513,7 +513,7 @@ function createChart(canvasId, data) {
   const canvas = document.getElementById(canvasId);
   if (!canvas) return null;
   const ctx = canvas.getContext('2d');
-  
+
   // Set global defaults for academic feel
   Chart.defaults.font.family = "'Inter', system-ui, -apple-system, sans-serif";
   Chart.defaults.color = '#64748b';
@@ -612,7 +612,7 @@ function switchView(view) {
       charts[id].update('none');
     }
   });
-  
+
   // Toggle Pill-tab styles using classes
   const btnCls = document.getElementById('btn-cls');
   const btnRetri = document.getElementById('btn-retri');
@@ -628,3 +628,79 @@ function switchView(view) {
 }
 
 document.addEventListener('DOMContentLoaded', initCharts);
+
+// Interactive QA Showcase Task Data
+const qaTasks = [
+  {
+    title: "The original VL problem: Attribute Recognition",
+    image: "static/images/task3_attribute.png",
+    content: `
+      <div class="qa-q">Q: What is the eye color of the bird in this image? Choose one answer from the following list: [blue, black, ..., red, rufous]</div>
+      <div class="qa-ans">GT: black</div>
+      <div class="qa-q" style="margin-top: 1.5rem;">Q: Is the eye color of the bird in this image black?</div>
+      <div class="qa-ans">GT: True</div>
+    `
+  },
+  {
+    title: "The original VL problem: Knowledge Bias Estimation",
+    image: "static/images/intro.png",
+    content: `
+      <div class="qa-q">Q_P: From your observation, is the species of the dog shown a Chihuahua?</div>
+      <div class="qa-ans">GT: Yes</div>
+      <div class="qa-q" style="margin-top: 1.5rem;">Q_N: Does this dog belong to the species known as japanese spaniel?</div>
+      <div class="qa-ans">GT: No</div>
+    `
+  },
+  {
+    title: "The original VL problem: Hierarchical Granularity Recognition",
+    image: "static/images/task1_hierarchical.png",
+    content: `
+      <div class="qa-q">Class: Is the class of the object aves?</div>
+      <div class="qa-ans">GT: True</div>
+      <div class="qa-q" style="margin-top: 1.5rem;">Genus: What is the genus of the object? [auklet, cormorant, bunting, towhee]</div>
+      <div class="qa-ans">GT: towhee</div>
+      <div class="qa-q" style="margin-top: 1.5rem;">Species: What is the species of the object?</div>
+    `
+  },
+  {
+    title: "Constructed Granularity Aligned Sample",
+    image: "static/images/app_dis_math_granularity.png",
+    content: `
+      <div class="qa-q">Q: What is the object species?</div>
+      <div class="qa-ans">Answer: The object species is great crested flycatcher.</div>
+    `
+  }
+];
+
+function switchQATab(index, btn) {
+    const task = qaTasks[index];
+    if (!task) return;
+
+    // Update Image with fade out/in
+    const imgEl = document.getElementById('qa-display-img');
+    if (imgEl) {
+        imgEl.style.opacity = '0.3';
+        setTimeout(() => {
+            imgEl.src = task.image;
+            imgEl.style.opacity = '1';
+        }, 150);
+    }
+
+    // Update Title & Content with fade out/in
+    const titleEl = document.getElementById('qa-display-title');
+    const contentEl = document.getElementById('qa-display-content');
+    
+    if (titleEl) titleEl.innerText = task.title;
+    if (contentEl) {
+        contentEl.style.opacity = '0';
+        setTimeout(() => {
+            contentEl.innerHTML = task.content;
+            contentEl.style.opacity = '1';
+        }, 150);
+    }
+
+    // Update Button State
+    const btns = document.querySelectorAll('.qa-tab-btn');
+    btns.forEach(b => b.classList.remove('is-active'));
+    if (btn) btn.classList.add('is-active');
+}
