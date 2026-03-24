@@ -1,223 +1,105 @@
 window.HELP_IMPROVE_VIDEOJS = false;
 
-// Leaderboard column-group expand/collapse (MMMU-style)
-function toggleLbGroup(group) {
-    const table = document.querySelector('#leaderboard table');
-    const arrow = document.getElementById('lb-' + group + '-arrow');
-    const headerRow = table.querySelector('thead tr:first-child');
-    const subRow = table.querySelector('thead tr:nth-child(2)');
-    const groupHeader = headerRow.querySelector('[onclick*="' + group + '"]');
+// Evaluation Results Tab Switching
+function switchTab(event, tabId) {
+    // Hide all tab content
+    const contents = document.querySelectorAll('.tab-content');
+    contents.forEach(content => content.classList.remove('is-active'));
 
-    // Tasks for each group (from the paper to avoid horizontal protrusion)
-    const humanCols = ['HGR', 'KBE', 'AR'];
-    const machineCols = ['CLS', 'RET'];
-    const cols = group === 'human' ? humanCols : machineCols;
+    // Deactivate all tabs
+    const tabs = document.querySelectorAll('.eval-tab');
+    tabs.forEach(tab => tab.classList.remove('is-active'));
 
-    const isExpanded = groupHeader.getAttribute('data-expanded') === 'true';
+    // Show selected tab content
+    document.getElementById(tabId).classList.add('is-active');
 
-    if (isExpanded) {
-        // Collapse: remove extra columns
-        groupHeader.setAttribute('data-expanded', 'false');
-        groupHeader.style.background = 'linear-gradient(to bottom, #f8fafc, #ffffff)';
-        arrow.style.transform = 'rotate(-90deg)';
-        groupHeader.setAttribute('colspan', '1');
-
-        // Remove the Expanded sub-headers that belong to this group
-        const allSubThs = Array.from(subRow.querySelectorAll('th'));
-        for (let i = 0; i < allSubThs.length; i++) {
-            if (allSubThs[i].getAttribute('data-group') === group && allSubThs[i].getAttribute('data-col') !== 'overall') {
-                allSubThs[i].remove();
-            }
-        }
-
-        // Remove dataset cells from each body row
-        const rows = table.querySelectorAll('tbody tr');
-        rows.forEach(row => {
-            const tds = row.querySelectorAll('td');
-            for (let i = 0; i < tds.length; i++) {
-                if (tds[i].getAttribute('data-group') === group && tds[i].getAttribute('data-col') !== 'overall') {
-                    tds[i].remove();
-                }
-            }
-        });
-    } else {
-        // Expand: add dataset columns
-        groupHeader.setAttribute('data-expanded', 'true');
-        groupHeader.style.background = '#ffffff';
-        arrow.style.transform = 'rotate(0deg)';
-        groupHeader.setAttribute('colspan', String(cols.length + 1));
-
-        // Find the Overall sub-header for this group
-        const allSubThs = subRow.querySelectorAll('th');
-        let overallTh = null;
-        let gIndex = group === 'human' ? 3 : 4; // Name, Size, Date are 0, 1, 2
-        
-        // Ensure "Overall" th has data-group mark
-        if (!allSubThs[gIndex].getAttribute('data-group')) {
-            allSubThs[3].setAttribute('data-group', 'human');
-            allSubThs[3].setAttribute('data-col', 'overall');
-            allSubThs[4].setAttribute('data-group', 'machine');
-            allSubThs[4].setAttribute('data-col', 'overall');
-        }
-        
-        for (let i = 0; i < allSubThs.length; i++) {
-            if (allSubThs[i].getAttribute('data-group') === group && allSubThs[i].getAttribute('data-col') === 'overall') {
-                overallTh = allSubThs[i];
-                break;
-            }
-        }
-
-        // Insert task sub-headers after Overall
-        for (let i = cols.length - 1; i >= 0; i--) {
-            const th = document.createElement('th');
-            th.textContent = cols[i];
-            th.setAttribute('data-group', group);
-            th.setAttribute('data-col', cols[i]);
-            th.setAttribute('title', 'Click to sort');
-            th.style.cssText = 'border-bottom: 1px solid #e5e7eb; padding: 10px 16px; text-align: center; font-weight: 700; font-size: 0.75rem; text-transform: uppercase; color: #6b7280; cursor: pointer; user-select: none;';
-            overallTh.after(th);
-        }
-
-        // Insert task cells in each body row
-        const rows = table.querySelectorAll('tbody tr');
-        rows.forEach(row => {
-            const tds = row.querySelectorAll('td');
-            
-            // First time marking
-            if (!tds[3].getAttribute('data-group')) {
-                tds[3].setAttribute('data-group', 'human');
-                tds[3].setAttribute('data-col', 'overall');
-                tds[4].setAttribute('data-group', 'machine');
-                tds[4].setAttribute('data-col', 'overall');
-            }
-
-            let overallTd = null;
-            for (let i = 0; i < tds.length; i++) {
-                if (tds[i].getAttribute('data-group') === group && tds[i].getAttribute('data-col') === 'overall') {
-                    overallTd = tds[i];
-                    break;
-                }
-            }
-
-            for (let i = cols.length - 1; i >= 0; i--) {
-                const td = document.createElement('td');
-                td.textContent = '\u2014';
-                td.setAttribute('data-group', group);
-                td.setAttribute('data-col', cols[i]);
-                td.style.cssText = 'text-align: center; padding: 12px 10px; border-bottom: 1px solid #f3f4f6; color: #6b7280;';
-                overallTd.after(td);
-            }
-        });
-    }
+    // Activate selected tab (works for both div and button)
+    event.currentTarget.classList.add('is-active');
 }
 
-function resetLeaderboard() {
-    const table = document.querySelector('#leaderboard table');
-    const headerRow = table.querySelector('thead tr:first-child');
-    
-    // Collapse Human
-    const humanHeader = headerRow.querySelector('[onclick*="human"]');
-    if (humanHeader.getAttribute('data-expanded') === 'true') {
-        toggleLbGroup('human');
-    }
-    
-    // Collapse Machine
-    const machineHeader = headerRow.querySelector('[onclick*="machine"]');
-    if (machineHeader.getAttribute('data-expanded') === 'true') {
-        toggleLbGroup('machine');
-    }
-}
+// Global sort state per table
+const sortStateMap = {};
 
-// Sorting logic
-let sortState = { colIndex: -1, ascending: true };
-
-document.addEventListener('DOMContentLoaded', () => {
-    const table = document.querySelector('#leaderboard table');
-    if (table) {
-        const thead = table.querySelector('thead');
-        thead.addEventListener('click', (e) => {
-            const th = e.target.closest('th');
-            if (!th) return;
-            const tr = th.closest('tr');
-            // Check if it's the second row
-            if (tr.rowIndex === 1) { // 0-indexed in DOM table rows
-                if (th.textContent.includes('Size')) return; // size这一个不要排序
-                const allThs = Array.from(tr.querySelectorAll('th'));
-                const colIndex = allThs.indexOf(th);
-                sortTable(table, colIndex, th);
-            }
-        });
-    }
-});
-
-function sortTable(table, colIndex, th) {
+/**
+ * Robust Sorting function for AIBench-style tables
+ * @param {string} tableId - ID of the table to sort
+ * @param {number} colIndex - Index of the column to sort
+ */
+function sortTable(tableId, colIndex) {
+    const table = document.getElementById(tableId);
+    if (!table) return;
     const tbody = table.querySelector('tbody');
     const rows = Array.from(tbody.querySelectorAll('tr'));
     
-    // Toggle sort direction
-    if (sortState.colIndex === colIndex) {
-        sortState.ascending = !sortState.ascending;
+    // Initialize or toggle sort state
+    if (!sortStateMap[tableId]) sortStateMap[tableId] = { colIndex: -1, ascending: true };
+    const state = sortStateMap[tableId];
+    
+    if (state.colIndex === colIndex) {
+        state.ascending = !state.ascending;
     } else {
-        sortState.colIndex = colIndex;
-        sortState.ascending = false; // Default descending for scores/dates
-        if (colIndex === 0) sortState.ascending = true; // Name default ascending
+        state.colIndex = colIndex;
+        // Default to descending for numbers (performance scores), ascending for text
+        state.ascending = (colIndex === 1 || colIndex === 2); // Model and Vision Encoder default ascending
     }
 
-    // Update icons
-    const allThs = th.closest('tr').querySelectorAll('th');
-    allThs.forEach(t => {
-        const span = t.querySelector('.sort-icon');
-        if (span) span.remove();
+    // Update icons in header
+    const ths = table.querySelectorAll('thead th');
+    ths.forEach((th, i) => {
+        const icon = th.querySelector('.sort-icon');
+        if (icon) {
+            if (i === colIndex) {
+                icon.innerHTML = state.ascending ? '▲' : '▼';
+                icon.style.opacity = '1';
+                icon.style.color = '#2563eb';
+            } else {
+                icon.innerHTML = '⇅';
+                icon.style.opacity = '0.5';
+                icon.style.color = 'inherit';
+            }
+        }
     });
-    
-    const icon = document.createElement('span');
-    icon.className = 'sort-icon';
-    icon.style.cssText = 'font-size: 0.7rem; margin-left: 4px;';
-    icon.innerHTML = sortState.ascending ? '&uarr;' : '&darr;';
-    th.appendChild(icon);
 
+    // Sort rows
     rows.sort((a, b) => {
-        const tdA = a.querySelectorAll('td')[colIndex];
-        const tdB = b.querySelectorAll('td')[colIndex];
+        // Special case for colIndex 0: Reset to original order
+        if (colIndex === 0) {
+            const indexA = parseInt(a.dataset.originalIndex || 0);
+            const indexB = parseInt(b.dataset.originalIndex || 0);
+            return indexA - indexB;
+        }
+
+        const tdA = a.cells[colIndex];
+        const tdB = b.cells[colIndex];
         if (!tdA || !tdB) return 0;
-        
+
         let valA = tdA.textContent.trim();
         let valB = tdB.textContent.trim();
 
-        // Handle empty or missing values
-        const isEmptyA = (valA === '-' || valA === '—' || valA === '&mdash;' || valA === '');
-        const isEmptyB = (valB === '-' || valB === '—' || valB === '&mdash;' || valB === '');
-        
-        if (isEmptyA && isEmptyB) return 0;
-        if (isEmptyA) return 1; // Always push empty to bottom
-        if (isEmptyB) return -1;
-
-        // Try numeric sort
+        // Handle numerical values (including percentages)
         const numA = parseFloat(valA.replace(/[^0-9.-]/g, ''));
         const numB = parseFloat(valB.replace(/[^0-9.-]/g, ''));
 
-        if (valA.match(/^\d{4}-\d{2}-\d{2}$/)) {
-            const dateA = new Date(valA).getTime();
-            const dateB = new Date(valB).getTime();
-            return sortState.ascending ? dateA - dateB : dateB - dateA;
-        }
-
-        if (!isNaN(numA) && !isNaN(numB) && !valA.match(/[a-zA-Z]/) && !valB.match(/[a-zA-Z]/)) {
-            return sortState.ascending ? numA - numB : numB - numA;
+        if (!isNaN(numA) && !isNaN(numB) && !valA.match(/[a-zA-Z]{5,}/)) { // Simple heuristic to ignore model names with numbers
+             return state.ascending ? numA - numB : numB - numA;
         }
 
         // String sort
         valA = valA.toLowerCase();
         valB = valB.toLowerCase();
-        if (valA < valB) return sortState.ascending ? -1 : 1;
-        if (valA > valB) return sortState.ascending ? 1 : -1;
+        if (valA < valB) return state.ascending ? -1 : 1;
+        if (valA > valB) return state.ascending ? 1 : -1;
         return 0;
     });
 
-    // Re-append rows
+    // Re-append rows and update rank numbers (#)
     rows.forEach((row, index) => {
-        row.style.background = (index % 2 === 1) ? '#f9fafb' : '#ffffff';
         tbody.appendChild(row);
+        // Correct the rank column (#) to always be 1, 2, 3... based on current view
+        const rankTd = row.cells[0]; // Assumes first column is rank
+        if (rankTd && rankTd.classList.contains('rank-cell')) {
+            rankTd.textContent = index + 1;
+        }
     });
 }
 
@@ -296,20 +178,20 @@ function copyBibTeX() {
 
 // Scroll to top functionality with improved performance
 // Scroll to top functionality with native smooth behavior
+// Optimized Scroll-to-Top with immediate feedback
 function scrollToTop() {
-    window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-    });
-
-    // Subtle visual feedback on the button
+    // Immediate visual feedback on the button
     const scrollButton = document.querySelector('.scroll-to-top');
     if (scrollButton) {
-        scrollButton.style.transform = 'scale(0.9) translateY(2px)';
-        setTimeout(() => {
-            scrollButton.style.transform = 'translateY(0)';
-        }, 200);
+        scrollButton.classList.add('active');
+        setTimeout(() => scrollButton.classList.remove('active'), 200);
     }
+
+    // Instantaneous return to top as requested
+    window.scrollTo({
+        top: 0,
+        behavior: 'auto'
+    });
 }
 
 // Throttled scroll listener
@@ -380,19 +262,24 @@ $(document).ready(function () {
     // Setup video autoplay for carousel
     setupVideoCarouselAutoplay();
 
+    // Initialize original order for evaluation tables
+    document.querySelectorAll('.evaluation-table tbody').forEach(tbody => {
+        Array.from(tbody.querySelectorAll('tr')).forEach((row, index) => {
+            row.dataset.originalIndex = index;
+        });
+    });
 })
 
-// --- Per-Dataset Results Chart Logic (Moved from index.html) ---
-// TODO: Replace ALL zeros below with EXACT values from the paper.
-// Order: [EVA-CLIP, CoCa, DINOv2, BEiT3, LLaVA, InternVL, Qwen]
+// --- Per-Dataset Results Chart Logic ---
+// Morandi / Muted Academic Palette
 const modelColors = [
-  '#4f46e5', // Indigo (Strongest)
-  '#3b82f6', // Blue
-  '#10b981', // Emerald
-  '#f59e0b', // Amber
-  '#ec4899', // Pink
-  '#f97316', // Orange
-  '#8b5cf6'  // Violet
+  '#94a3b8', // EVA-CLIP (Slate)
+  '#0d9488', // CoCa (Teal)
+  '#4f46e5', // DINOv2 (Indigo - Emphasis)
+  '#f59e0b', // BEiT3 (Amber)
+  '#f43f5e', // LLaVA (Rose)
+  '#8b5cf6', // InternVL (Violet)
+  '#10b981'  // Qwen (Emerald)
 ];
 const modelNames = ['EVA-CLIP', 'CoCa', 'DINOv2', 'BEiT3', 'LLaVA', 'InternVL', 'Qwen'];
 
@@ -627,8 +514,8 @@ function createChart(canvasId, data) {
   if (!canvas) return null;
   const ctx = canvas.getContext('2d');
   
-  // Set default font for Chart.js
-  Chart.defaults.font.family = "'Inter', 'BlinkMacSystemFont', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif";
+  // Set global defaults for academic feel
+  Chart.defaults.font.family = "'Inter', system-ui, -apple-system, sans-serif";
   Chart.defaults.color = '#64748b';
 
   return new Chart(ctx, {
@@ -636,49 +523,72 @@ function createChart(canvasId, data) {
     data: {
       labels: modelNames,
       datasets: [{
+        label: 'Performance (%)',
         data: data,
-        backgroundColor: modelColors.map(c => c + 'cc'), // Slightly more opaque
-        borderColor: modelColors,
-        borderWidth: 0,
-        borderRadius: 4,
-        barPercentage: 0.7,
+        backgroundColor: modelColors.map(c => c + 'dd'), // Muted transparency
+        hoverBackgroundColor: modelColors, // Solid on hover
+        borderRadius: { topLeft: 6, topRight: 6, bottomLeft: 0, bottomRight: 0 },
+        borderSkipped: false,
+        barPercentage: 0.65,
         categoryPercentage: 0.8
       }]
     },
     options: {
       responsive: true,
       maintainAspectRatio: true,
+      onHover: (event, chartElement) => {
+        event.native.target.style.cursor = chartElement[0] ? 'pointer' : 'default';
+      },
       plugins: {
-        legend: { display: false },
+        legend: {
+          display: false // Hidden redundant individual legends
+        },
         tooltip: {
-          backgroundColor: 'rgba(255, 255, 255, 0.9)',
+          enabled: true,
+          backgroundColor: '#ffffff',
           titleColor: '#1e293b',
-          bodyColor: '#475569',
+          bodyColor: '#4f46e5', // Brand color for value
+          bodyFont: { size: 13, weight: 'bold' },
           borderColor: '#e2e8f0',
           borderWidth: 1,
-          padding: 10,
+          padding: 12,
+          cornerRadius: 8,
           displayColors: true,
-          callbacks: { label: ctx => ' ' + ctx.parsed.y + '%' }
+          usePointStyle: true,
+          boxPadding: 6,
+          callbacks: {
+            label: (context) => ` ${context.dataset.label}: ${context.parsed.y}%`
+          }
         }
       },
       scales: {
-        y: { 
-          beginAtZero: true, 
-          max: 100, 
-          ticks: { 
-            font: { size: 10, weight: '500' }, 
-            stepSize: 25,
+        y: {
+          beginAtZero: true,
+          max: 100,
+          border: { display: false },
+          grid: {
+            color: '#e2e8f0',
+            tickLength: 0,
+            drawTicks: false,
+            borderDash: [4, 4] // Dashed lines
+          },
+          ticks: {
+            font: { size: 11 },
+            color: '#94a3b8',
+            stepSize: 20,
             callback: value => value + '%'
-          }, 
-          grid: { color: '#f1f5f9', drawBorder: false } 
+          }
         },
-        x: { 
-          display: false,
-          grid: { display: false }
+        x: {
+          border: { display: false },
+          grid: { display: false },
+          ticks: {
+            display: false // Hide x-axis labels as they are redundant with legend
+          }
         }
       },
       animation: {
-        duration: 1000,
+        duration: 800,
         easing: 'easeOutQuart'
       }
     }
@@ -702,15 +612,18 @@ function switchView(view) {
       charts[id].update('none');
     }
   });
+  
+  // Toggle Pill-tab styles using classes
   const btnCls = document.getElementById('btn-cls');
   const btnRetri = document.getElementById('btn-retri');
-  if (btnCls) {
-    btnCls.style.background = view === 'cls' ? '#4f46e5' : 'white';
-    btnCls.style.color = view === 'cls' ? 'white' : '#4f46e5';
-  }
-  if (btnRetri) {
-    btnRetri.style.background = view === 'retri' ? '#4f46e5' : 'white';
-    btnRetri.style.color = view === 'retri' ? 'white' : '#4f46e5';
+  if (btnCls && btnRetri) {
+    if (view === 'cls') {
+      btnCls.classList.add('is-active');
+      btnRetri.classList.remove('is-active');
+    } else {
+      btnCls.classList.remove('is-active');
+      btnRetri.classList.add('is-active');
+    }
   }
 }
 

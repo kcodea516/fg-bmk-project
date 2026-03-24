@@ -108,7 +108,7 @@
   <script defer src="static/js/bulma-carousel.min.js"></script>
   <script defer src="static/js/bulma-slider.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
-  <script defer src="static/js/index.js"></script>
+  <script defer src="static/js/index.js?v=2"></script>
 
   <!-- Structured Data for Academic Papers -->
   <script type="application/ld+json">
@@ -263,7 +263,7 @@
                       <span class="icon">
                         <i class="fas fa-trophy"></i>
                       </span>
-                      <span>Leaderboard</span>
+                      <span>Evaluation Results</span>
                     </a>
                   </span>
                 </div>
@@ -299,7 +299,8 @@
                 <h3 class="title is-5" style="margin-bottom: 10px;">Two Complementary Evaluation Perspectives</h3>
                 <p style="font-size: 0.85rem; color: #64748b; line-height: 1.5;">Systematic assessment through a
                   <b>human-oriented</b> paradigm (conversational interaction) and a <b>machine-oriented</b> paradigm
-                  (image retrieval and classification).</p>
+                  (image retrieval and classification).
+                </p>
               </div>
             </div>
             <!-- Granularity Card -->
@@ -508,7 +509,7 @@
       }
     </style>
 
-    <section class="section is-light" id="dataset-composition" style="padding-top: 40px; padding-bottom: 40px;">
+    <section class="section" id="dataset-composition" style="padding-top: 40px; padding-bottom: 40px;">
       <div class="container is-max-widescreen">
         <h2 class="title is-3 has-text-centered" style="margin-bottom: 0.5rem;">Dataset Composition</h2>
         <p class="has-text-centered" style="color: var(--text-secondary); margin-bottom: 3rem; font-size: 1rem;">
@@ -691,7 +692,7 @@
     </section>
 
     <!-- Qualitative Analysis / Motivation -->
-    <section class="section" id="motivation" style="padding: 4rem 1.5rem; background: #faf9f6;">
+    <section class="section" id="motivation" style="padding: 4rem 1.5rem;">
       <div class="container is-max-desktop">
         <h2 class="title is-3 has-text-centered">Why FG-BMK?</h2>
         <p class="has-text-centered"
@@ -913,200 +914,210 @@
     </section>
     <!-- End Section 1 -->
 
-    <!-- Leaderboard -->
+    <!-- Core Evaluation Results -->
     <section class="section" id="leaderboard" style="padding: 3rem 1.5rem;">
       <div class="container is-max-widescreen">
-        <h2 class="title is-3 has-text-centered">Leaderboard</h2>
-        <p class="has-text-centered" style="color: var(--text-secondary); margin-bottom: 2rem; font-size: 0.95rem;">
-          Click on Human-oriented or Machine-oriented to expand detailed results.
+        <h2 class="title is-3 has-text-centered" style="margin-bottom: 0.5rem;">Core Evaluation Results</h2>
+        <p class="has-text-centered"
+          style="color: #64748b; margin-bottom: 2.5rem; font-size: 1.1rem; max-width: 800px; margin-left: auto; margin-right: auto;">
+          Comprehensive benchmark results across zero-shot and fine-tuned paradigms.
+          Click headers to sort performance metrics.
         </p>
-        <div class="lb-wrapper"
-          style="position: relative; border-radius: 16px; box-shadow: 0 8px 30px rgba(0, 0, 0, 0.04); overflow: hidden; background: #ffffff;">
-          <div
-            style="position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, #4285F4, #4CAF50); z-index: 10;">
-          </div>
-          <div class="lb-container" style="overflow-x: auto; padding-top: 4px;">
-            <table class="table is-hoverable is-fullwidth"
-              style="margin-bottom: 0; font-size: 0.9rem; border-collapse: collapse;">
-              <thead>
-                <!-- Row 1: Group headers -->
-                <tr style="background: #ffffff; border-bottom: 1px solid #e5e7eb;">
-                  <th colspan="3" class="lb-reset-header" onclick="resetLeaderboard()"
-                    style="border-bottom: 1px solid #e5e7eb; padding: 14px; text-align: center; cursor: pointer; color: #6b7280; font-weight: 700; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; user-select: none; transition: all 0.2s;"
-                    onmouseover="this.style.background='#f9fafb';" onmouseout="this.style.background='transparent';"
-                    title="Click to reset">
-                    <i class="fas fa-undo-alt" style="margin-right: 6px; font-size: 0.8rem; opacity: 0.7;"></i> Reset
-                  </th>
-                  <th colspan="1" class="lb-group-header" onclick="toggleLbGroup('human')"
-                    style="border-bottom: 1px solid #e5e7eb; padding: 14px 16px; text-align: center; cursor: pointer; color: #6b7280; font-weight: 700; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; user-select: none; transition: all 0.3s; background: #ffffff;"
-                    onmouseover="this.style.background='#f9fafb';" onmouseout="this.style.background='#ffffff';"
-                    title="Click to expand">
-                    Human-oriented <i id="lb-human-arrow" class="fas fa-caret-down"
-                      style="margin-left: 6px; color: #9ca3af; transition: transform 0.3s; transform: rotate(-90deg);"></i>
-                  </th>
-                  <th colspan="1" class="lb-group-header" onclick="toggleLbGroup('machine')"
-                    style="border-bottom: 1px solid #e5e7eb; padding: 14px 16px; text-align: center; cursor: pointer; color: #6b7280; font-weight: 700; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; user-select: none; transition: all 0.3s; background: #ffffff;"
-                    onmouseover="this.style.background='#f9fafb';" onmouseout="this.style.background='#ffffff';"
-                    title="Click to expand">
-                    Machine-oriented <i id="lb-machine-arrow" class="fas fa-caret-down"
-                      style="margin-left: 6px; color: #9ca3af; transition: transform 0.3s; transform: rotate(-90deg);"></i>
-                  </th>
-                </tr>
-                <!-- Row 2: Sub-headers -->
-                <tr style="background: #ffffff; border-bottom: 2px solid #e5e7eb;">
-                  <th
-                    style="padding: 10px 16px; text-align: left; font-weight: 700; font-size: 0.75rem; text-transform: uppercase; color: #6b7280; min-width: 150px; cursor: pointer; user-select: none;"
-                    title="Click to sort">Model Name <span class="sort-icon"
-                      style="font-size: 0.7rem; margin-left: 4px;">&uarr;</span></th>
-                  <th
-                    style="padding: 10px 16px; text-align: center; font-weight: 700; font-size: 0.75rem; text-transform: uppercase; color: #6b7280; user-select: none;">
-                    Params</th>
-                  <th
-                    style="padding: 10px 16px; text-align: center; font-weight: 700; font-size: 0.75rem; text-transform: uppercase; color: #6b7280; cursor: pointer; user-select: none;"
-                    title="Click to sort">Release Date</th>
-                  <th
-                    style="padding: 10px 16px; text-align: center; font-weight: 700; font-size: 0.75rem; text-transform: uppercase; color: #6b7280; cursor: pointer; user-select: none;"
-                    title="Click to sort">Semantic Acc</th>
-                  <th
-                    style="padding: 10px 16px; text-align: center; font-weight: 700; font-size: 0.75rem; text-transform: uppercase; color: #6b7280; cursor: pointer; user-select: none;"
-                    title="Click to sort">mAP / Top-1</th>
-                </tr>
-              </thead>
-              <tbody>
-                <!-- Row 1 -->
-                <tr style="background: #ffffff; transition: background 0.2s;"
-                  onmouseover="this.style.background='#f9fafb'" onmouseout="this.style.background='#ffffff'">
-                  <td style="padding: 12px 16px; border-bottom: 1px solid #f3f4f6; font-weight: 600; color: #111827;">
-                    GPT-4o
-                  </td>
-                  <td style="text-align:center; padding: 12px 10px; border-bottom: 1px solid #f3f4f6; color: #6b7280;">-
-                  </td>
-                  <td style="text-align:center; padding: 12px 10px; border-bottom: 1px solid #f3f4f6; color: #4b5563;">
-                    2024-05-13</td>
-                  <td
-                    style="text-align:center; padding: 12px 10px; border-bottom: 1px solid #f3f4f6; font-weight: 700; color: #e05626;">
-                    85.4</td>
-                  <td
-                    style="text-align:center; padding: 12px 10px; border-bottom: 1px solid #f3f4f6; font-weight: 700; color: #e05626;">
-                    88.6</td>
-                </tr>
-                <!-- Row 2 -->
-                <tr style="background: #ffffff; transition: background 0.2s;"
-                  onmouseover="this.style.background='#f9fafb'" onmouseout="this.style.background='#ffffff'">
-                  <td style="padding: 12px 16px; border-bottom: 1px solid #f3f4f6; font-weight: 600; color: #111827;">
-                    Gemini-2.0-Flash
-                  </td>
-                  <td style="text-align:center; padding: 12px 10px; border-bottom: 1px solid #f3f4f6; color: #6b7280;">-
-                  </td>
-                  <td style="text-align:center; padding: 12px 10px; border-bottom: 1px solid #f3f4f6; color: #4b5563;">
-                    2024-12-11</td>
-                  <td style="text-align:center; padding: 12px 10px; border-bottom: 1px solid #f3f4f6; color: #6b7280;">
-                    &mdash;</td>
-                  <td
-                    style="text-align:center; padding: 12px 10px; border-bottom: 1px solid #f3f4f6; font-weight: 700; color: #e05626;">
-                    84.0*</td>
-                </tr>
-                <!-- Row 3 -->
-                <tr style="background: #ffffff; transition: background 0.2s;"
-                  onmouseover="this.style.background='#f9fafb'" onmouseout="this.style.background='#ffffff'">
-                  <td style="padding: 12px 16px; border-bottom: 1px solid #f3f4f6; font-weight: 600; color: #111827;">
-                    InternVL-2
-                  </td>
-                  <td style="text-align:center; padding: 12px 10px; border-bottom: 1px solid #f3f4f6; color: #6b7280;">-
-                  </td>
-                  <td style="text-align:center; padding: 12px 10px; border-bottom: 1px solid #f3f4f6; color: #4b5563;">
-                    2024-07-02</td>
-                  <td style="text-align:center; padding: 12px 10px; border-bottom: 1px solid #f3f4f6; color: #6b7280;">
-                    &mdash;</td>
-                  <td
-                    style="text-align:center; padding: 12px 10px; border-bottom: 1px solid #f3f4f6; font-weight: 600; color: #374151;">
-                    79.7*</td>
-                </tr>
-                <!-- Row 4 -->
-                <tr style="background: #ffffff; transition: background 0.2s;"
-                  onmouseover="this.style.background='#f9fafb'" onmouseout="this.style.background='#ffffff'">
-                  <td style="padding: 12px 16px; border-bottom: 1px solid #f3f4f6; font-weight: 600; color: #111827;">
-                    Qwen-VL
-                  </td>
-                  <td style="text-align:center; padding: 12px 10px; border-bottom: 1px solid #f3f4f6; color: #6b7280;">-
-                  </td>
-                  <td style="text-align:center; padding: 12px 10px; border-bottom: 1px solid #f3f4f6; color: #4b5563;">
-                    2023-08-25</td>
-                  <td style="text-align:center; padding: 12px 10px; border-bottom: 1px solid #f3f4f6; color: #6b7280;">
-                    &mdash;</td>
-                  <td
-                    style="text-align:center; padding: 12px 10px; border-bottom: 1px solid #f3f4f6; font-weight: 600; color: #374151;">
-                    78.7*</td>
-                </tr>
-                <!-- Row 5 -->
-                <tr style="background: #ffffff; transition: background 0.2s;"
-                  onmouseover="this.style.background='#f9fafb'" onmouseout="this.style.background='#ffffff'">
-                  <td style="padding: 12px 16px; border-bottom: 1px solid #f3f4f6; font-weight: 600; color: #111827;">
-                    LLaVA-1.5
-                  </td>
-                  <td style="text-align:center; padding: 12px 10px; border-bottom: 1px solid #f3f4f6; color: #6b7280;">
-                    13B</td>
-                  <td style="text-align:center; padding: 12px 10px; border-bottom: 1px solid #f3f4f6; color: #4b5563;">
-                    2023-10-05</td>
-                  <td style="text-align:center; padding: 12px 10px; border-bottom: 1px solid #f3f4f6; color: #6b7280;">
-                    &mdash;</td>
-                  <td style="text-align:center; padding: 12px 10px; border-bottom: 1px solid #f3f4f6; color: #6b7280;">
-                    &mdash;</td>
-                </tr>
-                <!-- Row 6 -->
-                <tr style="background: #ffffff; transition: background 0.2s;"
-                  onmouseover="this.style.background='#f9fafb'" onmouseout="this.style.background='#ffffff'">
-                  <td style="padding: 12px 16px; border-bottom: 1px solid #f3f4f6; font-weight: 600; color: #111827;">
-                    EVA-CLIP
-                  </td>
-                  <td style="text-align:center; padding: 12px 10px; border-bottom: 1px solid #f3f4f6; color: #6b7280;">-
-                  </td>
-                  <td style="text-align:center; padding: 12px 10px; border-bottom: 1px solid #f3f4f6; color: #4b5563;">
-                    2023-03-24</td>
-                  <td style="text-align:center; padding: 12px 10px; border-bottom: 1px solid #f3f4f6; color: #6b7280;">
-                    &mdash;</td>
-                  <td style="text-align:center; padding: 12px 10px; border-bottom: 1px solid #f3f4f6; color: #6b7280;">
-                    &mdash;</td>
-                </tr>
-                <!-- Row 7 -->
-                <tr style="background: #ffffff; transition: background 0.2s;"
-                  onmouseover="this.style.background='#f9fafb'" onmouseout="this.style.background='#ffffff'">
-                  <td style="padding: 12px 16px; border-bottom: 1px solid #f3f4f6; font-weight: 600; color: #111827;">
-                    DINOv2
-                  </td>
-                  <td style="text-align:center; padding: 12px 10px; border-bottom: 1px solid #f3f4f6; color: #6b7280;">-
-                  </td>
-                  <td style="text-align:center; padding: 12px 10px; border-bottom: 1px solid #f3f4f6; color: #4b5563;">
-                    2023-04-14</td>
-                  <td style="text-align:center; padding: 12px 10px; border-bottom: 1px solid #f3f4f6; color: #6b7280;">
-                    &mdash;</td>
-                  <td style="text-align:center; padding: 12px 10px; border-bottom: 1px solid #f3f4f6; color: #6b7280;">
-                    &mdash;</td>
-                </tr>
-                <!-- Row 8 -->
-                <tr style="background: #ffffff; transition: background 0.2s;"
-                  onmouseover="this.style.background='#f9fafb'" onmouseout="this.style.background='#ffffff'">
-                  <td style="padding: 12px 16px; border-bottom: 1px solid #f3f4f6; font-weight: 600; color: #111827;">
-                    BLIP-2</td>
-                  <td style="text-align:center; padding: 12px 10px; border-bottom: 1px solid #f3f4f6; color: #6b7280;">-
-                  </td>
-                  <td style="text-align:center; padding: 12px 10px; border-bottom: 1px solid #f3f4f6; color: #4b5563;">
-                    2023-01-30</td>
-                  <td style="text-align:center; padding: 12px 10px; border-bottom: 1px solid #f3f4f6; color: #6b7280;">
-                    &mdash;</td>
-                  <td style="text-align:center; padding: 12px 10px; border-bottom: 1px solid #f3f4f6; color: #6b7280;">
-                    &mdash;</td>
-                </tr>
-              </tbody>
-            </table>
+
+        <div class="evaluation-tabs-container">
+          <!-- Pill-shaped Tabs -->
+          <div class="evaluation-tabs">
+            <button class="eval-tab is-active" onclick="switchTab(event, 'tab-classification')">Machine:
+              Classification</button>
+            <button class="eval-tab" onclick="switchTab(event, 'tab-attribute')">Human: Attribute</button>
+            <button class="eval-tab" onclick="switchTab(event, 'tab-retrieval')">Machine: Retrieval</button>
           </div>
 
-          <div class="has-text-right mt-2" style="font-size: 0.8rem; color: #6b7280;">
-            Last updated: 05/2026
+          <!-- Tab 1: Machine-Oriented (Classification) -->
+          <div id="tab-classification" class="tab-content is-active">
+            <div class="evaluation-card">
+              <table class="evaluation-table" id="table-classification">
+                <thead>
+                  <tr>
+                    <th class="rank-cell" onclick="sortTable('table-classification', 0)" style="cursor: pointer;" title="Reset to original order">#</th>
+                    <th class="left-align" onclick="sortTable('table-classification', 1)">Model <span
+                        class="sort-icon">⇅</span></th>
+                    <th onclick="sortTable('table-classification', 2)">Vision Encoder <span class="sort-icon">⇅</span>
+                    </th>
+                    <th onclick="sortTable('table-classification', 3)">CUB-200 <span class="sort-icon">⇅</span></th>
+                    <th onclick="sortTable('table-classification', 4)">Stanford Dogs <span class="sort-icon">⇅</span>
+                    </th>
+                    <th onclick="sortTable('table-classification', 5)">Stanford Cars <span class="sort-icon">⇅</span>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="rank-cell">1</td>
+                    <td class="left-align model-cell">DINOv2-L <span class="badge badge-vision">Pure Vision</span></td>
+                    <td>ViT-L</td>
+                    <td class="tabular-nums highlight-best">91.65%</td>
+                    <td class="tabular-nums highlight-best">90.50%</td>
+                    <td class="tabular-nums highlight-best">94.30%</td>
+                  </tr>
+                  <tr>
+                    <td class="rank-cell">2</td>
+                    <td class="left-align model-cell">InternVL-Chat <span class="badge badge-lvlm">LVLM</span></td>
+                    <td>InternViT-6B</td>
+                    <td class="tabular-nums">89.92%</td>
+                    <td class="tabular-nums">89.09%</td>
+                    <td class="tabular-nums">93.34%</td>
+                  </tr>
+                  <tr>
+                    <td class="rank-cell">3</td>
+                    <td class="left-align model-cell">EVA-CLIP <span class="badge badge-vlm">VLM</span></td>
+                    <td>EVA02-L</td>
+                    <td class="tabular-nums">88.95%</td>
+                    <td class="tabular-nums">87.69%</td>
+                    <td class="tabular-nums highlight-best">94.30%</td>
+                  </tr>
+                  <tr>
+                    <td class="rank-cell">4</td>
+                    <td class="left-align model-cell">LLaVA-1.5-7B <span class="badge badge-lvlm">LVLM</span></td>
+                    <td>CLIP-L</td>
+                    <td class="tabular-nums">79.77%</td>
+                    <td class="tabular-nums">81.24%</td>
+                    <td class="tabular-nums">87.57%</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="evaluation-footnote">
+              Accuracy performance on fine-grained attribute recognition task (CUB-200-2011). Showing representative
+              models; please refer to our paper for full results of all 12 evaluated models.
+            </p>
+          </div>
+
+          <!-- Tab 2: Human-Oriented -->
+          <div id="tab-attribute" class="tab-content">
+            <div class="evaluation-card">
+              <table class="evaluation-table" id="table-attribute">
+                <thead>
+                  <tr>
+                    <th class="rank-cell" onclick="sortTable('table-attribute', 0)" style="cursor: pointer;" title="Reset to original order">#</th>
+                    <th class="left-align" onclick="sortTable('table-attribute', 1)">Model <span
+                        class="sort-icon">⇅</span></th>
+                    <th onclick="sortTable('table-attribute', 2)">Color Acc <span class="sort-icon">⇅</span></th>
+                    <th onclick="sortTable('table-attribute', 3)">Pattern Acc <span class="sort-icon">⇅</span></th>
+                    <th onclick="sortTable('table-attribute', 4)">Shape Acc <span class="sort-icon">⇅</span></th>
+                    <th onclick="sortTable('table-attribute', 5)">Length Acc <span class="sort-icon">⇅</span></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="rank-cell">1</td>
+                    <td class="left-align model-cell">Gemini-2.0-flash <span class="badge badge-lvlm">LVLM</span></td>
+                    <td class="tabular-nums">47.22%</td>
+                    <td class="tabular-nums highlight-best">56.14%</td>
+                    <td class="tabular-nums highlight-best">48.75%</td>
+                    <td class="tabular-nums highlight-best">71.82%</td>
+                  </tr>
+                  <tr>
+                    <td class="rank-cell">2</td>
+                    <td class="left-align model-cell">InternVL3-7B <span class="badge badge-lvlm">LVLM</span></td>
+                    <td class="tabular-nums highlight-best">47.40%</td>
+                    <td class="tabular-nums">50.13%</td>
+                    <td class="tabular-nums">30.95%</td>
+                    <td class="tabular-nums">71.03%</td>
+                  </tr>
+                  <tr>
+                    <td class="rank-cell">3</td>
+                    <td class="left-align model-cell">Qwen2.5-VL <span class="badge badge-lvlm">LVLM</span></td>
+                    <td class="tabular-nums">40.39%</td>
+                    <td class="tabular-nums">45.12%</td>
+                    <td class="tabular-nums">29.30%</td>
+                    <td class="tabular-nums">63.20%</td>
+                  </tr>
+                  <tr>
+                    <td class="rank-cell">4</td>
+                    <td class="left-align model-cell">LLaVA-1.5-7B <span class="badge badge-lvlm">LVLM</span></td>
+                    <td class="tabular-nums">44.34%</td>
+                    <td class="tabular-nums">23.69%</td>
+                    <td class="tabular-nums">14.05%</td>
+                    <td class="tabular-nums">15.71%</td>
+                  </tr>
+                  <tr>
+                    <td class="rank-cell">5</td>
+                    <td class="left-align model-cell">BLIP-2 <span class="badge badge-lvlm">LVLM</span></td>
+                    <td class="tabular-nums">37.94%</td>
+                    <td class="tabular-nums">11.34%</td>
+                    <td class="tabular-nums">25.05%</td>
+                    <td class="tabular-nums">30.11%</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="evaluation-footnote">
+              Accuracy performance on fine-grained attribute recognition task (CUB-200-2011). Showing representative
+              models; please refer to our paper for full results of all 12 evaluated models.
+            </p>
+          </div>
+
+          <!-- Tab 3: Machine-Oriented (Retrieval) -->
+          <div id="tab-retrieval" class="tab-content">
+            <div class="evaluation-card">
+              <table class="evaluation-table" id="table-retrieval">
+                <thead>
+                  <tr>
+                    <th class="rank-cell" onclick="sortTable('table-retrieval', 0)" style="cursor: pointer;" title="Reset to original order">#</th>
+                    <th class="left-align" onclick="sortTable('table-retrieval', 1)">Model <span
+                        class="sort-icon">⇅</span></th>
+                    <th onclick="sortTable('table-retrieval', 2)">CUB-200 (mAP) <span class="sort-icon">⇅</span></th>
+                    <th onclick="sortTable('table-retrieval', 3)">Stanford Dogs (mAP) <span class="sort-icon">⇅</span>
+                    </th>
+                    <th onclick="sortTable('table-retrieval', 4)">Stanford Cars (mAP) <span class="sort-icon">⇅</span>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="rank-cell">1</td>
+                    <td class="left-align model-cell">EVA-CLIP <span class="badge badge-vlm">VLM</span></td>
+                    <td class="tabular-nums">90.33%</td>
+                    <td class="tabular-nums">89.47%</td>
+                    <td class="tabular-nums highlight-best">95.11%</td>
+                  </tr>
+                  <tr>
+                    <td class="rank-cell">2</td>
+                    <td class="left-align model-cell">InternVL-Chat <span class="badge badge-lvlm">LVLM</span></td>
+                    <td class="tabular-nums">91.47%</td>
+                    <td class="tabular-nums highlight-best">92.33%</td>
+                    <td class="tabular-nums">92.47%</td>
+                  </tr>
+                  <tr>
+                    <td class="rank-cell">3</td>
+                    <td class="left-align model-cell">DINOv2-L <span class="badge badge-vision">Pure Vision</span></td>
+                    <td class="tabular-nums highlight-best">91.95%</td>
+                    <td class="tabular-nums">91.72%</td>
+                    <td class="tabular-nums">89.53%</td>
+                  </tr>
+                  <tr>
+                    <td class="rank-cell">4</td>
+                    <td class="left-align model-cell">LLaVA-1.5-7B <span class="badge badge-lvlm">LVLM</span></td>
+                    <td class="tabular-nums">75.63%</td>
+                    <td class="tabular-nums">77.43%</td>
+                    <td class="tabular-nums">85.49%</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="evaluation-footnote">
+              Accuracy performance on fine-grained attribute recognition task (CUB-200-2011). Showing representative
+              models; please refer to our paper for full results of all 12 evaluated models.
+            </p>
           </div>
         </div>
+
+        <div class="has-text-right mt-4" style="font-size: 0.8rem; color: #94a3b8;">
+          Last updated: 05/2026
+        </div>
+      </div>
     </section>
-    <!-- End Leaderboard -->
 
 
 
@@ -1118,35 +1129,45 @@
           We compare the performance of 7 representative vision models across 12 fine-grained datasets.
           Models with contrastive training (EVA-CLIP, DINOv2) consistently outperform others.
         </p>
-
-        <!-- Model Legend -->
-        <div class="has-text-centered"
-          style="margin-bottom: 1.5rem; display: flex; flex-wrap: wrap; justify-content: center; gap: 8px;">
-          <span
-            style="display:inline-flex;align-items:center;gap:4px;padding:4px 12px;border-radius:20px;font-size:0.8rem;font-weight:600;background:#fee2e2;color:#dc2626;">EVA-CLIP</span>
-          <span
-            style="display:inline-flex;align-items:center;gap:4px;padding:4px 12px;border-radius:20px;font-size:0.8rem;font-weight:600;background:#dbeafe;color:#2563eb;">CoCa</span>
-          <span
-            style="display:inline-flex;align-items:center;gap:4px;padding:4px 12px;border-radius:20px;font-size:0.8rem;font-weight:600;background:#dcfce7;color:#16a34a;">DINOv2</span>
-          <span
-            style="display:inline-flex;align-items:center;gap:4px;padding:4px 12px;border-radius:20px;font-size:0.8rem;font-weight:600;background:#fef9c3;color:#ca8a04;">BEiT3</span>
-          <span
-            style="display:inline-flex;align-items:center;gap:4px;padding:4px 12px;border-radius:20px;font-size:0.8rem;font-weight:600;background:#fce7f3;color:#db2777;">LLaVA</span>
-          <span
-            style="display:inline-flex;align-items:center;gap:4px;padding:4px 12px;border-radius:20px;font-size:0.8rem;font-weight:600;background:#ffedd5;color:#ea580c;">InternVL</span>
-          <span
-            style="display:inline-flex;align-items:center;gap:4px;padding:4px 12px;border-radius:20px;font-size:0.8rem;font-weight:600;background:#ede9fe;color:#7c3aed;">Qwen</span>
+        
+        <!-- Unified Legend for all Per-Dataset Charts -->
+        <div class="results-legend" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 24px; margin-bottom: 2.5rem; padding: 10px; background: rgba(255,255,255,0.4); border-radius: 12px; border: 1px solid rgba(226, 232, 240, 0.6);">
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <span style="width: 10px; height: 10px; border-radius: 50%; background: #94a3b8;"></span>
+            <span style="font-size: 0.85rem; font-weight: 500; color: #64748b;">EVA-CLIP</span>
+          </div>
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <span style="width: 10px; height: 10px; border-radius: 50%; background: #0d9488;"></span>
+            <span style="font-size: 0.85rem; font-weight: 500; color: #64748b;">CoCa</span>
+          </div>
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <span style="width: 10px; height: 10px; border-radius: 50%; background: #4f46e5;"></span>
+            <span style="font-size: 0.85rem; font-weight: 600; color: #1e293b;">DINOv2</span>
+          </div>
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <span style="width: 10px; height: 10px; border-radius: 50%; background: #f59e0b;"></span>
+            <span style="font-size: 0.85rem; font-weight: 500; color: #64748b;">BEiT3</span>
+          </div>
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <span style="width: 10px; height: 10px; border-radius: 50%; background: #f43f5e;"></span>
+            <span style="font-size: 0.85rem; font-weight: 500; color: #64748b;">LLaVA</span>
+          </div>
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <span style="width: 10px; height: 10px; border-radius: 50%; background: #8b5cf6;"></span>
+            <span style="font-size: 0.85rem; font-weight: 500; color: #64748b;">InternVL</span>
+          </div>
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <span style="width: 10px; height: 10px; border-radius: 50%; background: #10b981;"></span>
+            <span style="font-size: 0.85rem; font-weight: 500; color: #64748b;">Qwen</span>
+          </div>
         </div>
 
+
         <!-- Toggle Buttons -->
-        <div class="has-text-centered" style="margin-bottom: 2rem;">
-          <div style="display:inline-flex;border-radius:8px;overflow:hidden;border:2px solid #4f46e5;">
-            <button id="btn-cls" onclick="switchView('cls')"
-              style="padding:8px 24px;font-weight:600;font-size:0.9rem;border:none;cursor:pointer;background:#4f46e5;color:white;transition:all 0.3s;">Classification
-              (Top-1 Acc%)</button>
-            <button id="btn-retri" onclick="switchView('retri')"
-              style="padding:8px 24px;font-weight:600;font-size:0.9rem;border:none;cursor:pointer;background:white;color:#4f46e5;transition:all 0.3s;">Retrieval
-              (mAP%)</button>
+        <div class="evaluation-tabs-container">
+          <div class="pill-tabs-container">
+            <button id="btn-cls" class="eval-tab is-active" onclick="switchView('cls')">Classification (Top-1 Acc%)</button>
+            <button id="btn-retri" class="eval-tab" onclick="switchView('retri')">Retrieval (mAP%)</button>
           </div>
         </div>
 
