@@ -286,7 +286,9 @@
                 style="text-align: center; flex-grow: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 30px !important;">
                 <i class="fas fa-database" style="font-size: 2.2rem; color: #4f46e5; margin-bottom: 15px;"></i>
                 <h3 class="title is-5" style="margin-bottom: 10px;">Massive Scale & High-Quality Data</h3>
-                <p style="font-size: 0.85rem; color: #64748b; line-height: 1.5;">Includes 1.01 million queries and 0.28 million high-quality images from 12 well-established datasets, ensuring rigorous evaluation and avoiding noise from typical web-scraped data.</p>
+                <p style="font-size: 0.85rem; color: #64748b; line-height: 1.5;">Includes 1.01 million queries and 0.28
+                  million high-quality images from 12 well-established datasets, ensuring rigorous evaluation and
+                  avoiding noise from typical web-scraped data.</p>
               </div>
             </div>
             <!-- Paradigm Card -->
@@ -295,7 +297,9 @@
                 style="text-align: center; flex-grow: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 30px !important;">
                 <i class="fas fa-balance-scale" style="font-size: 2.2rem; color: #10b981; margin-bottom: 15px;"></i>
                 <h3 class="title is-5" style="margin-bottom: 10px;">Two Complementary Evaluation Perspectives</h3>
-                <p style="font-size: 0.85rem; color: #64748b; line-height: 1.5;">Systematic assessment through a <b>human-oriented</b> paradigm (conversational interaction) and a <b>machine-oriented</b> paradigm (image retrieval and classification).</p>
+                <p style="font-size: 0.85rem; color: #64748b; line-height: 1.5;">Systematic assessment through a
+                  <b>human-oriented</b> paradigm (conversational interaction) and a <b>machine-oriented</b> paradigm
+                  (image retrieval and classification).</p>
               </div>
             </div>
             <!-- Granularity Card -->
@@ -304,7 +308,9 @@
                 style="text-align: center; flex-grow: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 30px !important;">
                 <i class="fas fa-microscope" style="font-size: 2.2rem; color: #f59e0b; margin-bottom: 15px;"></i>
                 <h3 class="title is-5" style="margin-bottom: 10px;">In-Depth Fine-Grained Assessment</h3>
-                <p style="font-size: 0.85rem; color: #64748b; line-height: 1.5;">Goes beyond generic tasks to strictly evaluate hierarchical granularity, subtle attributes, knowledge bias, and robustness to feature perturbations.</p>
+                <p style="font-size: 0.85rem; color: #64748b; line-height: 1.5;">Goes beyond generic tasks to strictly
+                  evaluate hierarchical granularity, subtle attributes, knowledge bias, and robustness to feature
+                  perturbations.</p>
               </div>
             </div>
           </div>
@@ -502,72 +508,72 @@
       }
     </style>
 
-    <section class="section" id="dataset-composition" style="padding-top: 40px; padding-bottom: 40px;">
+    <section class="section is-light" id="dataset-composition" style="padding-top: 40px; padding-bottom: 40px;">
       <div class="container is-max-widescreen">
-        <h2 class="title is-3 has-text-centered" style="margin-bottom: 2.5rem;">Comprehensive Fine-Grained Data</h2>
-        
-        <!-- By the Numbers Stat Cards -->
-        <div class="columns is-centered mb-6" style="gap: 20px;">
-          <div class="column is-3">
-            <div class="abstract-box" style="text-align: center; padding: 25px !important; border-top: 4px solid #4f46e5;">
-              <h4 style="font-size: 2rem; font-weight: 800; color: #1e293b; margin-bottom: 5px;">1.01M</h4>
-              <p style="font-size: 0.9rem; color: #64748b; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;">Evaluation Questions</p>
-            </div>
-          </div>
-          <div class="column is-3">
-            <div class="abstract-box" style="text-align: center; padding: 25px !important; border-top: 4px solid #10b981;">
-              <h4 style="font-size: 2rem; font-weight: 800; color: #1e293b; margin-bottom: 5px;">0.28M</h4>
-              <p style="font-size: 0.9rem; color: #64748b; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;">High-Quality Images</p>
-            </div>
-          </div>
-          <div class="column is-3">
-            <div class="abstract-box" style="text-align: center; padding: 25px !important; border-top: 4px solid #f59e0b;">
-              <h4 style="font-size: 2rem; font-weight: 800; color: #1e293b; margin-bottom: 5px;">12</h4>
-              <p style="font-size: 0.9rem; color: #64748b; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;">Fine-Grained Datasets</p>
-            </div>
-          </div>
-        </div>
+        <h2 class="title is-3 has-text-centered" style="margin-bottom: 0.5rem;">Dataset Composition</h2>
+        <p class="has-text-centered" style="color: var(--text-secondary); margin-bottom: 3rem; font-size: 1rem;">
+          12 fine-grained datasets spanning 6 domains &bull; 280K+ images &bull; 1.01M+ questions
+        </p>
 
-        <div class="content">
-          <h4 class="title is-4 mb-4">Diverse Domains Covered</h4>
-          <p class="mb-5" style="color: #64748b;">The benchmark spans across multiple expert domains, ensuring models are tested on a wide variety of subordinate categories:</p>
-          
-          <div class="columns is-multiline">
-            <!-- Nature & Biology -->
-            <div class="column is-4">
-              <div style="background: #f8fafc; border-radius: 12px; padding: 20px; height: 100%;">
-                <h5 class="title is-6 mb-3" style="color: #1e2bc0;"><i class="fas fa-leaf mr-2"></i> Nature & Biology</h5>
-                <ul style="font-size: 0.85rem; color: #475569; margin-left: 1.2em;">
-                  <li>Birds (CUB-200-2011)</li>
-                  <li>Dogs (Stanford Dogs)</li>
-                  <li>Plants (iNat2021)</li>
-                  <li>Flowers (Flowers 102)</li>
-                  <li>Vegetables/Fruits (VegFru)</li>
-                </ul>
-              </div>
+        <div class="dataset-dashboard"
+          style="max-width: 850px; margin: 0 auto; display: flex; flex-wrap: wrap; justify-content: center; gap: 20px;">
+          <!-- Animals -->
+          <div class="dataset-domain domain-animals"
+            style="background: #f8fafc; border-radius: 12px; padding: 20px; border: 1px solid #e2e8f0; width: calc(33.33% - 14px); min-width: 250px;">
+            <div class="domain-header"
+              style="display: flex; align-items: center; margin-bottom: 15px; border-bottom: 1px solid #eee; padding-bottom: 10px;">
+              <div class="domain-icon" style="color: #3b82f6; margin-right: 10px;"><i class="fas fa-leaf"></i></div>
+              <h3 class="domain-title" style="font-weight: 700; font-size: 1rem; margin: 0;">Nature & Biology</h3>
             </div>
-            <!-- Industrial & Manufactured -->
-            <div class="column is-4">
-              <div style="background: #f8fafc; border-radius: 12px; padding: 20px; height: 100%;">
-                <h5 class="title is-6 mb-3" style="color: #cf3a3a;"><i class="fas fa-industry mr-2"></i> Industrial & Manufactured</h5>
-                <ul style="font-size: 0.85rem; color: #475569; margin-left: 1.2em;">
-                  <li>Aircraft (FGVC Aircraft)</li>
-                  <li>Cars (Stanford Cars)</li>
-                  <li>Products (Products-10K)</li>
-                  <li>Wine (Bottled Wine)</li>
-                </ul>
-              </div>
+            <div class="tags" style="display: flex; flex-wrap: wrap; gap: 8px;">
+              <a href="https://www.vision.caltech.edu/datasets/cub_200_2011/" class="tag is-info is-light"
+                target="_blank">CUB-200</a>
+              <a href="http://vision.stanford.edu/aditya86/ImageNetDogs/" class="tag is-info is-light"
+                target="_blank">Stanford Dogs</a>
+              <a href="https://github.com/visipedia/inat_comp/tree/master/2021" class="tag is-info is-light"
+                target="_blank">iNat2021</a>
+              <a href="https://www.robots.ox.ac.uk/~vgg/data/flowers/102/" class="tag is-info is-light"
+                target="_blank">Flowers 102</a>
+              <a href="https://github.com/zhoudaxia241/VegFru" class="tag is-info is-light" target="_blank">VegFru</a>
             </div>
-            <!-- Daily Life & Specialized -->
-            <div class="column is-4">
-              <div style="background: #f8fafc; border-radius: 12px; padding: 20px; height: 100%;">
-                <h5 class="title is-6 mb-3" style="color: #16a34a;"><i class="fas fa-shopping-bag mr-2"></i> Daily Life & Specialized</h5>
-                <ul style="font-size: 0.85rem; color: #475569; margin-left: 1.2em;">
-                  <li>Clothes (DeepFashion)</li>
-                  <li>Food (Food-101)</li>
-                  <li>Dermatology (SkinCon)</li>
-                </ul>
+          </div>
+
+          <!-- Industrial -->
+          <div class="dataset-domain domain-vehicles"
+            style="background: #f8fafc; border-radius: 12px; padding: 20px; border: 1px solid #e2e8f0; width: calc(33.33% - 14px); min-width: 250px;">
+            <div class="domain-header"
+              style="display: flex; align-items: center; margin-bottom: 15px; border-bottom: 1px solid #eee; padding-bottom: 10px;">
+              <div class="domain-icon" style="color: #cf3a3a; margin-right: 10px;"><i class="fas fa-industry"></i></div>
+              <h3 class="domain-title" style="font-weight: 700; font-size: 1rem; margin: 0;">Industrial & Manufactured
+              </h3>
+            </div>
+            <div class="tags" style="display: flex; flex-wrap: wrap; gap: 8px;">
+              <a href="https://www.robots.ox.ac.uk/~vgg/data/fgvc-aircraft/" class="tag is-danger is-light"
+                target="_blank">FGVC Aircraft</a>
+              <a href="https://www.kaggle.com/datasets/eduardo4jesus/stanford-cars-dataset"
+                class="tag is-danger is-light" target="_blank">Stanford Cars</a>
+              <a href="https://products-10k.github.io/" class="tag is-danger is-light" target="_blank">Products-10K</a>
+              <a href="https://tianchi.aliyun.com/dataset/dataDetail?dataId=110147" class="tag is-danger is-light"
+                target="_blank">Wine</a>
+            </div>
+          </div>
+
+          <!-- Daily Life -->
+          <div class="dataset-domain domain-consumer"
+            style="background: #f8fafc; border-radius: 12px; padding: 20px; border: 1px solid #e2e8f0; width: calc(33.33% - 14px); min-width: 250px;">
+            <div class="domain-header"
+              style="display: flex; align-items: center; margin-bottom: 15px; border-bottom: 1px solid #eee; padding-bottom: 10px;">
+              <div class="domain-icon" style="color: #16a34a; margin-right: 10px;"><i class="fas fa-shopping-bag"></i>
               </div>
+              <h3 class="domain-title" style="font-weight: 700; font-size: 1rem; margin: 0;">Daily Life & Specialized
+              </h3>
+            </div>
+            <div class="tags" style="display: flex; flex-wrap: wrap; gap: 8px;">
+              <a href="http://mmlab.ie.cuhk.edu.hk/projects/DeepFashion.html" class="tag is-success is-light"
+                target="_blank">DeepFashion</a>
+              <a href="https://data.vision.ee.ethz.ch/cvl/datasets_extra/food-101/" class="tag is-success is-light"
+                target="_blank">Food-101</a>
+              <a href="https://skincon-dataset.github.io/" class="tag is-success is-light" target="_blank">SkinCon</a>
             </div>
           </div>
         </div>
@@ -575,30 +581,43 @@
     </section>
 
     <!-- Paper abstract -->
-    <section class="section" id="abstract" style="padding-top: 20px; padding-bottom: 40px;">
+    <section class="section" id="abstract" style="padding-top: 40px; padding-bottom: 40px;">
       <div class="container is-max-desktop">
-        <h2 class="title is-3 has-text-centered" style="margin-bottom: 0.5rem;">Abstract</h2>
-        <p class="has-text-centered" style="color: var(--text-secondary); margin-bottom: 2rem; font-size: 0.95rem;">
-          Published as a conference paper at ICLR 2026
-        </p>
-        <div
-          style="background: #ffffff; border-radius: 12px; padding: 48px 48px 42px; box-shadow: 0 2px 8px rgba(0,0,0,0.02); border: 1px solid #f3f4f6;">
-          <div class="content has-text-justified"
-            style="font-size: 1.05rem; line-height: 1.85; color: #374151; margin-bottom: 0;">
-            <p style="margin-bottom: 0;">
-              <strong>FG-BMK</strong> is a comprehensive evaluation benchmark designed to systematically assess the performance of <strong>Large Vision-Language Models (LVLMs)</strong> and <strong>Vision Foundation Models (VLMs)</strong> on fine-grained image tasks. FG-BMK comprises <strong>1.01 million diverse questions</strong> and <strong>0.28 million carefully curated images</strong>, filling a critical gap in the current evaluation landscape. By adopting both <strong>human-oriented</strong> and <strong>machine-oriented</strong> evaluation paradigms, the benchmark delves into models' semantic recognition and fine-grained visual feature representation capabilities, revealing key findings regarding the influence of training paradigms, modality alignment, and sensitivity to perturbations.
+        <div class="abstract-box"
+          style="background: #ffffff; border-radius: 12px; padding: 48px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 1px solid #f3f4f6;">
+          <h2 class="title is-3 has-text-centered" style="margin-bottom: 2rem;">Abstract</h2>
+          <div class="content has-text-justified" style="font-size: 1.1rem; line-height: 1.8; color: #374151;">
+            <p>
+              Recent advancements in Large Vision-Language Models (LVLMs) have demonstrated remarkable multimodal
+              perception capabilities, garnering significant attention. While numerous evaluation studies have
+              emerged, assessing LVLMs both holistically and on specialized tasks, fine-grained image
+              tasks—fundamental to computer vision—remain largely unexplored. To fill this gap, we introduce a
+              comprehensive fine-grained evaluation benchmark, <i>i.e.</i>, FG-BMK, comprising <b>1.01 million
+                questions</b> and <b>0.28 million images</b>. Our evaluation systematically examines LVLMs from both
+              human-oriented and machine-oriented perspectives, focusing on their semantic recognition and
+              fine-grained feature representation capabilities. Through extensive experiments on twelve
+              representative
+              LVLMs/VLMs, we uncover key findings regarding the influence of training paradigms, modality alignment,
+              perturbation susceptibility, and fine-grained category reasoning on task performance. This work
+              provides
+              critical insights into the limitations of current LVLMs and offers guidance for future data
+              construction
+              and model design in the development of more advanced LVLMs. Our code is open-source and available at
+              <a href="https://github.com/SEU-VIPGroup/FG-BMK"
+                target="_blank">https://github.com/SEU-VIPGroup/FG-BMK</a>.
             </p>
           </div>
         </div>
       </div>
     </section>
     <!-- End paper abstract -->
+    <!-- End paper abstract -->
 
     <!-- Key Findings from Paper -->
-    <section class="section" id="key-findings" style="padding-top: 20px; padding-bottom: 40px;">
+    <section class="section" id="key-findings" style="padding-top: 60px; padding-bottom: 60px; clear: both;">
       <div class="container is-max-desktop">
-        <h2 class="title is-3 has-text-centered" style="margin-bottom: 0.5rem;">Key Findings</h2>
-        <p class="has-text-centered" style="color: var(--text-secondary); margin-bottom: 2rem; font-size: 0.95rem;">
+        <h2 class="title is-3 has-text-centered" style="margin-bottom: 1rem;">Key Findings</h2>
+        <p class="has-text-centered" style="color: var(--text-secondary); margin-bottom: 3rem; font-size: 1rem;">
           Core insights from extensive experiments on 12 representative LVLMs/VLMs
         </p>
         <div class="columns is-multiline is-centered mt-5">
@@ -610,7 +629,8 @@
               </div>
               <div>
                 <div class="kf-title">Training Paradigm is Crucial</div>
-                <div class="kf-desc">Contrastive training paradigms are significantly more effective at enhancing fine-grained visual discriminability compared to generative or reconstruction-based approaches.</div>
+                <div class="kf-desc">Contrastive training paradigms are significantly more effective at enhancing
+                  fine-grained visual discriminability compared to generative or reconstruction-based approaches.</div>
               </div>
             </div>
           </div>
@@ -622,7 +642,8 @@
               </div>
               <div>
                 <div class="kf-title">Penalty for Granularity Mismatch</div>
-                <div class="kf-desc">Aligning visual and text features can actually impair fine-grained discriminability if there is a severe mismatch in data granularity.</div>
+                <div class="kf-desc">Aligning visual and text features can actually impair fine-grained discriminability
+                  if there is a severe mismatch in data granularity.</div>
               </div>
             </div>
           </div>
@@ -634,7 +655,8 @@
               </div>
               <div>
                 <div class="kf-title">Vulnerability to Perturbations</div>
-                <div class="kf-desc">LVLMs and VLMs are far more sensitive to feature perturbations in fine-grained tasks than in generic vision tasks.</div>
+                <div class="kf-desc">LVLMs and VLMs are far more sensitive to feature perturbations in fine-grained
+                  tasks than in generic vision tasks.</div>
               </div>
             </div>
           </div>
@@ -646,7 +668,8 @@
               </div>
               <div>
                 <div class="kf-title">Perception vs. Reasoning</div>
-                <div class="kf-desc">While LVLMs show strong appearance perception, they struggle with reasoning for fine-grained categories that rely on subtle visual attributes.</div>
+                <div class="kf-desc">While LVLMs show strong appearance perception, they struggle with reasoning for
+                  fine-grained categories that rely on subtle visual attributes.</div>
               </div>
             </div>
           </div>
@@ -658,7 +681,8 @@
               </div>
               <div>
                 <div class="kf-title">Advantage of Specialized Models</div>
-                <div class="kf-desc">Current LVLMs still lag behind specialized fine-grained tailored models when handling complex, domain-specific visual recognition.</div>
+                <div class="kf-desc">Current LVLMs still lag behind specialized fine-grained tailored models when
+                  handling complex, domain-specific visual recognition.</div>
               </div>
             </div>
           </div>
@@ -672,7 +696,8 @@
         <h2 class="title is-3 has-text-centered">Why FG-BMK?</h2>
         <p class="has-text-centered"
           style="color: var(--text-secondary); margin-bottom: 3rem; font-size: 1rem; max-width: 800px; margin-left: auto; margin-right: auto;">
-          FG-BMK introduces <strong>Two Complementary Evaluation Perspectives</strong> to systematically evaluate both conversational multimodal understanding and direct visual feature representation.
+          FG-BMK introduces <strong>Two Complementary Evaluation Perspectives</strong> to systematically evaluate both
+          conversational multimodal understanding and direct visual feature representation.
         </p>
 
         <div class="columns is-centered is-multiline" style="gap: 30px;">
@@ -705,7 +730,8 @@
                   </div>
                 </div>
                 <p style="font-size: 0.85rem; color: #64748b; line-height: 1.5; margin-bottom: 0;">
-                  Testing the model's domain-specific knowledge across different taxonomic levels (e.g., Class &rarr; Genus &rarr; Species) within the same meta-category.
+                  Testing the model's domain-specific knowledge across different taxonomic levels (e.g., Class &rarr;
+                  Genus &rarr; Species) within the same meta-category.
                 </p>
               </div>
             </div>
@@ -746,7 +772,8 @@
                   </div>
                 </div>
                 <p style="font-size: 0.85rem; color: #64748b; line-height: 1.5; margin-bottom: 0;">
-                  Uncovering potential blind spots and language-prior biases where models may rely on prior knowledge rather than visual cues for highly similar categories.
+                  Uncovering potential blind spots and language-prior biases where models may rely on prior knowledge
+                  rather than visual cues for highly similar categories.
                 </p>
               </div>
             </div>
@@ -950,8 +977,7 @@
                 <tr style="background: #ffffff; transition: background 0.2s;"
                   onmouseover="this.style.background='#f9fafb'" onmouseout="this.style.background='#ffffff'">
                   <td style="padding: 12px 16px; border-bottom: 1px solid #f3f4f6; font-weight: 600; color: #111827;">
-                    GPT-4o <span
-                      style="display:inline-block; padding:2px 8px; border-radius:12px; font-size:0.65rem; font-weight:600; background:#fee2e2; color:#dc2626; margin-left:6px; vertical-align:middle;">Closed</span>
+                    GPT-4o
                   </td>
                   <td style="text-align:center; padding: 12px 10px; border-bottom: 1px solid #f3f4f6; color: #6b7280;">-
                   </td>
@@ -968,8 +994,7 @@
                 <tr style="background: #ffffff; transition: background 0.2s;"
                   onmouseover="this.style.background='#f9fafb'" onmouseout="this.style.background='#ffffff'">
                   <td style="padding: 12px 16px; border-bottom: 1px solid #f3f4f6; font-weight: 600; color: #111827;">
-                    Gemini-2.0-Flash <span
-                      style="display:inline-block; padding:2px 8px; border-radius:12px; font-size:0.65rem; font-weight:600; background:#fee2e2; color:#dc2626; margin-left:6px; vertical-align:middle;">Closed</span>
+                    Gemini-2.0-Flash
                   </td>
                   <td style="text-align:center; padding: 12px 10px; border-bottom: 1px solid #f3f4f6; color: #6b7280;">-
                   </td>
@@ -985,8 +1010,7 @@
                 <tr style="background: #ffffff; transition: background 0.2s;"
                   onmouseover="this.style.background='#f9fafb'" onmouseout="this.style.background='#ffffff'">
                   <td style="padding: 12px 16px; border-bottom: 1px solid #f3f4f6; font-weight: 600; color: #111827;">
-                    InternVL-2 <span
-                      style="display:inline-block; padding:2px 8px; border-radius:12px; font-size:0.65rem; font-weight:600; background:#dcfce7; color:#16a34a; margin-left:6px; vertical-align:middle;">Open</span>
+                    InternVL-2
                   </td>
                   <td style="text-align:center; padding: 12px 10px; border-bottom: 1px solid #f3f4f6; color: #6b7280;">-
                   </td>
@@ -1002,8 +1026,7 @@
                 <tr style="background: #ffffff; transition: background 0.2s;"
                   onmouseover="this.style.background='#f9fafb'" onmouseout="this.style.background='#ffffff'">
                   <td style="padding: 12px 16px; border-bottom: 1px solid #f3f4f6; font-weight: 600; color: #111827;">
-                    Qwen-VL <span
-                      style="display:inline-block; padding:2px 8px; border-radius:12px; font-size:0.65rem; font-weight:600; background:#dcfce7; color:#16a34a; margin-left:6px; vertical-align:middle;">Open</span>
+                    Qwen-VL
                   </td>
                   <td style="text-align:center; padding: 12px 10px; border-bottom: 1px solid #f3f4f6; color: #6b7280;">-
                   </td>
@@ -1019,8 +1042,7 @@
                 <tr style="background: #ffffff; transition: background 0.2s;"
                   onmouseover="this.style.background='#f9fafb'" onmouseout="this.style.background='#ffffff'">
                   <td style="padding: 12px 16px; border-bottom: 1px solid #f3f4f6; font-weight: 600; color: #111827;">
-                    LLaVA-1.5 <span
-                      style="display:inline-block; padding:2px 8px; border-radius:12px; font-size:0.65rem; font-weight:600; background:#dcfce7; color:#16a34a; margin-left:6px; vertical-align:middle;">Open</span>
+                    LLaVA-1.5
                   </td>
                   <td style="text-align:center; padding: 12px 10px; border-bottom: 1px solid #f3f4f6; color: #6b7280;">
                     13B</td>
@@ -1035,8 +1057,7 @@
                 <tr style="background: #ffffff; transition: background 0.2s;"
                   onmouseover="this.style.background='#f9fafb'" onmouseout="this.style.background='#ffffff'">
                   <td style="padding: 12px 16px; border-bottom: 1px solid #f3f4f6; font-weight: 600; color: #111827;">
-                    EVA-CLIP <span
-                      style="display:inline-block; padding:2px 8px; border-radius:12px; font-size:0.65rem; font-weight:600; background:#f3f4f6; color:#4b5563; margin-left:6px; vertical-align:middle;">Vision</span>
+                    EVA-CLIP
                   </td>
                   <td style="text-align:center; padding: 12px 10px; border-bottom: 1px solid #f3f4f6; color: #6b7280;">-
                   </td>
@@ -1051,8 +1072,7 @@
                 <tr style="background: #ffffff; transition: background 0.2s;"
                   onmouseover="this.style.background='#f9fafb'" onmouseout="this.style.background='#ffffff'">
                   <td style="padding: 12px 16px; border-bottom: 1px solid #f3f4f6; font-weight: 600; color: #111827;">
-                    DINOv2 <span
-                      style="display:inline-block; padding:2px 8px; border-radius:12px; font-size:0.65rem; font-weight:600; background:#f3f4f6; color:#4b5563; margin-left:6px; vertical-align:middle;">Vision</span>
+                    DINOv2
                   </td>
                   <td style="text-align:center; padding: 12px 10px; border-bottom: 1px solid #f3f4f6; color: #6b7280;">-
                   </td>
@@ -1229,7 +1249,8 @@
 
               <p>
                 This webpage presents the <strong>FG-BMK</strong> benchmark project.
-                The content is based on the research paper "Benchmarking Large Vision-Language Models on Fine-Grained Image Tasks: A Comprehensive Evaluation".
+                The content is based on the research paper "Benchmarking Large Vision-Language Models on Fine-Grained
+                Image Tasks: A Comprehensive Evaluation".
                 This page was built using the <a href="https://github.com/eliahuhorwitz/Academic-project-page-template"
                   target="_blank">Academic Project Page Template</a>.
                 You are free to borrow the source code of this website, we just ask that you link back to this page in
