@@ -74,7 +74,7 @@ function toggleLbGroup(group) {
             th.setAttribute('data-group', group);
             th.setAttribute('data-col', cols[i]);
             th.setAttribute('title', 'Click to sort');
-            th.style.cssText = 'border: 1px solid #e5e7eb; padding: 10px 16px; text-align: center; font-weight: 600; font-size: 0.8rem; color: #4b5563; cursor: pointer; user-select: none;';
+            th.style.cssText = 'border-bottom: 1px solid #e5e7eb; padding: 10px 16px; text-align: center; font-weight: 700; font-size: 0.75rem; text-transform: uppercase; color: #6b7280; cursor: pointer; user-select: none;';
             overallTh.after(th);
         }
 
@@ -104,7 +104,7 @@ function toggleLbGroup(group) {
                 td.textContent = '\u2014';
                 td.setAttribute('data-group', group);
                 td.setAttribute('data-col', cols[i]);
-                td.style.cssText = 'text-align: center; padding: 10px; border: 1px solid #e5e7eb; color: #9ca3af; font-size: 0.85rem;';
+                td.style.cssText = 'text-align: center; padding: 12px 10px; border-bottom: 1px solid #f3f4f6; color: #6b7280;';
                 overallTd.after(td);
             }
         });
@@ -295,24 +295,21 @@ function copyBibTeX() {
 }
 
 // Scroll to top functionality with improved performance
+// Scroll to top functionality with native smooth behavior
 function scrollToTop() {
-    const duration = 500; // Faster duration in ms
-    const scrollStep = -window.scrollY / (duration / 15);
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
 
-    // Immediate feedback: hide button or add active state
+    // Subtle visual feedback on the button
     const scrollButton = document.querySelector('.scroll-to-top');
-    if (scrollButton) scrollButton.style.transform = 'scale(0.9) translateY(2px)';
-
-    function step() {
-        if (window.scrollY !== 0) {
-            window.scrollBy(0, scrollStep);
-            requestAnimationFrame(step);
-        } else {
-            // Restore button scale if needed, though it will be hidden
-            if (scrollButton) scrollButton.style.transform = '';
-        }
+    if (scrollButton) {
+        scrollButton.style.transform = 'scale(0.9) translateY(2px)';
+        setTimeout(() => {
+            scrollButton.style.transform = 'translateY(0)';
+        }, 200);
     }
-    requestAnimationFrame(step);
 }
 
 // Throttled scroll listener
@@ -388,7 +385,15 @@ $(document).ready(function () {
 // --- Per-Dataset Results Chart Logic (Moved from index.html) ---
 // TODO: Replace ALL zeros below with EXACT values from the paper.
 // Order: [EVA-CLIP, CoCa, DINOv2, BEiT3, LLaVA, InternVL, Qwen]
-const modelColors = ['#dc2626', '#2563eb', '#16a34a', '#ca8a04', '#db2777', '#ea580c', '#7c3aed'];
+const modelColors = [
+  '#4f46e5', // Indigo (Strongest)
+  '#3b82f6', // Blue
+  '#10b981', // Emerald
+  '#f59e0b', // Amber
+  '#ec4899', // Pink
+  '#f97316', // Orange
+  '#8b5cf6'  // Violet
+];
 const modelNames = ['EVA-CLIP', 'CoCa', 'DINOv2', 'BEiT3', 'LLaVA', 'InternVL', 'Qwen'];
 
 // Classification Top-1 Accuracy (%) — FILL IN exact values from paper Figure 5
@@ -621,29 +626,60 @@ function createChart(canvasId, data) {
   const canvas = document.getElementById(canvasId);
   if (!canvas) return null;
   const ctx = canvas.getContext('2d');
+  
+  // Set default font for Chart.js
+  Chart.defaults.font.family = "'Inter', 'BlinkMacSystemFont', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif";
+  Chart.defaults.color = '#64748b';
+
   return new Chart(ctx, {
     type: 'bar',
     data: {
       labels: modelNames,
       datasets: [{
         data: data,
-        backgroundColor: modelColors.map(c => c + '33'),
+        backgroundColor: modelColors.map(c => c + 'cc'), // Slightly more opaque
         borderColor: modelColors,
-        borderWidth: 1.5,
-        borderRadius: 3
+        borderWidth: 0,
+        borderRadius: 4,
+        barPercentage: 0.7,
+        categoryPercentage: 0.8
       }]
     },
     options: {
       responsive: true,
       maintainAspectRatio: true,
       plugins: {
-        legend: { display: false }, tooltip: {
-          callbacks: { label: ctx => ctx.parsed.y + '%' }
+        legend: { display: false },
+        tooltip: {
+          backgroundColor: 'rgba(255, 255, 255, 0.9)',
+          titleColor: '#1e293b',
+          bodyColor: '#475569',
+          borderColor: '#e2e8f0',
+          borderWidth: 1,
+          padding: 10,
+          displayColors: true,
+          callbacks: { label: ctx => ' ' + ctx.parsed.y + '%' }
         }
       },
       scales: {
-        y: { beginAtZero: true, max: 100, ticks: { font: { size: 9 }, stepSize: 25 }, grid: { color: '#f0f0f0' } },
-        x: { display: false }
+        y: { 
+          beginAtZero: true, 
+          max: 100, 
+          ticks: { 
+            font: { size: 10, weight: '500' }, 
+            stepSize: 25,
+            callback: value => value + '%'
+          }, 
+          grid: { color: '#f1f5f9', drawBorder: false } 
+        },
+        x: { 
+          display: false,
+          grid: { display: false }
+        }
+      },
+      animation: {
+        duration: 1000,
+        easing: 'easeOutQuart'
       }
     }
   });

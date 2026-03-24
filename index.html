@@ -186,12 +186,13 @@
                 <img src="static/images/benchmark.svg" alt="Logo" style="width: 1em;">
                 FG-BMK
               </h1>
-               <!-- Subtitle -->
-          <h2 class="title is-3 publication-title" style="font-weight: 500; color: #374151; max-width: 900px; margin: 0 auto; line-height: 1.4;">
-            Benchmarking Large Vision-Language Models on Fine-Grained Image Tasks: A Comprehensive Evaluation
-          </h2>
-          
-          <div class="is-size-5 publication-authors" style="margin-top: 1.5rem; margin-bottom: 0.5rem;">
+              <!-- Subtitle -->
+              <h2 class="title is-3 publication-title"
+                style="font-weight: 500; color: #374151; max-width: 900px; margin: 0 auto; line-height: 1.4;">
+                Benchmarking Large Vision-Language Models on Fine-Grained Image Tasks: A Comprehensive Evaluation
+              </h2>
+
+              <div class="is-size-5 publication-authors" style="margin-top: 1.5rem; margin-bottom: 0.5rem;">
                 <span class="author-block">
                   <a href="https://github.com/SEU-VIPGroup" target="_blank">Hong-Tao Yu</a><sup>1*</sup>,</span>
                 <span class="author-block">
@@ -281,37 +282,34 @@
           <div class="columns is-multiline is-centered">
             <!-- Scale Card -->
             <div class="column is-one-third is-flex">
-              <div class="abstract-box"
-                style="text-align: center; padding: 25px !important; transition: transform 0.3s ease; flex-grow: 1; display: flex; flex-direction: column; justify-content: center; align-items: center;"
-                onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
-                <i class="fas fa-database" style="font-size: 2.5rem; color: #363636; margin-bottom: 10px;"></i>
-                <h3 class="title is-4" style="margin-top: 5px; margin-bottom: 5px;">Massive Scale</h3>
-                <p style="font-size: 1.1rem; color: #4f46e5; font-weight: 800;">1.01M+ <span
+              <div class="abstract-box feature-card"
+                style="text-align: center; flex-grow: 1; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                <i class="fas fa-database" style="font-size: 2.5rem; color: #363636; margin-bottom: 15px;"></i>
+                <h3 class="title is-4" style="margin-top: 5px; margin-bottom: 10px;">Massive Scale</h3>
+                <p style="font-size: 1.15rem; color: #4f46e5; font-weight: 800; margin-bottom: 4px;">1.01M+ <span
                     style="color: #64748b; font-weight: 400; font-size: 0.9rem;">Questions</span></p>
-                <p style="font-size: 1.1rem; color: #4f46e5; font-weight: 800;">280K+ <span
+                <p style="font-size: 1.15rem; color: #4f46e5; font-weight: 800; margin-bottom: 0;">280K+ <span
                     style="color: #64748b; font-weight: 400; font-size: 0.9rem;">Images</span></p>
               </div>
             </div>
             <!-- Paradigm Card -->
             <div class="column is-one-third is-flex">
-              <div class="abstract-box"
-                style="text-align: center; padding: 25px !important; transition: transform 0.3s ease; flex-grow: 1; display: flex; flex-direction: column; justify-content: center; align-items: center;"
-                onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
-                <i class="fas fa-microscope" style="font-size: 2.5rem; color: #363636; margin-bottom: 10px;"></i>
-                <h3 class="title is-4" style="margin-top: 5px; margin-bottom: 5px;">Dual Paradigm</h3>
-                <p style="font-size: 0.95rem; color: var(--text-secondary);">Simultaneous Evaluation of
+              <div class="abstract-box feature-card"
+                style="text-align: center; flex-grow: 1; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                <i class="fas fa-microscope" style="font-size: 2.5rem; color: #363636; margin-bottom: 15px;"></i>
+                <h3 class="title is-4" style="margin-top: 5px; margin-bottom: 10px;">Dual Paradigm</h3>
+                <p style="font-size: 0.95rem; color: var(--text-secondary); line-height: 1.5;">Simultaneous Evaluation of
                   <b>Human-oriented</b> & <b>Machine-oriented</b> Alignment.
                 </p>
               </div>
             </div>
             <!-- Granularity Card -->
             <div class="column is-one-third is-flex">
-              <div class="abstract-box"
-                style="text-align: center; padding: 25px !important; transition: transform 0.3s ease; flex-grow: 1; display: flex; flex-direction: column; justify-content: center; align-items: center;"
-                onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
-                <i class="fas fa-search-plus" style="font-size: 2.5rem; color: #363636; margin-bottom: 10px;"></i>
-                <h3 class="title is-4" style="margin-top: 5px; margin-bottom: 5px;">Fine-Grained</h3>
-                <p style="font-size: 0.95rem; color: var(--text-secondary);">In-depth analysis of <b>Hierarchical
+              <div class="abstract-box feature-card"
+                style="text-align: center; flex-grow: 1; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                <i class="fas fa-search-plus" style="font-size: 2.5rem; color: #363636; margin-bottom: 15px;"></i>
+                <h3 class="title is-4" style="margin-top: 5px; margin-bottom: 10px;">Fine-Grained</h3>
+                <p style="font-size: 0.95rem; color: var(--text-secondary); line-height: 1.5;">In-depth analysis of <b>Hierarchical
                     Species</b> and minute visual attribute recognition.</p>
               </div>
             </div>
@@ -326,423 +324,569 @@
 
     <!-- Dataset Composition Styles -->
     <style>
-      .dataset-dashboard {
-        background: #ffffff;
-        border-radius: 12px;
-        border: 1px solid #e5e7eb;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.03);
-        padding: 2.5rem;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 1.2rem;
-        position: relative;
-        overflow: hidden;
-        max-width: 780px;
+      .ds-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 16px;
+        max-width: 960px;
         margin: 0 auto;
       }
-      .dataset-dashboard::before {
-        content: '';
-        position: absolute;
-        top: 0; left: 0; right: 0; height: 4px;
-        background: linear-gradient(90deg, #4285F4, #9b72cb, #d96570);
+
+      @media (max-width: 768px) {
+        .ds-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
       }
-      .dataset-domain {
-        background: #fafafa;
-        border-radius: 8px;
-        padding: 1.25rem 1rem;
-        border: 1px solid #e2e8f0;
+
+      .ds-card {
+        background: #ffffff;
+        border-radius: 12px;
+        padding: 20px 18px;
+        border: 1px solid #f3f4f6;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
         transition: all 0.3s ease;
+        text-align: center;
         display: flex;
         flex-direction: column;
-        width: calc(33.333% - 0.8rem);
-        min-width: 190px;
+        align-items: center;
+        gap: 10px;
+        text-decoration: none;
+        color: inherit;
+        position: relative;
+        overflow: hidden;
       }
-      .dataset-domain:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 12px 24px rgba(0,0,0,0.04);
-        background: #ffffff;
+
+      .ds-card::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        border-radius: 0 0 12px 12px;
+        opacity: 0;
+        transition: opacity 0.3s;
+      }
+
+      .ds-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.06);
         border-color: #e5e7eb;
       }
-      .domain-header {
+
+      .ds-card:hover::after {
+        opacity: 1;
+      }
+
+      .ds-pill {
+        display: inline-block;
+        padding: 3px 10px;
+        border-radius: 20px;
+        font-size: 0.7rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+      }
+
+      .ds-name {
+        font-size: 0.95rem;
+        font-weight: 700;
+        color: #111827;
+        line-height: 1.3;
+      }
+
+      .ds-link-icon {
+        font-size: 0.75rem;
+        color: #9ca3af;
+        transition: color 0.2s;
+      }
+
+      .ds-card:hover .ds-link-icon {
+        color: #4f46e5;
+      }
+
+      /* Domain colors */
+      .ds-animals .ds-pill {
+        background: #dbeafe;
+        color: #1d4ed8;
+      }
+
+      .ds-animals::after {
+        background: #3b82f6;
+      }
+
+      .ds-plants .ds-pill {
+        background: #dcfce7;
+        color: #15803d;
+      }
+
+      .ds-plants::after {
+        background: #22c55e;
+      }
+
+      .ds-consumer .ds-pill {
+        background: #fef3c7;
+        color: #92400e;
+      }
+
+      .ds-consumer::after {
+        background: #f59e0b;
+      }
+
+      .ds-vehicles .ds-pill {
+        background: #ffe4e6;
+        color: #be123c;
+      }
+
+      .ds-vehicles::after {
+        background: #f43f5e;
+      }
+
+      .ds-medical .ds-pill {
+        background: #f3e8ff;
+        color: #7e22ce;
+      }
+
+      .ds-medical::after {
+        background: #a855f7;
+      }
+
+      /* Key Findings */
+      .kf-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+        max-width: 900px;
+        margin: 0 auto;
+      }
+
+      @media (max-width: 768px) {
+        .kf-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .kf-card {
+        background: #ffffff;
+        border-radius: 12px;
+        padding: 28px 24px;
+        border: 1px solid #f3f4f6;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+        display: flex;
+        gap: 16px;
+        align-items: flex-start;
+        transition: all 0.3s ease;
+      }
+
+      .kf-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.05);
+      }
+
+      .kf-icon {
+        width: 44px;
+        height: 44px;
+        min-width: 44px;
+        border-radius: 10px;
         display: flex;
         align-items: center;
         justify-content: center;
-        margin-bottom: 1.2rem;
-        padding-bottom: 1rem;
-        border-bottom: 1px solid #eaeaea;
+        font-size: 1.1rem;
       }
-      .domain-icon {
-        width: 36px; height: 36px;
-        border-radius: 8px;
-        display: flex; align-items: center; justify-content: center;
-        margin-right: 12px;
-        font-size: 1.2rem;
-        background: transparent !important;
-      }
-      .domain-title {
-        font-weight: 600; font-size: 1.05rem; color: #334155; margin: 0; letter-spacing: -0.01em;
-      }
-      
-      .domain-animals .domain-icon { color: #3b82f6; } /* Blue */
-      .domain-plants .domain-icon { color: #16a34a; } /* Green */
-      .domain-consumer .domain-icon { color: #d97706; } /* Darker Yellow */
-      .domain-vehicles .domain-icon { color: #e11d48; } /* Rose/Red */
-      .domain-medical .domain-icon { color: #9333ea; } /* Purple */
-      
-      .dataset-tag {
-        transition: all 0.2s;
-        border-radius: 6px !important;
-        font-weight: 500;
-        padding: 0.85rem 0.8rem !important;
-        font-size: 0.85rem !important;
-        box-shadow: 0 1px 2px rgba(0,0,0,0.02);
-      }
-      .dataset-tag:hover {
-        transform: translateY(-1.5px);
-        box-shadow: 0 4px 10px rgba(0,0,0,0.06);
-      }
-      
-      .domain-animals .dataset-tag { background: rgba(59, 130, 246, 0.06) !important; border: 1px solid rgba(59, 130, 246, 0.2) !important; color: #1e3a8a !important; }
-      .domain-animals .dataset-tag:hover { background: rgba(59, 130, 246, 0.12) !important; border-color: rgba(59, 130, 246, 0.4) !important; }
-      
-      .domain-plants .dataset-tag { background: rgba(22, 163, 74, 0.06) !important; border: 1px solid rgba(22, 163, 74, 0.2) !important; color: #14532d !important; }
-      .domain-plants .dataset-tag:hover { background: rgba(22, 163, 74, 0.12) !important; border-color: rgba(22, 163, 74, 0.4) !important; }
 
-      .domain-consumer .dataset-tag { background: rgba(217, 119, 6, 0.06) !important; border: 1px solid rgba(217, 119, 6, 0.2) !important; color: #78350f !important; }
-      .domain-consumer .dataset-tag:hover { background: rgba(217, 119, 6, 0.12) !important; border-color: rgba(217, 119, 6, 0.4) !important; }
+      .kf-title {
+        font-weight: 700;
+        font-size: 0.95rem;
+        color: #111827;
+        margin-bottom: 6px;
+      }
 
-      .domain-vehicles .dataset-tag { background: rgba(225, 29, 72, 0.06) !important; border: 1px solid rgba(225, 29, 72, 0.2) !important; color: #881337 !important; }
-      .domain-vehicles .dataset-tag:hover { background: rgba(225, 29, 72, 0.12) !important; border-color: rgba(225, 29, 72, 0.4) !important; }
-
-      .domain-medical .dataset-tag { background: rgba(147, 51, 234, 0.06) !important; border: 1px solid rgba(147, 51, 234, 0.2) !important; color: #581c87 !important; }
-      .domain-medical .dataset-tag:hover { background: rgba(147, 51, 234, 0.12) !important; border-color: rgba(147, 51, 234, 0.4) !important; }
-      .dataset-domain .tags {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        align-content: center;
-        margin-bottom: 0 !important;
+      .kf-desc {
+        font-size: 0.85rem;
+        color: #6b7280;
+        line-height: 1.55;
       }
     </style>
 
-    <section class="section is-light" id="dataset-composition" style="padding-top: 40px; padding-bottom: 40px;">
+    <section class="section" id="dataset-composition" style="padding-top: 40px; padding-bottom: 40px;">
       <div class="container is-max-widescreen">
         <h2 class="title is-3 has-text-centered" style="margin-bottom: 0.5rem;">Dataset Composition</h2>
-        <p class="has-text-centered" style="color: var(--text-secondary); margin-bottom: 3rem; font-size: 1rem;">
-          12 fine-grained datasets spanning 6 domains &bull; 280K+ images &bull; 1.01M+ questions
+        <p class="has-text-centered" style="color: var(--text-secondary); margin-bottom: 2.5rem; font-size: 1rem;">
+          12 fine-grained datasets spanning 5 domains &bull; 280K+ images &bull; 1.01M+ questions
         </p>
-        
-        <div class="dataset-dashboard">
+
+        <div class="ds-grid">
           <!-- Animals -->
-          <div class="dataset-domain domain-animals">
-            <div class="domain-header">
-              <div class="domain-icon"><i class="fas fa-paw"></i></div>
-              <h3 class="domain-title">Animals</h3>
-            </div>
-            <div class="tags" style="gap: 8px; flex-grow: 1;">
-              <a href="https://www.vision.caltech.edu/datasets/cub_200_2011/" class="tag is-info is-light is-medium dataset-tag" target="_blank">CUB-200</a>
-              <a href="https://github.com/visipedia/inat_comp/tree/master/2021" class="tag is-info is-light is-medium dataset-tag" target="_blank">iNat2021</a>
-              <a href="http://vision.stanford.edu/aditya86/ImageNetDogs/" class="tag is-info is-light is-medium dataset-tag" target="_blank">Stanford Dogs</a>
-            </div>
-          </div>
-          
+          <a href="https://www.vision.caltech.edu/datasets/cub_200_2011/" target="_blank" class="ds-card ds-animals">
+            <span class="ds-pill">Animals</span>
+            <span class="ds-name">CUB-200</span>
+            <span class="ds-link-icon"><i class="fas fa-external-link-alt"></i> 200 species</span>
+          </a>
+          <a href="https://www.kaggle.com/datasets/jessicali9530/stanford-dogs-dataset" target="_blank"
+            class="ds-card ds-animals">
+            <span class="ds-pill">Animals</span>
+            <span class="ds-name">Stanford Dogs</span>
+            <span class="ds-link-icon"><i class="fas fa-external-link-alt"></i> 120 breeds</span>
+          </a>
+          <a href="https://github.com/visipedia/inat_comp/tree/master/2021" target="_blank" class="ds-card ds-animals">
+            <span class="ds-pill">Animals</span>
+            <span class="ds-name">iNat2021</span>
+            <span class="ds-link-icon"><i class="fas fa-external-link-alt"></i> 10K species</span>
+          </a>
+
           <!-- Plants & Food -->
-          <div class="dataset-domain domain-plants">
-            <div class="domain-header">
-              <div class="domain-icon"><i class="fas fa-leaf"></i></div>
-              <h3 class="domain-title">Plants &amp; Food</h3>
-            </div>
-            <div class="tags" style="gap: 8px; flex-grow: 1;">
-              <a href="https://www.robots.ox.ac.uk/~vgg/data/flowers/102/" class="tag is-success is-light is-medium dataset-tag" target="_blank">Oxford Flowers-102</a>
-              <a href="https://github.com/zhoudaxia241/VegFru" class="tag is-success is-light is-medium dataset-tag" target="_blank">VegFru</a>
-              <a href="https://data.vision.ee.ethz.ch/cvl/datasets_extra/food-101/" class="tag is-success is-light is-medium dataset-tag" target="_blank">Food-101</a>
-            </div>
-          </div>
-          
+          <a href="https://www.robots.ox.ac.uk/~vgg/data/flowers/102/" target="_blank" class="ds-card ds-plants">
+            <span class="ds-pill">Plants</span>
+            <span class="ds-name">Oxford Flowers</span>
+            <span class="ds-link-icon"><i class="fas fa-external-link-alt"></i> 102 classes</span>
+          </a>
+          <a href="https://arxiv.org/abs/1712.00417" target="_blank" class="ds-card ds-plants">
+            <span class="ds-pill">Plants</span>
+            <span class="ds-name">VegFru</span>
+            <span class="ds-link-icon"><i class="fas fa-external-link-alt"></i> 292 classes</span>
+          </a>
+          <a href="https://data.vision.ee.ethz.ch/cvl/datasets_extra/food-101/" target="_blank"
+            class="ds-card ds-plants">
+            <span class="ds-pill">Food</span>
+            <span class="ds-name">Food-101</span>
+            <span class="ds-link-icon"><i class="fas fa-external-link-alt"></i> 101 classes</span>
+          </a>
+
           <!-- Consumer & Lifestyle -->
-          <div class="dataset-domain domain-consumer">
-            <div class="domain-header">
-              <div class="domain-icon"><i class="fas fa-shopping-bag"></i></div>
-              <h3 class="domain-title">Consumer &amp; Lifestyle</h3>
-            </div>
-            <div class="tags" style="gap: 8px; flex-grow: 1;">
-              <a href="https://products-10k.github.io/" class="tag is-warning is-light is-medium dataset-tag" target="_blank">Products-10K</a>
-              <a href="http://mmlab.ie.cuhk.edu.hk/projects/DeepFashion.html" class="tag is-warning is-light is-medium dataset-tag" target="_blank">DeepFashion</a>
-              <a href="https://tianchi.aliyun.com/dataset/dataDetail?dataId=110147" class="tag is-warning is-light is-medium dataset-tag" target="_blank">Wine</a>
-            </div>
-          </div>
-          
+          <a href="https://products-10k.github.io/" target="_blank" class="ds-card ds-consumer">
+            <span class="ds-pill">Consumer</span>
+            <span class="ds-name">Products-10K</span>
+            <span class="ds-link-icon"><i class="fas fa-external-link-alt"></i> 10K products</span>
+          </a>
+          <a href="https://github.com/switchablenorms/DeepFashion2" target="_blank" class="ds-card ds-consumer">
+            <span class="ds-pill">Consumer</span>
+            <span class="ds-name">DeepFashion</span>
+            <span class="ds-link-icon"><i class="fas fa-external-link-alt"></i> 50 categories</span>
+          </a>
+          <a href="https://tianchi.aliyun.com/dataset/dataDetail?dataId=110147" target="_blank"
+            class="ds-card ds-consumer">
+            <span class="ds-pill">Lifestyle</span>
+            <span class="ds-name">Wine</span>
+            <span class="ds-link-icon"><i class="fas fa-external-link-alt"></i> 42 varieties</span>
+          </a>
+
           <!-- Vehicles -->
-          <div class="dataset-domain domain-vehicles">
-            <div class="domain-header">
-              <div class="domain-icon"><i class="fas fa-car"></i></div>
-              <h3 class="domain-title">Vehicles</h3>
-            </div>
-            <div class="tags" style="gap: 8px; flex-grow: 1;">
-              <a href="https://ai.stanford.edu/~jkrause/cars/car_dataset.html" class="tag is-danger is-light is-medium dataset-tag" target="_blank">Stanford Cars</a>
-              <a href="https://www.robots.ox.ac.uk/~vgg/data/fgvc-aircraft/" class="tag is-danger is-light is-medium dataset-tag" target="_blank">FGVC-Aircraft</a>
-            </div>
-          </div>
-          
+          <a href="https://www.kaggle.com/datasets/eduardo4jesus/stanford-cars-dataset" target="_blank"
+            class="ds-card ds-vehicles">
+            <span class="ds-pill">Vehicles</span>
+            <span class="ds-name">Stanford Cars</span>
+            <span class="ds-link-icon"><i class="fas fa-external-link-alt"></i> 196 classes</span>
+          </a>
+          <a href="https://www.robots.ox.ac.uk/~vgg/data/fgvc-aircraft/" target="_blank" class="ds-card ds-vehicles">
+            <span class="ds-pill">Vehicles</span>
+            <span class="ds-name">FGVC Aircraft</span>
+            <span class="ds-link-icon"><i class="fas fa-external-link-alt"></i> 100 models</span>
+          </a>
+
           <!-- Medical -->
-          <div class="dataset-domain domain-medical">
-            <div class="domain-header">
-              <div class="domain-icon"><i class="fas fa-microscope"></i></div>
-              <h3 class="domain-title">Medical</h3>
-            </div>
-            <div class="tags" style="gap: 8px; flex-grow: 1;">
-              <a href="https://skincon-dataset.github.io/" class="tag is-link is-light is-medium dataset-tag" style="background-color: #f3e8ff; color: #7e22ce;" target="_blank">SkinCon</a>
-            </div>
-          </div>
-          
+          <a href="https://skincon-dataset.github.io/" target="_blank" class="ds-card ds-medical">
+            <span class="ds-pill">Medical</span>
+            <span class="ds-name">SkinCon</span>
+            <span class="ds-link-icon"><i class="fas fa-external-link-alt"></i> Dermatology</span>
+          </a>
         </div>
       </div>
     </section>
 
-
-
-
     <!-- Paper abstract -->
-    <section class="section">
+    <section class="section" id="abstract" style="padding-top: 20px; padding-bottom: 40px;">
       <div class="container is-max-desktop">
-        <div class="columns is-centered has-text-centered">
+        <h2 class="title is-3 has-text-centered" style="margin-bottom: 0.5rem;">Abstract</h2>
+        <p class="has-text-centered" style="color: var(--text-secondary); margin-bottom: 2rem; font-size: 0.95rem;">
+          Published as a conference paper at ICLR 2026
+        </p>
+        <div
+          style="background: #ffffff; border-radius: 12px; padding: 48px 48px 42px; box-shadow: 0 2px 8px rgba(0,0,0,0.02); border: 1px solid #f3f4f6;">
+          <div class="content has-text-justified"
+            style="font-size: 1.05rem; line-height: 1.85; color: #374151; margin-bottom: 0;">
+            <p style="margin-bottom: 0;">
+              Recent advancements in Large Vision-Language Models (LVLMs) have demonstrated remarkable multimodal
+              perception capabilities, garnering significant attention. While numerous evaluation studies have
+              emerged, assessing LVLMs both holistically and on specialized tasks, <strong>fine-grained image
+                tasks</strong>—fundamental to computer vision—remain largely unexplored. To fill this gap, we introduce
+              a
+              comprehensive fine-grained evaluation benchmark, <em>i.e.</em>, <strong>FG-BMK</strong>, comprising
+              <strong>1.01 million
+                questions</strong> and <strong>0.28 million images</strong>. Our evaluation systematically examines
+              LVLMs from both
+              human-oriented and machine-oriented perspectives, focusing on their semantic recognition and
+              fine-grained feature representation capabilities. Through extensive experiments on twelve representative
+              LVLMs/VLMs, we uncover key findings regarding the influence of <em>training paradigms</em>, <em>modality
+                alignment</em>,
+              <em>perturbation susceptibility</em>, and <em>fine-grained category reasoning</em> on task performance.
+              This work
+              provides critical insights into the limitations of current LVLMs and offers guidance for future data
+              construction and model design in the development of more advanced LVLMs.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- End paper abstract -->
+
+    <!-- Key Findings from Paper -->
+    <section class="section" id="key-findings" style="padding-top: 20px; padding-bottom: 40px;">
+      <div class="container is-max-desktop">
+        <h2 class="title is-3 has-text-centered" style="margin-bottom: 0.5rem;">Key Findings</h2>
+        <p class="has-text-centered" style="color: var(--text-secondary); margin-bottom: 2rem; font-size: 0.95rem;">
+          Core insights from extensive experiments on 12 representative LVLMs/VLMs
+        </p>
+        <div class="kf-grid">
+          <!-- Finding 1 -->
+          <div class="kf-card">
+            <div class="kf-icon" style="background: #eef2ff; color: #4f46e5;">
+              <i class="fas fa-layer-group"></i>
+            </div>
+            <div>
+              <div class="kf-title">Contrastive Training Advantage</div>
+              <div class="kf-desc">Contrastive training (e.g., CLIP, DINOv2) proves more effective in enhancing
+                fine-grained discriminability, while generative paradigms yield weaker features.</div>
+            </div>
+          </div>
+          <!-- Finding 2 -->
+          <div class="kf-card">
+            <div class="kf-icon" style="background: #fefce8; color: #ca8a04;">
+              <i class="fas fa-unlink"></i>
+            </div>
+            <div>
+              <div class="kf-title">Alignment Gap</div>
+              <div class="kf-desc">Aligning visual features with textual features can <em>impair</em> fine-grained
+                discriminability, especially with mismatched data granularity.</div>
+            </div>
+          </div>
+          <!-- Finding 3 -->
+          <div class="kf-card">
+            <div class="kf-icon" style="background: #fff1f2; color: #e11d48;">
+              <i class="fas fa-shield-alt"></i>
+            </div>
+            <div>
+              <div class="kf-title">Perturbation Vulnerability</div>
+              <div class="kf-desc">LVLMs are significantly more vulnerable to feature perturbations in fine-grained
+                tasks than in generic vision tasks.</div>
+            </div>
+          </div>
+          <!-- Finding 4 -->
+          <div class="kf-card">
+            <div class="kf-icon" style="background: #f0fdf4; color: #16a34a;">
+              <i class="fas fa-brain"></i>
+            </div>
+            <div>
+              <div class="kf-title">Reasoning Bottleneck</div>
+              <div class="kf-desc">LVLMs show relatively strong visual perception but struggle with fine-grained
+                category reasoning beyond simple recognition.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Qualitative Analysis / Motivation -->
+    <section class="section" id="motivation" style="padding: 4rem 1.5rem; background: #faf9f6;">
+      <div class="container is-max-desktop">
+        <h2 class="title is-3 has-text-centered">Why FG-BMK?</h2>
+        <p class="has-text-centered"
+          style="color: var(--text-secondary); margin-bottom: 3rem; font-size: 1rem; max-width: 800px; margin-left: auto; margin-right: auto;">
+          Bridging the <strong>Alignment Gap</strong> in Granularity Inconsistencies. FG-BMK constructs rigorously
+          aligned fine-grained samples to evaluate where current multimodal models fail.
+        </p>
+
+        <div class="columns is-centered is-multiline" style="gap: 30px;">
+          <!-- Task 1 -->
           <div class="column is-full">
-            <div class="abstract-box">
-              <h2 class="title is-3">Abstract</h2>
-              <div class="content has-text-justified">
-                <!-- TODO: Replace with your paper abstract -->
-                <p>
-                  Recent advancements in Large Vision-Language Models (LVLMs) have demonstrated remarkable multimodal
-                  perception capabilities, garnering significant attention. While numerous evaluation studies have
-                  emerged, assessing LVLMs both holistically and on specialized tasks, fine-grained image
-                  tasks—fundamental to computer vision—remain largely unexplored. To fill this gap, we introduce a
-                  comprehensive fine-grained evaluation benchmark, <i>i.e.</i>, FG-BMK, comprising <b>1.01 million
-                    questions</b> and <b>0.28 million images</b>. Our evaluation systematically examines LVLMs from both
-                  human-oriented and machine-oriented perspectives, focusing on their semantic recognition and
-                  fine-grained feature representation capabilities. Through extensive experiments on twelve
-                  representative
-                  LVLMs/VLMs, we uncover key findings regarding the influence of training paradigms, modality alignment,
-                  perturbation susceptibility, and fine-grained category reasoning on task performance. This work
-                  provides
-                  critical insights into the limitations of current LVLMs and offers guidance for future data
-                  construction
-                  and model design in the development of more advanced LVLMs. Our code is open-source and available at
-                  <a href="https://github.com/SEU-VIPGroup/FG-BMK"
-                    target="_blank">https://github.com/SEU-VIPGroup/FG-BMK</a>.
+            <div
+              style="background: #ffffff; border-radius: 16px; border: 1px solid #f3f4f6; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.03); display: flex; min-height: 280px; flex-direction: row;"
+              class="task-card">
+              <div
+                style="width: 40%; background: #f8fafc; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center;">
+                <img
+                  src="C:\Users\10264\.gemini\antigravity\brain\70ca0b10-540e-45d7-8751-1e438e880bf1\task_hierarchical_bird_retry_1774338592770.png"
+                  alt="Hierarchical Granularity Task" style="width: 100%; height: 100%; object-fit: cover;">
+                <div
+                  style="position: absolute; top: 12px; right: 12px; background: rgba(255,255,255,0.85); padding: 4px 10px; border-radius: 8px; font-size: 0.7rem; font-weight: 700; color: #4f46e5; border: 1px solid #eef2ff; backdrop-filter: blur(4px);">
+                  Human-oriented</div>
+              </div>
+              <div style="width: 60%; padding: 32px; display: flex; flex-direction: column; justify-content: center;">
+                <h4
+                  style="font-size: 1.15rem; font-weight: 800; color: #1e293b; margin-bottom: 16px; letter-spacing: -0.01em;">
+                  Task 1: Hierarchical Granularity Recognition</h4>
+                <div
+                  style="background: #f8fafc; border-radius: 10px; padding: 16px; border-left: 4px solid #4f46e5; margin-bottom: 16px;">
+                  <p style="font-size: 0.95rem; line-height: 1.6; color: #334155;">
+                    <span style="color: #64748b; font-weight: 600;">Q:</span> What is the <strong
+                      style="color: #4f46e5;">species</strong> of the bird in this image?
+                  </p>
+                  <div style="margin-top: 10px; font-size: 0.88rem; color: #475569;">
+                    (A) Great Crested Flycatcher &nbsp; (B) Eastern Phoebe ...
+                  </div>
+                </div>
+                <p style="font-size: 0.85rem; color: #64748b; line-height: 1.5; margin-bottom: 0;">
+                  Tests whether LVLMs can distinguish fine-grained species within the same genus, moving progressively
+                  from Class to Species level.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Task 2 -->
+          <div class="column is-full">
+            <div
+              style="background: #ffffff; border-radius: 16px; border: 1px solid #f3f4f6; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.03); display: flex; min-height: 280px; flex-direction: row;"
+              class="task-card">
+              <div
+                style="width: 40%; background: #1e293b; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center;">
+                <!-- Using a high-end icon placeholder for aircraft as model generation was unavailable -->
+                <div style="color: #60a5fa; text-align: center; padding: 40px;">
+                    <i class="fas fa-plane-departure" style="font-size: 4rem; opacity: 0.2; position: absolute; top: 20%; left: 10%; transform: rotate(-15deg);"></i>
+                    <i class="fas fa-plane" style="font-size: 6rem; position: relative; z-index: 1;"></i>
+                    <p style="margin-top: 20px; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; opacity: 0.6;">Aviation Dataset Preview</p>
+                </div>
+                <div
+                  style="position: absolute; top: 12px; right: 12px; background: rgba(255,255,255,0.85); padding: 4px 10px; border-radius: 8px; font-size: 0.7rem; font-weight: 700; color: #4f46e5; border: 1px solid #eef2ff; backdrop-filter: blur(4px);">
+                  Human-oriented</div>
+              </div>
+              <div style="width: 60%; padding: 32px; display: flex; flex-direction: column; justify-content: center;">
+                <h4
+                  style="font-size: 1.15rem; font-weight: 800; color: #1e293b; margin-bottom: 16px; letter-spacing: -0.01em;">
+                  Task 2: Knowledge Bias Estimation</h4>
+                <div
+                  style="background: #f8fafc; border-radius: 10px; padding: 16px; border-left: 4px solid #e11d48; margin-bottom: 16px;">
+                  <p style="font-size: 0.95rem; line-height: 1.6; color: #334155;">
+                    <span style="color: #64748b; font-weight: 600;">Q:</span> Is the aircraft model in this image a
+                    <strong>Boeing 737-800</strong>?
+                  </p>
+                  <div style="margin-top: 10px; font-size: 0.88rem; color: #475569;">
+                    (A) True &nbsp; (B) False
+                  </div>
+                </div>
+                <p style="font-size: 0.85rem; color: #64748b; line-height: 1.5; margin-bottom: 0;">
+                  Probes whether models rely on actual visual cues or prior language knowledge bias when identifying
+                  highly similar fine-grained categories.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Task 3 -->
+          <div class="column is-full">
+            <div
+              style="background: #ffffff; border-radius: 16px; border: 1px solid #f3f4f6; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.03); display: flex; min-height: 280px; flex-direction: row;"
+              class="task-card">
+              <div
+                style="width: 40%; background: #f8fafc; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center;">
+                <img
+                  src="C:\Users\10264\.gemini\antigravity\brain\70ca0b10-540e-45d7-8751-1e438e880bf1\task_multimodal_alignment_flowers_1774338441347.png"
+                  alt="Attribute Recognition Task" style="width: 100%; height: 100%; object-fit: cover;">
+                <div
+                  style="position: absolute; top: 12px; right: 12px; background: rgba(255,255,255,0.85); padding: 4px 10px; border-radius: 8px; font-size: 0.7rem; font-weight: 700; color: #4f46e5; border: 1px solid #eef2ff; backdrop-filter: blur(4px);">
+                  Human-oriented</div>
+              </div>
+              <div style="width: 60%; padding: 32px; display: flex; flex-direction: column; justify-content: center;">
+                <h4
+                  style="font-size: 1.15rem; font-weight: 800; color: #1e293b; margin-bottom: 16px; letter-spacing: -0.01em;">
+                  Task 3: Attribute Recognition</h4>
+                <div
+                  style="background: #f8fafc; border-radius: 10px; padding: 16px; border-left: 4px solid #16a34a; margin-bottom: 16px;">
+                  <p style="font-size: 0.95rem; line-height: 1.6; color: #334155;">
+                    <span style="color: #64748b; font-weight: 600;">Q:</span> Is the <strong
+                      style="color: #16a34a;">petal color</strong> of the flower in this image pink?
+                  </p>
+                  <div style="margin-top: 10px; font-size: 0.88rem; color: #475569;">
+                    (A) True &nbsp; (B) False
+                  </div>
+                </div>
+                <p style="font-size: 0.85rem; color: #64748b; line-height: 1.5; margin-bottom: 0;">
+                  Evaluates sensitivity to minute visual details such as color, shape, and texture at the fine-grained
+                  level, bypassing coarse category recognition.
                 </p>
               </div>
             </div>
           </div>
         </div>
-    </section>
-    <!-- End paper abstract -->
-
-    <!-- Qualitative Analysis / Motivation -->
-    <section class="section">
-      <div class="container is-max-desktop">
-        <h2 class="title is-3 has-text-centered">Why FG-BMK?</h2>
-        <h3 class="subtitle is-5 has-text-centered" style="color: var(--text-secondary); margin-bottom: 2rem;">
-          Bridging the Alignment Gap in Granularity Inconsistencies
-        </h3>
-
-        <div class="content has-text-justified" style="margin-bottom: 2rem;">
-          <p>
-            Current multimodal models and datasets often exhibit severe <b>granularity inconsistencies</b>. When
-            presented with fine-grained visual inputs, standard data generation pipelines and models naturally
-            prioritize generic, coarse-grained objects (e.g., "bird", "dog", "cat") instead of specific
-            sub-categories or species. FG-BMK constructs rigorously aligned fine-grained samples to evaluate and
-            mitigate this "Alignment Gap."
-          </p>
-        </div>
-
-        <!-- Task Showcase Cards (MMBench-style) -->
-        <h4 class="title is-5 has-text-centered" style="margin-bottom: 1.5rem;">Example Evaluation Tasks</h4>
-
-        <!-- Task 1: Hierarchical Granularity Recognition -->
-        <div class="abstract-box"
-          style="padding: 0 !important; margin-bottom: 1.5rem; overflow: hidden; border: 1px solid #dadce0;">
-          <div class="columns is-gapless" style="margin: 0;">
-            <div class="column is-5"
-              style="background: #f8f9fa; display: flex; align-items: center; justify-content: center; min-height: 220px;">
-              <div style="padding: 20px; text-align: center; color: #9ca3af;">
-                <i class="fas fa-image" style="font-size: 3rem; margin-bottom: 10px;"></i>
-                <p style="font-size: 0.85rem;">Image placeholder</p>
-              </div>
-            </div>
-            <div class="column is-7" style="padding: 24px; background: #1a1a2e; color: #e0e0e0;">
-              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
-                <span style="font-weight: 700; font-size: 1rem; color: #60a5fa;">Task 1: Hierarchical Granularity</span>
-                <span
-                  style="background: #1a73e8; color: white; padding: 3px 10px; border-radius: 12px; font-size: 0.75rem; font-weight: 600;">Human-oriented</span>
-              </div>
-              <p style="margin-bottom: 12px; font-size: 0.9rem;">
-                <span style="color: #94a3b8;">Q:</span> What is the <b style="color: #fbbf24;">species</b> of the bird
-                in this image?
-              </p>
-              <div style="margin-bottom: 12px; font-size: 0.85rem; color: #cbd5e1;">
-                <span style="margin-right: 16px;">A. Great Crested Flycatcher</span>
-                <span style="margin-right: 16px;">B. Eastern Phoebe</span><br>
-                <span style="margin-right: 16px;">C. Acadian Flycatcher</span>
-                <span>D. Olive-sided Flycatcher</span>
-              </div>
-              <p style="font-size: 0.85rem;">
-                <span style="color: #4ade80; font-weight: 600;">GT: A</span>
-              </p>
-              <p
-                style="font-size: 0.8rem; color: #64748b; margin-top: 12px; border-top: 1px solid #334155; padding-top: 8px;">
-                Tests whether LVLMs can distinguish fine-grained species within the same genus, progressively from Class
-                → Genus → Species level.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Task 2: Knowledge Bias Estimation -->
-        <div class="abstract-box"
-          style="padding: 0 !important; margin-bottom: 1.5rem; overflow: hidden; border: 1px solid #dadce0;">
-          <div class="columns is-gapless" style="margin: 0;">
-            <div class="column is-5"
-              style="background: #f8f9fa; display: flex; align-items: center; justify-content: center; min-height: 220px;">
-              <div style="padding: 20px; text-align: center; color: #9ca3af;">
-                <i class="fas fa-image" style="font-size: 3rem; margin-bottom: 10px;"></i>
-                <p style="font-size: 0.85rem;">Image placeholder</p>
-              </div>
-            </div>
-            <div class="column is-7" style="padding: 24px; background: #1a1a2e; color: #e0e0e0;">
-              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
-                <span style="font-weight: 700; font-size: 1rem; color: #f472b6;">Task 2: Knowledge Bias</span>
-                <span
-                  style="background: #1a73e8; color: white; padding: 3px 10px; border-radius: 12px; font-size: 0.75rem; font-weight: 600;">Human-oriented</span>
-              </div>
-              <p style="margin-bottom: 12px; font-size: 0.9rem;">
-                <span style="color: #94a3b8;">Q:</span> Is the aircraft model in this image a <b
-                  style="color: #fbbf24;">Boeing 737-800</b>?
-              </p>
-              <div style="margin-bottom: 12px; font-size: 0.85rem; color: #cbd5e1;">
-                <span style="margin-right: 16px;">A. True</span>
-                <span>B. False</span>
-              </div>
-              <p style="font-size: 0.85rem;">
-                <span style="color: #4ade80; font-weight: 600;">GT: A (True)</span>
-              </p>
-              <p
-                style="font-size: 0.8rem; color: #64748b; margin-top: 12px; border-top: 1px solid #334155; padding-top: 8px;">
-                Probes whether LVLMs rely on visual cues or prior language knowledge bias when identifying fine-grained
-                categories.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Task 3: Attribute Recognition -->
-        <div class="abstract-box"
-          style="padding: 0 !important; margin-bottom: 1.5rem; overflow: hidden; border: 1px solid #dadce0;">
-          <div class="columns is-gapless" style="margin: 0;">
-            <div class="column is-5"
-              style="background: #f8f9fa; display: flex; align-items: center; justify-content: center; min-height: 220px;">
-              <div style="padding: 20px; text-align: center; color: #9ca3af;">
-                <i class="fas fa-image" style="font-size: 3rem; margin-bottom: 10px;"></i>
-                <p style="font-size: 0.85rem;">Image placeholder</p>
-              </div>
-            </div>
-            <div class="column is-7" style="padding: 24px; background: #1a1a2e; color: #e0e0e0;">
-              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
-                <span style="font-weight: 700; font-size: 1rem; color: #a78bfa;">Task 3: Attribute Recognition</span>
-                <span
-                  style="background: #1a73e8; color: white; padding: 3px 10px; border-radius: 12px; font-size: 0.75rem; font-weight: 600;">Human-oriented</span>
-              </div>
-              <p style="margin-bottom: 12px; font-size: 0.9rem;">
-                <span style="color: #94a3b8;">Q:</span> Is the <b style="color: #fbbf24;">petal color</b> of the flower
-                in this image <b style="color: #fbbf24;">pink</b>?
-              </p>
-              <div style="margin-bottom: 12px; font-size: 0.85rem; color: #cbd5e1;">
-                <span style="margin-right: 16px;">A. True</span>
-                <span>B. False</span>
-              </div>
-              <p style="font-size: 0.85rem;">
-                <span style="color: #f87171; font-weight: 600;">GT: B (False)</span>
-                <span style="color: #64748b; margin-left: 8px;">— Actual: Purple</span>
-              </p>
-              <p
-                style="font-size: 0.8rem; color: #64748b; margin-top: 12px; border-top: 1px solid #334155; padding-top: 8px;">
-                Evaluates sensitivity to minute visual details such as color, shape, and texture at the fine-grained
-                level.
-              </p>
-            </div>
-          </div>
-        </div>
-
       </div>
     </section>
     <!-- End Motivation -->
 
 
     <!-- Section 1: Evaluation Framework -->
-    <section class="section">
+    <section class="section" id="evaluation-framework">
       <div class="container is-max-desktop">
-        <h2 class="title is-3 has-text-centered">Evaluation Framework</h2>
+        <h2 class="title is-3 has-text-centered" style="margin-bottom: 0.5rem;">Evaluation Framework</h2>
+        <p class="has-text-centered" style="color: var(--text-secondary); margin-bottom: 2.5rem; font-size: 0.95rem;">
+          A dual paradigm bridging human perception and machine feature representation
+        </p>
 
-        <!-- Summary Text -->
-        <div class="content has-text-justified mb-6">
-          <p>
-            To comprehensively assess Large Vision-Language Models (LVLMs) in fine-grained scenarios, <b>FG-BMK</b>
-            introduces a <b>dual evaluation paradigm</b>. This framework bridges the gap between how humans perceive
-            visual information and how machines perceive visual features, revealing the critical "Alignment Gap" in
-            current multimodal models.
-          </p>
-        </div>
-
-        <div class="columns is-centered">
+        <div class="columns is-centered" style="gap: 20px;">
           <!-- Human-oriented Column -->
           <div class="column is-half" style="display: flex;">
-            <div class="abstract-box"
-              style="border: 1px solid #cbd5e1; border-top: 4px solid #1a73e8; background: #ffffff; flex: 1; border-radius: 6px;">
-              <h3 class="title is-4" style="color: #202124;">1. Human-oriented Evaluation</h3>
-              <div class="content">
-                <p><b>Focus: Semantic Recognition & Interaction</b></p>
-                <p>
-                  This paradigm employs <b>dialogue-like interactions</b> to simulate real-world human queries. We
-                  evaluate models through:
-                </p>
-                <ul>
-                  <li><b>Attribute Recognition</b>: Testing sensitivity to minute visual details (color, shape).</li>
-                  <li><b>Knowledge Bias</b>: Identifying if models rely on prior "guessing" rather than actual visual
-                    cues.</li>
-                  <li><b>Hierarchical Reasoning</b>: Assessing logical category depth (Class → Genus → Species).</li>
-                </ul>
-                <p
-                  style="font-style: italic; color: var(--text-light); font-size: 0.9rem; margin-top: 15px; border-top: 1px solid #eee; padding-top: 10px;">
-                  Core Discovery: Measures how well the model "understands" and communicates fine-grained semantics in
-                  conversational AI.
-                </p>
+            <div
+              style="background: #ffffff; border-radius: 12px; border: 1px solid #f3f4f6; border-top: 3px solid #2563eb; padding: 32px 28px; box-shadow: 0 2px 8px rgba(0,0,0,0.02); flex: 1;">
+              <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 20px;">
+                <div
+                  style="width: 36px; height: 36px; border-radius: 8px; background: #dbeafe; color: #2563eb; display: flex; align-items: center; justify-content: center; font-size: 1rem;">
+                  <i class="fas fa-comments"></i>
+                </div>
+                <h3 style="font-size: 1.1rem; font-weight: 700; color: #111827; margin: 0;">Human-oriented</h3>
+              </div>
+              <p style="font-size: 0.88rem; color: #6b7280; margin-bottom: 16px;">Dialogue-based evaluation of semantic
+                recognition through conversational queries.</p>
+              <div style="display: flex; flex-direction: column; gap: 10px;">
+                <div style="display: flex; align-items: flex-start; gap: 10px;">
+                  <span
+                    style="min-width: 6px; height: 6px; border-radius: 50%; background: #2563eb; margin-top: 7px;"></span>
+                  <span style="font-size: 0.85rem; color: #374151;"><strong>Attribute Recognition</strong> — sensitivity
+                    to color, shape, texture</span>
+                </div>
+                <div style="display: flex; align-items: flex-start; gap: 10px;">
+                  <span
+                    style="min-width: 6px; height: 6px; border-radius: 50%; background: #2563eb; margin-top: 7px;"></span>
+                  <span style="font-size: 0.85rem; color: #374151;"><strong>Knowledge Bias</strong> — visual cues vs.
+                    language priors</span>
+                </div>
+                <div style="display: flex; align-items: flex-start; gap: 10px;">
+                  <span
+                    style="min-width: 6px; height: 6px; border-radius: 50%; background: #2563eb; margin-top: 7px;"></span>
+                  <span style="font-size: 0.85rem; color: #374151;"><strong>Hierarchical Reasoning</strong> — Class →
+                    Genus → Species</span>
+                </div>
               </div>
             </div>
           </div>
 
           <!-- Machine-oriented Column -->
           <div class="column is-half" style="display: flex;">
-            <div class="abstract-box"
-              style="border: 1px solid #cbd5e1; border-top: 4px solid #34a853; background: #ffffff; flex: 1; border-radius: 6px;">
-              <h3 class="title is-4" style="color: #202124;">2. Machine-oriented Evaluation</h3>
-              <div class="content">
-                <p><b>Focus: Feature Representation Strength</b></p>
-                <p>
-                  This paradigm directly measures the model's <b>underlying visual backbone</b> using objective vision
-                  tasks:
-                </p>
-                <ul>
-                  <li><b>Fine-grained Retrieval</b>: Finding specific species among highly similar categories.</li>
-                  <li><b>Fine-grained Classification</b>: Forcing Distinguishing between visually indistinguishable
-                    samples.</li>
-                </ul>
-                <p>By bypassing the language generation layer, we isolate the model's pure visual perception
-                  capabilities.</p>
-                <p
-                  style="font-style: italic; color: var(--text-light); font-size: 0.9rem; margin-top: 15px; border-top: 1px solid #eee; padding-top: 10px;">
-                  Core Discovery: Reveals the "Alignment Gap" between frozen visual encoders and multimodal projectors.
-                </p>
+            <div
+              style="background: #ffffff; border-radius: 12px; border: 1px solid #f3f4f6; border-top: 3px solid #16a34a; padding: 32px 28px; box-shadow: 0 2px 8px rgba(0,0,0,0.02); flex: 1;">
+              <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 20px;">
+                <div
+                  style="width: 36px; height: 36px; border-radius: 8px; background: #dcfce7; color: #16a34a; display: flex; align-items: center; justify-content: center; font-size: 1rem;">
+                  <i class="fas fa-microchip"></i>
+                </div>
+                <h3 style="font-size: 1.1rem; font-weight: 700; color: #111827; margin: 0;">Machine-oriented</h3>
               </div>
+              <p style="font-size: 0.88rem; color: #6b7280; margin-bottom: 16px;">Direct assessment of visual backbone
+                feature representation quality.</p>
+              <div style="display: flex; flex-direction: column; gap: 10px;">
+                <div style="display: flex; align-items: flex-start; gap: 10px;">
+                  <span
+                    style="min-width: 6px; height: 6px; border-radius: 50%; background: #16a34a; margin-top: 7px;"></span>
+                  <span style="font-size: 0.85rem; color: #374151;"><strong>Fine-grained Retrieval</strong> — mAP across
+                    subordinate categories</span>
+                </div>
+                <div style="display: flex; align-items: flex-start; gap: 10px;">
+                  <span
+                    style="min-width: 6px; height: 6px; border-radius: 50%; background: #16a34a; margin-top: 7px;"></span>
+                  <span style="font-size: 0.85rem; color: #374151;"><strong>Fine-grained Classification</strong> — Top-1
+                    accuracy on visual features</span>
+                </div>
+              </div>
+              <p
+                style="font-size: 0.82rem; color: #9ca3af; margin-top: 16px; padding-top: 12px; border-top: 1px solid #f3f4f6; font-style: italic;">
+                Bypasses language generation to isolate pure visual perception.</p>
             </div>
           </div>
         </div>
@@ -762,135 +906,204 @@
     <!-- End Section 1 -->
 
     <!-- Leaderboard -->
-    <section class="section is-light" id="leaderboard" style="padding: 3rem 1.5rem;">
+    <section class="section" id="leaderboard" style="padding: 3rem 1.5rem;">
       <div class="container is-max-widescreen">
         <h2 class="title is-3 has-text-centered">Leaderboard</h2>
         <p class="has-text-centered" style="color: var(--text-secondary); margin-bottom: 2rem; font-size: 0.95rem;">
           Click on Human-oriented or Machine-oriented to expand detailed results.
         </p>
-        <div class="lb-wrapper" style="position: relative; border-radius: 16px; box-shadow: 0 20px 40px rgba(0, 0, 0, 0.04); overflow: hidden; border: 1px solid rgba(229, 231, 235, 0.8);">
-          <div style="position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, #4285F4, #4CAF50); z-index: 10;"></div>
-          <div class="lb-container" style="overflow-x: auto; background: white; padding-top: 4px;">
+        <div class="lb-wrapper"
+          style="position: relative; border-radius: 16px; box-shadow: 0 8px 30px rgba(0, 0, 0, 0.04); overflow: hidden; background: #ffffff;">
+          <div
+            style="position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, #4285F4, #4CAF50); z-index: 10;">
+          </div>
+          <div class="lb-container" style="overflow-x: auto; padding-top: 4px;">
             <table class="table is-hoverable is-fullwidth"
               style="margin-bottom: 0; font-size: 0.9rem; border-collapse: collapse;">
               <thead>
                 <!-- Row 1: Group headers -->
                 <tr style="background: #ffffff; border-bottom: 1px solid #e5e7eb;">
                   <th colspan="3" class="lb-reset-header" onclick="resetLeaderboard()"
-                    style="border: 1px solid #e5e7eb; border-top: none; padding: 14px; text-align: center; cursor: pointer; color: #6b7280; font-weight: 600; user-select: none; transition: all 0.2s; letter-spacing: 0.5px;"
-                    onmouseover="this.style.background='#f9fafb'; this.style.color='#374151';"
-                    onmouseout="this.style.background='transparent'; this.style.color='#6b7280';"
+                    style="border-bottom: 1px solid #e5e7eb; padding: 14px; text-align: center; cursor: pointer; color: #6b7280; font-weight: 700; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; user-select: none; transition: all 0.2s;"
+                    onmouseover="this.style.background='#f9fafb';" onmouseout="this.style.background='transparent';"
                     title="Click to reset">
                     <i class="fas fa-undo-alt" style="margin-right: 6px; font-size: 0.8rem; opacity: 0.7;"></i> Reset
                   </th>
                   <th colspan="1" class="lb-group-header" onclick="toggleLbGroup('human')"
-                    style="border: 1px solid #e5e7eb; border-top: none; padding: 14px 16px; text-align: center; cursor: pointer; color: #1d4ed8; font-weight: 600; user-select: none; transition: all 0.3s; background: linear-gradient(to bottom, #f8fafc, #ffffff);"
-                    onmouseover="this.style.background='#eff6ff';"
-                    onmouseout="this.style.background='linear-gradient(to bottom, #f8fafc, #ffffff)';"
+                    style="border-bottom: 1px solid #e5e7eb; padding: 14px 16px; text-align: center; cursor: pointer; color: #6b7280; font-weight: 700; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; user-select: none; transition: all 0.3s; background: #ffffff;"
+                    onmouseover="this.style.background='#f9fafb';" onmouseout="this.style.background='#ffffff';"
                     title="Click to expand">
                     Human-oriented <i id="lb-human-arrow" class="fas fa-caret-down"
-                      style="margin-left: 6px; color: #60a5fa; transition: transform 0.3s; transform: rotate(-90deg);"></i>
+                      style="margin-left: 6px; color: #9ca3af; transition: transform 0.3s; transform: rotate(-90deg);"></i>
                   </th>
                   <th colspan="1" class="lb-group-header" onclick="toggleLbGroup('machine')"
-                    style="border: 1px solid #e5e7eb; border-top: none; padding: 14px 16px; text-align: center; cursor: pointer; color: #15803d; font-weight: 600; user-select: none; transition: all 0.3s; background: linear-gradient(to bottom, #f8fafc, #ffffff);"
-                    onmouseover="this.style.background='#f0fdf4';"
-                    onmouseout="this.style.background='linear-gradient(to bottom, #f8fafc, #ffffff)';"
+                    style="border-bottom: 1px solid #e5e7eb; padding: 14px 16px; text-align: center; cursor: pointer; color: #6b7280; font-weight: 700; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; user-select: none; transition: all 0.3s; background: #ffffff;"
+                    onmouseover="this.style.background='#f9fafb';" onmouseout="this.style.background='#ffffff';"
                     title="Click to expand">
                     Machine-oriented <i id="lb-machine-arrow" class="fas fa-caret-down"
-                      style="margin-left: 6px; color: #4ade80; transition: transform 0.3s; transform: rotate(-90deg);"></i>
+                      style="margin-left: 6px; color: #9ca3af; transition: transform 0.3s; transform: rotate(-90deg);"></i>
                   </th>
                 </tr>
-              <!-- Row 2: Sub-headers -->
-              <tr style="background: #ffffff; border-bottom: 2px solid #e5e7eb;">
-                <th style="border: 1px solid #e5e7eb; padding: 10px 16px; text-align: left; font-weight: 600; color: #4b5563; min-width: 150px; cursor: pointer; user-select: none;" title="Click to sort">Name <span class="sort-icon" style="font-size: 0.7rem; margin-left: 4px;">&uarr;</span></th>
-                <th style="border: 1px solid #e5e7eb; padding: 10px 16px; text-align: center; font-weight: 600; color: #4b5563; user-select: none;">Size</th>
-                <th style="border: 1px solid #e5e7eb; padding: 10px 16px; text-align: center; font-weight: 600; color: #4b5563; cursor: pointer; user-select: none;" title="Click to sort">Date</th>
-                <th style="border: 1px solid #e5e7eb; padding: 10px 16px; text-align: center; font-weight: 600; color: #1f2937; cursor: pointer; user-select: none;" title="Click to sort">Overall</th>
-                <th style="border: 1px solid #e5e7eb; padding: 10px 16px; text-align: center; font-weight: 600; color: #1f2937; cursor: pointer; user-select: none;" title="Click to sort">Overall</th>
-              </tr>
-            </thead>
-            <tbody>
-              <!-- Row 1 -->
-              <tr style="background: #fffbef;">
-                <td style="padding: 10px 16px; border: 1px solid #e5e7eb; font-weight: 500; color: #1a73e8;">GPT-4o</td>
-                <td style="text-align:center; padding: 10px; border: 1px solid #e5e7eb; color: #6b7280;">-</td>
-                <td style="text-align:center; padding: 10px; border: 1px solid #e5e7eb; color: #4b5563;">2024-05-13</td>
-                <td
-                  style="text-align:center; padding: 10px; border: 1px solid #e5e7eb; font-weight: 600; color: #b45309;">
-                  85.4</td>
-                <td
-                  style="text-align:center; padding: 10px; border: 1px solid #e5e7eb; font-weight: 600; color: #b48608;">
-                  88.6</td>
-              </tr>
-              <!-- Row 2 -->
-              <tr style="background: #f9fafb;">
-                <td style="padding: 10px 16px; border: 1px solid #e5e7eb; font-weight: 500; color: #1a73e8;">
-                  Gemini-2.0-Flash</td>
-                <td style="text-align:center; padding: 10px; border: 1px solid #e5e7eb; color: #6b7280;">-</td>
-                <td style="text-align:center; padding: 10px; border: 1px solid #e5e7eb; color: #4b5563;">2024-12-11</td>
-                <td style="text-align:center; padding: 10px; border: 1px solid #e5e7eb; color: #374151;">&mdash;</td>
-                <td style="text-align:center; padding: 10px; border: 1px solid #e5e7eb; color: #374151;">84.0*</td>
-              </tr>
-              <!-- Row 3 -->
-              <tr>
-                <td style="padding: 10px 16px; border: 1px solid #e5e7eb; font-weight: 500; color: #1a73e8;">InternVL-2
-                </td>
-                <td style="text-align:center; padding: 10px; border: 1px solid #e5e7eb; color: #6b7280;">-</td>
-                <td style="text-align:center; padding: 10px; border: 1px solid #e5e7eb; color: #4b5563;">2024-07-02</td>
-                <td style="text-align:center; padding: 10px; border: 1px solid #e5e7eb; color: #374151;">&mdash;</td>
-                <td style="text-align:center; padding: 10px; border: 1px solid #e5e7eb; color: #374151;">79.7*</td>
-              </tr>
-              <!-- Row 4 -->
-              <tr style="background: #fdf5f6;">
-                <td style="padding: 10px 16px; border: 1px solid #e5e7eb; font-weight: 500; color: #1a73e8;">Qwen-VL
-                </td>
-                <td style="text-align:center; padding: 10px; border: 1px solid #e5e7eb; color: #6b7280;">-</td>
-                <td style="text-align:center; padding: 10px; border: 1px solid #e5e7eb; color: #4b5563;">2023-08-25</td>
-                <td style="text-align:center; padding: 10px; border: 1px solid #e5e7eb; color: #374151;">&mdash;</td>
-                <td style="text-align:center; padding: 10px; border: 1px solid #e5e7eb; color: #374151;">78.7*</td>
-              </tr>
-              <!-- Row 5 -->
-              <tr>
-                <td style="padding: 10px 16px; border: 1px solid #e5e7eb; font-weight: 500; color: #1a73e8;">LLaVA-1.5
-                </td>
-                <td style="text-align:center; padding: 10px; border: 1px solid #e5e7eb; color: #6b7280;">13B</td>
-                <td style="text-align:center; padding: 10px; border: 1px solid #e5e7eb; color: #4b5563;">2023-10-05</td>
-                <td style="text-align:center; padding: 10px; border: 1px solid #e5e7eb; color: #374151;">&mdash;</td>
-                <td style="text-align:center; padding: 10px; border: 1px solid #e5e7eb; color: #374151;">&mdash;</td>
-              </tr>
-              <!-- Row 6 -->
-              <tr style="background: #f9fafb;">
-                <td style="padding: 10px 16px; border: 1px solid #e5e7eb; font-weight: 500; color: #1a73e8;">EVA-CLIP
-                </td>
-                <td style="text-align:center; padding: 10px; border: 1px solid #e5e7eb; color: #6b7280;">-</td>
-                <td style="text-align:center; padding: 10px; border: 1px solid #e5e7eb; color: #4b5563;">2023-03-24</td>
-                <td style="text-align:center; padding: 10px; border: 1px solid #e5e7eb; color: #374151;">&mdash;</td>
-                <td style="text-align:center; padding: 10px; border: 1px solid #e5e7eb; color: #374151;">&mdash;</td>
-              </tr>
-              <!-- Row 7 -->
-              <tr>
-                <td style="padding: 10px 16px; border: 1px solid #e5e7eb; font-weight: 500; color: #1a73e8;">DINOv2</td>
-                <td style="text-align:center; padding: 10px; border: 1px solid #e5e7eb; color: #6b7280;">-</td>
-                <td style="text-align:center; padding: 10px; border: 1px solid #e5e7eb; color: #4b5563;">2023-04-14</td>
-                <td style="text-align:center; padding: 10px; border: 1px solid #e5e7eb; color: #374151;">&mdash;</td>
-                <td style="text-align:center; padding: 10px; border: 1px solid #e5e7eb; color: #374151;">&mdash;</td>
-              </tr>
-              <!-- Row 8 -->
-              <tr style="background: #f9fafb;">
-                <td style="padding: 10px 16px; border: 1px solid #e5e7eb; font-weight: 500; color: #1a73e8;">BLIP-2</td>
-                <td style="text-align:center; padding: 10px; border: 1px solid #e5e7eb; color: #6b7280;">-</td>
-                <td style="text-align:center; padding: 10px; border: 1px solid #e5e7eb; color: #4b5563;">2023-01-30</td>
-                <td style="text-align:center; padding: 10px; border: 1px solid #e5e7eb; color: #374151;">&mdash;</td>
-                <td style="text-align:center; padding: 10px; border: 1px solid #e5e7eb; color: #374151;">&mdash;</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+                <!-- Row 2: Sub-headers -->
+                <tr style="background: #ffffff; border-bottom: 2px solid #e5e7eb;">
+                  <th
+                    style="padding: 10px 16px; text-align: left; font-weight: 700; font-size: 0.75rem; text-transform: uppercase; color: #6b7280; min-width: 150px; cursor: pointer; user-select: none;"
+                    title="Click to sort">Name <span class="sort-icon"
+                      style="font-size: 0.7rem; margin-left: 4px;">&uarr;</span></th>
+                  <th
+                    style="padding: 10px 16px; text-align: center; font-weight: 700; font-size: 0.75rem; text-transform: uppercase; color: #6b7280; user-select: none;">
+                    Size</th>
+                  <th
+                    style="padding: 10px 16px; text-align: center; font-weight: 700; font-size: 0.75rem; text-transform: uppercase; color: #6b7280; cursor: pointer; user-select: none;"
+                    title="Click to sort">Date</th>
+                  <th
+                    style="padding: 10px 16px; text-align: center; font-weight: 700; font-size: 0.75rem; text-transform: uppercase; color: #6b7280; cursor: pointer; user-select: none;"
+                    title="Click to sort">Overall</th>
+                  <th
+                    style="padding: 10px 16px; text-align: center; font-weight: 700; font-size: 0.75rem; text-transform: uppercase; color: #6b7280; cursor: pointer; user-select: none;"
+                    title="Click to sort">Overall</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Row 1 -->
+                <tr style="background: #ffffff; transition: background 0.2s;"
+                  onmouseover="this.style.background='#f9fafb'" onmouseout="this.style.background='#ffffff'">
+                  <td style="padding: 12px 16px; border-bottom: 1px solid #f3f4f6; font-weight: 600; color: #111827;">
+                    GPT-4o <span
+                      style="display:inline-block; padding:2px 8px; border-radius:12px; font-size:0.65rem; font-weight:600; background:#fee2e2; color:#dc2626; margin-left:6px; vertical-align:middle;">Closed</span>
+                  </td>
+                  <td style="text-align:center; padding: 12px 10px; border-bottom: 1px solid #f3f4f6; color: #6b7280;">-
+                  </td>
+                  <td style="text-align:center; padding: 12px 10px; border-bottom: 1px solid #f3f4f6; color: #4b5563;">
+                    2024-05-13</td>
+                  <td
+                    style="text-align:center; padding: 12px 10px; border-bottom: 1px solid #f3f4f6; font-weight: 700; color: #e05626;">
+                    85.4</td>
+                  <td
+                    style="text-align:center; padding: 12px 10px; border-bottom: 1px solid #f3f4f6; font-weight: 700; color: #e05626;">
+                    88.6</td>
+                </tr>
+                <!-- Row 2 -->
+                <tr style="background: #ffffff; transition: background 0.2s;"
+                  onmouseover="this.style.background='#f9fafb'" onmouseout="this.style.background='#ffffff'">
+                  <td style="padding: 12px 16px; border-bottom: 1px solid #f3f4f6; font-weight: 600; color: #111827;">
+                    Gemini-2.0-Flash <span
+                      style="display:inline-block; padding:2px 8px; border-radius:12px; font-size:0.65rem; font-weight:600; background:#fee2e2; color:#dc2626; margin-left:6px; vertical-align:middle;">Closed</span>
+                  </td>
+                  <td style="text-align:center; padding: 12px 10px; border-bottom: 1px solid #f3f4f6; color: #6b7280;">-
+                  </td>
+                  <td style="text-align:center; padding: 12px 10px; border-bottom: 1px solid #f3f4f6; color: #4b5563;">
+                    2024-12-11</td>
+                  <td style="text-align:center; padding: 12px 10px; border-bottom: 1px solid #f3f4f6; color: #6b7280;">
+                    &mdash;</td>
+                  <td
+                    style="text-align:center; padding: 12px 10px; border-bottom: 1px solid #f3f4f6; font-weight: 700; color: #e05626;">
+                    84.0*</td>
+                </tr>
+                <!-- Row 3 -->
+                <tr style="background: #ffffff; transition: background 0.2s;"
+                  onmouseover="this.style.background='#f9fafb'" onmouseout="this.style.background='#ffffff'">
+                  <td style="padding: 12px 16px; border-bottom: 1px solid #f3f4f6; font-weight: 600; color: #111827;">
+                    InternVL-2 <span
+                      style="display:inline-block; padding:2px 8px; border-radius:12px; font-size:0.65rem; font-weight:600; background:#dcfce7; color:#16a34a; margin-left:6px; vertical-align:middle;">Open</span>
+                  </td>
+                  <td style="text-align:center; padding: 12px 10px; border-bottom: 1px solid #f3f4f6; color: #6b7280;">-
+                  </td>
+                  <td style="text-align:center; padding: 12px 10px; border-bottom: 1px solid #f3f4f6; color: #4b5563;">
+                    2024-07-02</td>
+                  <td style="text-align:center; padding: 12px 10px; border-bottom: 1px solid #f3f4f6; color: #6b7280;">
+                    &mdash;</td>
+                  <td
+                    style="text-align:center; padding: 12px 10px; border-bottom: 1px solid #f3f4f6; font-weight: 600; color: #374151;">
+                    79.7*</td>
+                </tr>
+                <!-- Row 4 -->
+                <tr style="background: #ffffff; transition: background 0.2s;"
+                  onmouseover="this.style.background='#f9fafb'" onmouseout="this.style.background='#ffffff'">
+                  <td style="padding: 12px 16px; border-bottom: 1px solid #f3f4f6; font-weight: 600; color: #111827;">
+                    Qwen-VL <span
+                      style="display:inline-block; padding:2px 8px; border-radius:12px; font-size:0.65rem; font-weight:600; background:#dcfce7; color:#16a34a; margin-left:6px; vertical-align:middle;">Open</span>
+                  </td>
+                  <td style="text-align:center; padding: 12px 10px; border-bottom: 1px solid #f3f4f6; color: #6b7280;">-
+                  </td>
+                  <td style="text-align:center; padding: 12px 10px; border-bottom: 1px solid #f3f4f6; color: #4b5563;">
+                    2023-08-25</td>
+                  <td style="text-align:center; padding: 12px 10px; border-bottom: 1px solid #f3f4f6; color: #6b7280;">
+                    &mdash;</td>
+                  <td
+                    style="text-align:center; padding: 12px 10px; border-bottom: 1px solid #f3f4f6; font-weight: 600; color: #374151;">
+                    78.7*</td>
+                </tr>
+                <!-- Row 5 -->
+                <tr style="background: #ffffff; transition: background 0.2s;"
+                  onmouseover="this.style.background='#f9fafb'" onmouseout="this.style.background='#ffffff'">
+                  <td style="padding: 12px 16px; border-bottom: 1px solid #f3f4f6; font-weight: 600; color: #111827;">
+                    LLaVA-1.5 <span
+                      style="display:inline-block; padding:2px 8px; border-radius:12px; font-size:0.65rem; font-weight:600; background:#dcfce7; color:#16a34a; margin-left:6px; vertical-align:middle;">Open</span>
+                  </td>
+                  <td style="text-align:center; padding: 12px 10px; border-bottom: 1px solid #f3f4f6; color: #6b7280;">
+                    13B</td>
+                  <td style="text-align:center; padding: 12px 10px; border-bottom: 1px solid #f3f4f6; color: #4b5563;">
+                    2023-10-05</td>
+                  <td style="text-align:center; padding: 12px 10px; border-bottom: 1px solid #f3f4f6; color: #6b7280;">
+                    &mdash;</td>
+                  <td style="text-align:center; padding: 12px 10px; border-bottom: 1px solid #f3f4f6; color: #6b7280;">
+                    &mdash;</td>
+                </tr>
+                <!-- Row 6 -->
+                <tr style="background: #ffffff; transition: background 0.2s;"
+                  onmouseover="this.style.background='#f9fafb'" onmouseout="this.style.background='#ffffff'">
+                  <td style="padding: 12px 16px; border-bottom: 1px solid #f3f4f6; font-weight: 600; color: #111827;">
+                    EVA-CLIP <span
+                      style="display:inline-block; padding:2px 8px; border-radius:12px; font-size:0.65rem; font-weight:600; background:#f3f4f6; color:#4b5563; margin-left:6px; vertical-align:middle;">Vision</span>
+                  </td>
+                  <td style="text-align:center; padding: 12px 10px; border-bottom: 1px solid #f3f4f6; color: #6b7280;">-
+                  </td>
+                  <td style="text-align:center; padding: 12px 10px; border-bottom: 1px solid #f3f4f6; color: #4b5563;">
+                    2023-03-24</td>
+                  <td style="text-align:center; padding: 12px 10px; border-bottom: 1px solid #f3f4f6; color: #6b7280;">
+                    &mdash;</td>
+                  <td style="text-align:center; padding: 12px 10px; border-bottom: 1px solid #f3f4f6; color: #6b7280;">
+                    &mdash;</td>
+                </tr>
+                <!-- Row 7 -->
+                <tr style="background: #ffffff; transition: background 0.2s;"
+                  onmouseover="this.style.background='#f9fafb'" onmouseout="this.style.background='#ffffff'">
+                  <td style="padding: 12px 16px; border-bottom: 1px solid #f3f4f6; font-weight: 600; color: #111827;">
+                    DINOv2 <span
+                      style="display:inline-block; padding:2px 8px; border-radius:12px; font-size:0.65rem; font-weight:600; background:#f3f4f6; color:#4b5563; margin-left:6px; vertical-align:middle;">Vision</span>
+                  </td>
+                  <td style="text-align:center; padding: 12px 10px; border-bottom: 1px solid #f3f4f6; color: #6b7280;">-
+                  </td>
+                  <td style="text-align:center; padding: 12px 10px; border-bottom: 1px solid #f3f4f6; color: #4b5563;">
+                    2023-04-14</td>
+                  <td style="text-align:center; padding: 12px 10px; border-bottom: 1px solid #f3f4f6; color: #6b7280;">
+                    &mdash;</td>
+                  <td style="text-align:center; padding: 12px 10px; border-bottom: 1px solid #f3f4f6; color: #6b7280;">
+                    &mdash;</td>
+                </tr>
+                <!-- Row 8 -->
+                <tr style="background: #ffffff; transition: background 0.2s;"
+                  onmouseover="this.style.background='#f9fafb'" onmouseout="this.style.background='#ffffff'">
+                  <td style="padding: 12px 16px; border-bottom: 1px solid #f3f4f6; font-weight: 600; color: #111827;">
+                    BLIP-2</td>
+                  <td style="text-align:center; padding: 12px 10px; border-bottom: 1px solid #f3f4f6; color: #6b7280;">-
+                  </td>
+                  <td style="text-align:center; padding: 12px 10px; border-bottom: 1px solid #f3f4f6; color: #4b5563;">
+                    2023-01-30</td>
+                  <td style="text-align:center; padding: 12px 10px; border-bottom: 1px solid #f3f4f6; color: #6b7280;">
+                    &mdash;</td>
+                  <td style="text-align:center; padding: 12px 10px; border-bottom: 1px solid #f3f4f6; color: #6b7280;">
+                    &mdash;</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
 
-        <div class="has-text-right mt-2" style="font-size: 0.8rem; color: #6b7280;">
-          Last updated: 05/2026
+          <div class="has-text-right mt-2" style="font-size: 0.8rem; color: #6b7280;">
+            Last updated: 05/2026
+          </div>
         </div>
-      </div>
     </section>
     <!-- End Leaderboard -->
 
