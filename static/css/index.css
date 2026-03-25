@@ -12,6 +12,10 @@
   --background-accent: #f1f5f9;
   --border-color: #e2e8f0;
   --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --indigo-primary: #4f46e5;
+  --indigo-hover: #4338ca;
+  --slate-600: #475569;
+  --slate-700: #334155;
   --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
   --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
   --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
@@ -27,10 +31,11 @@
 html {
   overflow-x: hidden;
   scroll-behavior: smooth;
+  scroll-padding-top: 50px; /* Snappier offset for sticky navbar */
 }
 
 body {
-  font-family: 'Inter', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   color: var(--text-primary);
   line-height: 1.6;
   font-size: 16px;
@@ -41,7 +46,15 @@ body {
 }
 
 
-/* --- Why FG-BMK / Task Cards --- */
+/* Glassmorphism Navbar */
+.nav-blur {
+  background: rgba(255, 255, 255, 0.75) !important;
+  backdrop-filter: blur(12px) saturate(180%);
+  -webkit-backdrop-filter: blur(12px) saturate(180%);
+  border-bottom: 1px solid rgba(226, 232, 240, 0.6);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+}
 .task-card {
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -308,6 +321,55 @@ body {
   letter-spacing: 0.02em;
 }
 
+/* Dataset Domain Cards (Premium Floating Effect) */
+.dataset-domain-card {
+  background: #ffffff !important;
+  border-radius: 20px !important;
+  padding: 24px !important;
+  border: 1px solid rgba(226, 232, 240, 0.8) !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05) !important;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  height: 100%;
+}
+
+.dataset-domain-card:hover {
+  transform: translateY(-8px) !important;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04) !important;
+  border-color: rgba(79, 70, 229, 0.2) !important;
+}
+
+.dataset-tag-refined {
+  transition: all 0.2s ease !important;
+  cursor: pointer;
+}
+
+.dataset-tag-refined:hover {
+  opacity: 0.8 !important;
+  transform: scale(1.05);
+}
+
+.domain-title-refined {
+  font-weight: 800 !important;
+  letter-spacing: -0.04em !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  display: block !important;
+}
+
+.dataset-grid {
+  display: grid !important;
+  grid-template-columns: repeat(1, minmax(0, 1fr)) !important;
+  gap: 24px !important;
+  width: 100% !important;
+}
+
+@media (min-width: 768px) {
+  .dataset-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  }
+}
+
 /* Modern Button Styles */
 .button {
   border-radius: var(--border-radius) !important;
@@ -316,6 +378,26 @@ body {
   border: 2px solid transparent !important;
   position: relative;
   overflow: hidden;
+}
+
+/* Refined Navigation Links */
+.nav-link-refined {
+  color: var(--slate-600) !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.03em !important;
+  transition: color 0.3s ease-in-out !important;
+  padding: 0.5rem 1rem !important;
+}
+
+.nav-link-refined:hover {
+  color: var(--indigo-primary) !important;
+  background-color: transparent !important;
+}
+
+.nav-link-refined:focus,
+.nav-link-refined:active {
+  outline: none !important;
+  box-shadow: none !important;
 }
 
 .button.is-dark {

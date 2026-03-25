@@ -161,11 +161,151 @@
     ]
   }
   </script>
+  <!-- Dataset Styles -->
+  <style>
+    .ds-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    @media (max-width: 768px) {
+      .ds-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .ds-card {
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 20px 18px;
+      border: 1px solid #f3f4f6;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+      transition: all 0.3s ease;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: inherit;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .ds-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      border-radius: 0 0 12px 12px;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .ds-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.06);
+      border-color: #e5e7eb;
+    }
+
+    .ds-card:hover::after {
+      opacity: 1;
+    }
+
+    .ds-pill {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .ds-name {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #111827;
+      line-height: 1.3;
+    }
+
+    .ds-link-icon {
+      font-size: 0.75rem;
+      color: #9ca3af;
+      transition: color 0.2s;
+    }
+
+    .ds-card:hover .ds-link-icon {
+      color: #4f46e5;
+    }
+
+    /* Domain colors */
+    .ds-animals .ds-pill {
+      background: #dbeafe;
+      color: #1d4ed8;
+    }
+
+    .ds-animals::after {
+      background: #3b82f6;
+    }
+
+    .ds-plants .ds-pill {
+      background: #dcfce7;
+      color: #15803d;
+    }
+
+    .ds-plants::after {
+      background: #22c55e;
+    }
+
+    .ds-consumer .ds-pill {
+      background: #fef3c7;
+      color: #92400e;
+    }
+
+    .ds-consumer::after {
+      background: #f59e0b;
+    }
+
+    .ds-vehicles .ds-pill {
+      background: #ffe4e6;
+      color: #be123c;
+    }
+
+    .ds-vehicles::after {
+      background: #f43f5e;
+    }
+
+    .ds-medical .ds-pill {
+      background: #f3e8ff;
+      color: #7e22ce;
+    }
+
+    .ds-medical::after {
+      background: #a855f7;
+    }
+  </style>
 
 </head>
 
 <body>
-
+  <!-- Sticky Top Navigation Bar -->
+  <nav class="navbar is-fixed-top nav-blur" role="navigation" aria-label="main navigation">
+    <div class="container is-max-widescreen is-flex is-justify-content-center">
+      <div id="navbarContent" class="is-flex is-align-items-center" style="gap: 2rem; height: 3.25rem;">
+        <a class="nav-link-refined outline-none focus:outline-none" href="#abstract">Abstract</a>
+        <a class="nav-link-refined outline-none focus:outline-none" href="#leaderboard">Leaderboard</a>
+        <a class="nav-link-refined outline-none focus:outline-none" href="#key-findings">Key Findings</a>
+        <a class="nav-link-refined outline-none focus:outline-none" href="#dataset">Dataset</a>
+        <a class="nav-link-refined outline-none focus:outline-none" href="#results">Results</a>
+      </div>
+    </div>
+  </nav>
 
   <!-- Scroll to Top Button -->
   <button class="scroll-to-top" onclick="scrollToTop()" title="Scroll to top" aria-label="Scroll to top">
@@ -175,7 +315,7 @@
 
 
   <main id="main-content">
-    <section class="hero pb-0">
+    <section class="hero pb-0" style="padding-top: 100px;">
       <div class="hero-body">
         <div class="container is-max-desktop">
           <div class="columns is-centered">
@@ -218,12 +358,12 @@
                 <div class="publication-links">
                   <!-- TODO: Update with your arXiv paper ID -->
                   <span class="link-block">
-                    <a href="https://arxiv.org/pdf/2504.14988.pdf" target="_blank"
+                    <a href="https://arxiv.org/abs/2504.14988" target="_blank"
                       class="external-link button is-normal is-rounded is-dark">
                       <span class="icon">
-                        <i class="fas fa-file-pdf"></i>
+                        <i class="ai ai-arxiv"></i>
                       </span>
-                      <span>Paper</span>
+                      <span>arXiv</span>
                     </a>
                   </span>
 
@@ -247,23 +387,13 @@
                     </a>
                   </span>
 
-                  <!-- TODO: Update with your arXiv paper ID -->
-                  <span class="link-block">
-                    <a href="https://arxiv.org/abs/2504.14988" target="_blank"
-                      class="external-link button is-normal is-rounded is-dark">
-                      <span class="icon">
-                        <i class="ai ai-arxiv"></i>
-                      </span>
-                      <span>arXiv</span>
-                    </a>
-                  </span>
 
                   <span class="link-block">
                     <a href="#leaderboard" class="external-link button is-normal is-rounded is-dark">
                       <span class="icon">
                         <i class="fas fa-trophy"></i>
                       </span>
-                      <span>Evaluation Results</span>
+                      <span>Leaderboard</span>
                     </a>
                   </span>
                 </div>
@@ -272,663 +402,539 @@
           </div>
         </div>
       </div>
-    </section>
 
+      <!-- Top Highlights Dashboard (Hero Teaser Replacement) -->
+      <section class="hero teaser" style="margin-top: -30px; margin-bottom: 20px;">
+        <div class="container is-max-desktop">
+          <div class="hero-body">
+            <div class="columns is-multiline is-centered is-variable is-6">
+              <!-- Scale Card -->
+              <div class="column is-one-third is-flex">
+                <div class="abstract-box feature-card is-flex-grow-1"
+                  style="display: flex; flex-direction: column; align-items: center; text-align: center; padding: 30px !important; width: 100%; height: 100%;">
 
-    <!-- Top Highlights Dashboard (Hero Teaser Replacement) -->
-    <section class="hero teaser" style="margin-top: -30px; margin-bottom: 20px;">
-      <div class="container is-max-desktop">
-        <div class="hero-body">
-          <div class="columns is-multiline is-centered">
-            <!-- Scale Card -->
-            <div class="column is-one-third is-flex">
-              <div class="abstract-box feature-card"
-                style="text-align: center; flex-grow: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 30px !important;">
-                <i class="fas fa-database" style="font-size: 2.2rem; color: #4f46e5; margin-bottom: 15px;"></i>
-                <h3 class="title is-5" style="margin-bottom: 10px;">Massive Scale & High-Quality Data</h3>
-                <p style="font-size: 0.85rem; color: #64748b; line-height: 1.5;">Includes 1.01 million queries and 0.28
-                  million high-quality images from 12 well-established datasets, ensuring rigorous evaluation and
-                  avoiding noise from typical web-scraped data.</p>
+                  <!-- Icon Zone -->
+                  <div
+                    style="height: 64px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+                    <i class="fas fa-database" style="font-size: 2.2rem; color: #4f46e5;"></i>
+                  </div>
+
+                  <!-- Title Zone -->
+                  <div style="height: 4.5rem; display: flex; align-items: center; justify-content: center; margin-bottom: 12px;">
+                    <h3 class="title is-5" style="margin: 0;">Massive Scale</h3>
+                  </div>
+
+                  <!-- Content Zone -->
+                  <div class="is-flex-grow-1 is-flex is-flex-direction-column is-justify-content-center"
+                    style="width: 100%;">
+                    <p style="font-size: 1.05rem; color: #4f46e5; font-weight: 800; line-height: 1.4;">1.01M+ Questions
+                    </p>
+                    <p style="font-size: 1.05rem; color: #4f46e5; font-weight: 800; line-height: 1.4;">280K+ Images</p>
+                    <p style="font-size: 1.05rem; color: #4f46e5; font-weight: 800; line-height: 1.4;">12 Data Source
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Dual Evaluation Card -->
+              <div class="column is-one-third is-flex">
+                <div class="abstract-box feature-card is-flex-grow-1"
+                  style="display: flex; flex-direction: column; align-items: center; text-align: center; padding: 30px !important; width: 100%; height: 100%;">
+
+                  <!-- Icon Zone -->
+                  <div
+                    style="height: 64px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+                    <i class="fas fa-balance-scale" style="font-size: 2.2rem; color: #10b981;"></i>
+                  </div>
+
+                  <!-- Title Zone -->
+                  <div style="height: 4.5rem; display: flex; align-items: center; justify-content: center; margin-bottom: 12px;">
+                    <h3 class="title is-5" style="margin: 0;">Dual Evaluation</h3>
+                  </div>
+
+                  <!-- Content Zone -->
+                  <div class="is-flex-grow-1 is-flex is-flex-direction-column is-justify-content-center"
+                    style="width: 100%;">
+                    <p style="font-size: 0.95rem; color: #64748b; line-height: 1.6;">
+                      <b>Human-oriented:</b><br>Dialogue-based Understanding</p>
+                    <p style="font-size: 0.95rem; color: #64748b; line-height: 1.6;"><b>Machine-oriented:</b><br>Feature
+                      Representation</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Diverse Tasks Card -->
+              <div class="column is-one-third is-flex">
+                <div class="abstract-box feature-card is-flex-grow-1"
+                  style="display: flex; flex-direction: column; align-items: center; text-align: center; padding: 30px !important; width: 100%; height: 100%;">
+
+                  <!-- Icon Zone -->
+                  <div
+                    style="height: 64px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+                    <i class="fas fa-microscope" style="font-size: 2.2rem; color: #f59e0b;"></i>
+                  </div>
+
+                  <!-- Title Zone -->
+                  <div style="height: 4.5rem; display: flex; align-items: center; justify-content: center; margin-bottom: 12px;">
+                    <h3 class="title is-5" style="margin: 0;">Diverse Fine-Grained Tasks</h3>
+                  </div>
+
+                  <!-- Content Zone -->
+                  <div class="is-flex-grow-1 is-flex is-flex-direction-column is-justify-content-center"
+                    style="width: 100%;">
+                    <p style="font-size: 0.9rem; color: #64748b; line-height: 1.6; margin-bottom: 0;">
+                      Attribute Recognition · Knowledge Bias<br>
+                      Hierarchical Granularity · Image Retrieval<br>
+                      Image Classification
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
-            <!-- Paradigm Card -->
-            <div class="column is-one-third is-flex">
-              <div class="abstract-box feature-card"
-                style="text-align: center; flex-grow: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 30px !important;">
-                <i class="fas fa-balance-scale" style="font-size: 2.2rem; color: #10b981; margin-bottom: 15px;"></i>
-                <h3 class="title is-5" style="margin-bottom: 10px;">Two Complementary Evaluation Perspectives</h3>
-                <p style="font-size: 0.85rem; color: #64748b; line-height: 1.5;">Systematic assessment through a
-                  <b>human-oriented</b> paradigm (conversational interaction) and a <b>machine-oriented</b> paradigm
-                  (image retrieval and classification).
-                </p>
-              </div>
-            </div>
-            <!-- Granularity Card -->
-            <div class="column is-one-third is-flex">
-              <div class="abstract-box feature-card"
-                style="text-align: center; flex-grow: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 30px !important;">
-                <i class="fas fa-microscope" style="font-size: 2.2rem; color: #f59e0b; margin-bottom: 15px;"></i>
-                <h3 class="title is-5" style="margin-bottom: 10px;">In-Depth Fine-Grained Assessment</h3>
-                <p style="font-size: 0.85rem; color: #64748b; line-height: 1.5;">Goes beyond generic tasks to strictly
-                  evaluate hierarchical granularity, subtle attributes, knowledge bias, and robustness to feature
-                  perturbations.</p>
-              </div>
-            </div>
+            <h2 class="subtitle has-text-centered mt-5" style="font-size: 1.1rem; font-style: italic;">
+              "A comprehensive benchmark revealing LVLMs' limitations on <b>fine-grained</b> visual tasks."
+            </h2>
           </div>
-          <h2 class="subtitle has-text-centered mt-5" style="font-size: 1.1rem; font-style: italic;">
-            "A comprehensive benchmark revealing LVLMs' limitations on <b>fine-grained visual recognition</b> tasks."
-          </h2>
         </div>
-      </div>
-    </section>
-    <!-- End Hero Teaser Replacement -->
+      </section>
 
-    <!-- Dataset Composition Styles -->
-    <style>
-      .ds-grid {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 16px;
-        max-width: 960px;
-        margin: 0 auto;
-      }
-
-      @media (max-width: 768px) {
-        .ds-grid {
-          grid-template-columns: repeat(2, 1fr);
-        }
-      }
-
-      .ds-card {
-        background: #ffffff;
-        border-radius: 12px;
-        padding: 20px 18px;
-        border: 1px solid #f3f4f6;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
-        transition: all 0.3s ease;
-        text-align: center;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 10px;
-        text-decoration: none;
-        color: inherit;
-        position: relative;
-        overflow: hidden;
-      }
-
-      .ds-card::after {
-        content: '';
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        height: 3px;
-        border-radius: 0 0 12px 12px;
-        opacity: 0;
-        transition: opacity 0.3s;
-      }
-
-      .ds-card:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.06);
-        border-color: #e5e7eb;
-      }
-
-      .ds-card:hover::after {
-        opacity: 1;
-      }
-
-      .ds-pill {
-        display: inline-block;
-        padding: 3px 10px;
-        border-radius: 20px;
-        font-size: 0.7rem;
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 0.04em;
-      }
-
-      .ds-name {
-        font-size: 0.95rem;
-        font-weight: 700;
-        color: #111827;
-        line-height: 1.3;
-      }
-
-      .ds-link-icon {
-        font-size: 0.75rem;
-        color: #9ca3af;
-        transition: color 0.2s;
-      }
-
-      .ds-card:hover .ds-link-icon {
-        color: #4f46e5;
-      }
-
-      /* Domain colors */
-      .ds-animals .ds-pill {
-        background: #dbeafe;
-        color: #1d4ed8;
-      }
-
-      .ds-animals::after {
-        background: #3b82f6;
-      }
-
-      .ds-plants .ds-pill {
-        background: #dcfce7;
-        color: #15803d;
-      }
-
-      .ds-plants::after {
-        background: #22c55e;
-      }
-
-      .ds-consumer .ds-pill {
-        background: #fef3c7;
-        color: #92400e;
-      }
-
-      .ds-consumer::after {
-        background: #f59e0b;
-      }
-
-      .ds-vehicles .ds-pill {
-        background: #ffe4e6;
-        color: #be123c;
-      }
-
-      .ds-vehicles::after {
-        background: #f43f5e;
-      }
-
-      .ds-medical .ds-pill {
-        background: #f3e8ff;
-        color: #7e22ce;
-      }
-
-      .ds-medical::after {
-        background: #a855f7;
-      }
-
-      /* Key Findings */
-      .kf-grid {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 20px;
-        max-width: 900px;
-        margin: 0 auto;
-      }
-
-      @media (max-width: 768px) {
-        .kf-grid {
-          grid-template-columns: 1fr;
-        }
-      }
-
-      .kf-card {
-        background: #ffffff;
-        border-radius: 12px;
-        padding: 28px 24px;
-        border: 1px solid #f3f4f6;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
-        display: flex;
-        gap: 16px;
-        align-items: flex-start;
-        transition: all 0.3s ease;
-      }
-
-      .kf-card:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.05);
-      }
-
-      .kf-icon {
-        width: 44px;
-        height: 44px;
-        min-width: 44px;
-        border-radius: 10px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 1.1rem;
-      }
-
-      .kf-title {
-        font-weight: 700;
-        font-size: 0.95rem;
-        color: #111827;
-        margin-bottom: 6px;
-      }
-
-      .kf-desc {
-        font-size: 0.85rem;
-        color: #6b7280;
-        line-height: 1.55;
-      }
-    </style>
-
-    <section class="section" id="dataset-composition" style="padding-top: 40px; padding-bottom: 40px;">
-      <div class="container is-max-widescreen">
-        <h2 class="title is-3 has-text-centered" style="margin-bottom: 0.5rem;">Dataset Composition</h2>
-        <p class="has-text-centered" style="color: var(--text-secondary); margin-bottom: 3rem; font-size: 1rem;">
-          12 fine-grained datasets spanning 6 domains &bull; 280K+ images &bull; 1.01M+ questions
-        </p>
-
-        <div class="dataset-dashboard"
-          style="max-width: 850px; margin: 0 auto; display: flex; flex-wrap: wrap; justify-content: center; gap: 20px;">
-          <!-- Animals -->
-          <div class="dataset-domain domain-animals"
-            style="background: #f8fafc; border-radius: 12px; padding: 20px; border: 1px solid #e2e8f0; width: calc(33.33% - 14px); min-width: 250px;">
-            <div class="domain-header"
-              style="display: flex; align-items: center; margin-bottom: 15px; border-bottom: 1px solid #eee; padding-bottom: 10px;">
-              <div class="domain-icon" style="color: #3b82f6; margin-right: 10px;"><i class="fas fa-leaf"></i></div>
-              <h3 class="domain-title" style="font-weight: 700; font-size: 1rem; margin: 0;">Nature & Biology</h3>
-            </div>
-            <div class="tags" style="display: flex; flex-wrap: wrap; gap: 8px;">
-              <a href="https://www.vision.caltech.edu/datasets/cub_200_2011/" class="tag is-info is-light"
-                target="_blank">CUB-200</a>
-              <a href="http://vision.stanford.edu/aditya86/ImageNetDogs/" class="tag is-info is-light"
-                target="_blank">Stanford Dogs</a>
-              <a href="https://github.com/visipedia/inat_comp/tree/master/2021" class="tag is-info is-light"
-                target="_blank">iNat2021</a>
-              <a href="https://www.robots.ox.ac.uk/~vgg/data/flowers/102/" class="tag is-info is-light"
-                target="_blank">Flowers 102</a>
-              <a href="https://github.com/zhoudaxia241/VegFru" class="tag is-info is-light" target="_blank">VegFru</a>
-            </div>
-          </div>
-
-          <!-- Industrial -->
-          <div class="dataset-domain domain-vehicles"
-            style="background: #f8fafc; border-radius: 12px; padding: 20px; border: 1px solid #e2e8f0; width: calc(33.33% - 14px); min-width: 250px;">
-            <div class="domain-header"
-              style="display: flex; align-items: center; margin-bottom: 15px; border-bottom: 1px solid #eee; padding-bottom: 10px;">
-              <div class="domain-icon" style="color: #cf3a3a; margin-right: 10px;"><i class="fas fa-industry"></i></div>
-              <h3 class="domain-title" style="font-weight: 700; font-size: 1rem; margin: 0;">Industrial & Manufactured
-              </h3>
-            </div>
-            <div class="tags" style="display: flex; flex-wrap: wrap; gap: 8px;">
-              <a href="https://www.robots.ox.ac.uk/~vgg/data/fgvc-aircraft/" class="tag is-danger is-light"
-                target="_blank">FGVC Aircraft</a>
-              <a href="https://www.kaggle.com/datasets/eduardo4jesus/stanford-cars-dataset"
-                class="tag is-danger is-light" target="_blank">Stanford Cars</a>
-              <a href="https://products-10k.github.io/" class="tag is-danger is-light" target="_blank">Products-10K</a>
-              <a href="https://tianchi.aliyun.com/dataset/dataDetail?dataId=110147" class="tag is-danger is-light"
-                target="_blank">Wine</a>
-            </div>
-          </div>
-
-          <!-- Daily Life -->
-          <div class="dataset-domain domain-consumer"
-            style="background: #f8fafc; border-radius: 12px; padding: 20px; border: 1px solid #e2e8f0; width: calc(33.33% - 14px); min-width: 250px;">
-            <div class="domain-header"
-              style="display: flex; align-items: center; margin-bottom: 15px; border-bottom: 1px solid #eee; padding-bottom: 10px;">
-              <div class="domain-icon" style="color: #16a34a; margin-right: 10px;"><i class="fas fa-shopping-bag"></i>
-              </div>
-              <h3 class="domain-title" style="font-weight: 700; font-size: 1rem; margin: 0;">Daily Life & Specialized
-              </h3>
-            </div>
-            <div class="tags" style="display: flex; flex-wrap: wrap; gap: 8px;">
-              <a href="http://mmlab.ie.cuhk.edu.hk/projects/DeepFashion.html" class="tag is-success is-light"
-                target="_blank">DeepFashion</a>
-              <a href="https://data.vision.ee.ethz.ch/cvl/datasets_extra/food-101/" class="tag is-success is-light"
-                target="_blank">Food-101</a>
-              <a href="https://skincon-dataset.github.io/" class="tag is-success is-light" target="_blank">SkinCon</a>
+      <!-- Paper abstract -->
+      <section class="section" id="abstract" style="padding-top: 40px; padding-bottom: 40px;">
+        <div class="container is-max-desktop">
+          <div class="abstract-box"
+            style="background: #ffffff; border-radius: 12px; padding: 48px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 1px solid #f3f4f6;">
+            <h2 class="title is-3 has-text-centered" style="margin-bottom: 2rem;">Abstract</h2>
+            <div class="content has-text-justified" style="font-size: 1.1rem; line-height: 1.8; color: #374151;">
+              <p>
+                Recent advancements in Large Vision-Language Models (LVLMs) have demonstrated remarkable multimodal
+                perception capabilities. However, while numerous evaluation studies have emerged, <strong> fine-grained
+                  image tasks</strong>—fundamental to computer vision—remain largely unexplored.
+              </p>
+              <p>
+                To fill this gap, we introduce a comprehensive fine-grained evaluation benchmark,
+                <strong>FG-BMK</strong>,
+                comprising <strong> 1.01 million questions</strong> and <strong>0.28 million images</strong>. Our
+                evaluation systematically examines LVLMs from both human-oriented (semantic recognition) and
+                machine-oriented (feature representation) perspectives.
+              </p>
+              <p>
+                Through extensive experiments on twelve representative LVLMs/VLMs, this work provides critical insights
+                into the limitations of current models and offers guidance for future data construction and architecture
+                design.
+              </p>
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+      <!-- End paper abstract -->
 
-    <!-- Paper abstract -->
-    <section class="section" id="abstract" style="padding-top: 40px; padding-bottom: 40px;">
-      <div class="container is-max-desktop">
-        <div class="abstract-box"
-          style="background: #ffffff; border-radius: 12px; padding: 48px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 1px solid #f3f4f6;">
-          <h2 class="title is-3 has-text-centered" style="margin-bottom: 2rem;">Abstract</h2>
-          <div class="content has-text-justified" style="font-size: 1.1rem; line-height: 1.8; color: #374151;">
-            <p>
-              Recent advancements in Large Vision-Language Models (LVLMs) have demonstrated remarkable multimodal
-              perception capabilities. However, while numerous evaluation studies have emerged, <strong> fine-grained
-                image tasks</strong>—fundamental to computer vision—remain largely unexplored.
+      <!-- Core Evaluation Results -->
+      <section class="section" id="leaderboard" style="padding: 3rem 1.5rem;">
+        <div class="container is-max-widescreen">
+          <h2 class="title is-3 has-text-centered" style="margin-bottom: 0.5rem;">Leaderboard</h2>
+          <p class="has-text-centered" id="leaderboard-footnote"
+            style="color: #64748b; margin-bottom: 2.5rem; font-size: 1.1rem; max-width: 800px; margin-left: auto; margin-right: auto;">
+            Top-1 accuracy performance on fine-grained image classification tasks. Showing representative models; please
+            refer to our paper for the full results of all 12 evaluated models.
+          </p>
+
+          <div class="evaluation-tabs-container">
+            <!-- Pill-shaped Tabs -->
+            <div class="evaluation-tabs">
+              <button class="eval-tab is-active" onclick="switchTab(event, 'tab-classification')">Machine:
+                Classification</button>
+              <button class="eval-tab" onclick="switchTab(event, 'tab-attribute')">Human: Attribute</button>
+              <button class="eval-tab" onclick="switchTab(event, 'tab-retrieval')">Machine: Retrieval</button>
+            </div>
+
+            <!-- Tab 1: Machine-Oriented (Classification) -->
+            <div id="tab-classification" class="tab-content is-active">
+              <div class="evaluation-card">
+                <table class="evaluation-table" id="table-classification">
+                  <thead>
+                    <tr>
+                      <th class="rank-cell" onclick="sortTable('table-classification', 0)" style="cursor: pointer;"
+                        title="Reset to original order">#</th>
+                      <th class="left-align" onclick="sortTable('table-classification', 1)">Model <span
+                          class="sort-icon">⇅</span></th>
+                      <th onclick="sortTable('table-classification', 2)">Vision Encoder <span class="sort-icon">⇅</span>
+                      </th>
+                      <th onclick="sortTable('table-classification', 3)">CUB-200 <span class="sort-icon">⇅</span></th>
+                      <th onclick="sortTable('table-classification', 4)">Stanford Dogs <span class="sort-icon">⇅</span>
+                      </th>
+                      <th onclick="sortTable('table-classification', 5)">Stanford Cars <span class="sort-icon">⇅</span>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td class="rank-cell">1</td>
+                      <td class="left-align model-cell">DINOv2-L <span class="badge badge-vision">Pure Vision</span>
+                      </td>
+                      <td>ViT-L</td>
+                      <td class="tabular-nums highlight-best">91.65%</td>
+                      <td class="tabular-nums highlight-best">90.50%</td>
+                      <td class="tabular-nums highlight-best">94.30%</td>
+                    </tr>
+                    <tr>
+                      <td class="rank-cell">2</td>
+                      <td class="left-align model-cell">InternVL-Chat <span class="badge badge-lvlm">LVLM</span></td>
+                      <td>InternViT-6B</td>
+                      <td class="tabular-nums">89.92%</td>
+                      <td class="tabular-nums">89.09%</td>
+                      <td class="tabular-nums">93.34%</td>
+                    </tr>
+                    <tr>
+                      <td class="rank-cell">3</td>
+                      <td class="left-align model-cell">EVA-CLIP <span class="badge badge-vlm">VLM</span></td>
+                      <td>EVA02-L</td>
+                      <td class="tabular-nums">88.95%</td>
+                      <td class="tabular-nums">87.69%</td>
+                      <td class="tabular-nums highlight-best">94.30%</td>
+                    </tr>
+                    <tr>
+                      <td class="rank-cell">4</td>
+                      <td class="left-align model-cell">LLaVA-1.5-7B <span class="badge badge-lvlm">LVLM</span></td>
+                      <td>CLIP-L</td>
+                      <td class="tabular-nums">79.77%</td>
+                      <td class="tabular-nums">81.24%</td>
+                      <td class="tabular-nums">87.57%</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- Tab 2: Human-Oriented -->
+            <div id="tab-attribute" class="tab-content">
+              <div class="evaluation-card">
+                <table class="evaluation-table" id="table-attribute">
+                  <thead>
+                    <tr>
+                      <th class="rank-cell" onclick="sortTable('table-attribute', 0)" style="cursor: pointer;"
+                        title="Reset to original order">#</th>
+                      <th class="left-align" onclick="sortTable('table-attribute', 1)">Model <span
+                          class="sort-icon">⇅</span></th>
+                      <th onclick="sortTable('table-attribute', 2)">Color Acc <span class="sort-icon">⇅</span></th>
+                      <th onclick="sortTable('table-attribute', 3)">Pattern Acc <span class="sort-icon">⇅</span></th>
+                      <th onclick="sortTable('table-attribute', 4)">Shape Acc <span class="sort-icon">⇅</span></th>
+                      <th onclick="sortTable('table-attribute', 5)">Length Acc <span class="sort-icon">⇅</span></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td class="rank-cell">1</td>
+                      <td class="left-align model-cell">Gemini-2.0-flash <span class="badge badge-lvlm">LVLM</span></td>
+                      <td class="tabular-nums">47.22%</td>
+                      <td class="tabular-nums highlight-best">56.14%</td>
+                      <td class="tabular-nums highlight-best">48.75%</td>
+                      <td class="tabular-nums highlight-best">71.82%</td>
+                    </tr>
+                    <tr>
+                      <td class="rank-cell">2</td>
+                      <td class="left-align model-cell">InternVL3-7B <span class="badge badge-lvlm">LVLM</span></td>
+                      <td class="tabular-nums highlight-best">47.40%</td>
+                      <td class="tabular-nums">50.13%</td>
+                      <td class="tabular-nums">30.95%</td>
+                      <td class="tabular-nums">71.03%</td>
+                    </tr>
+                    <tr>
+                      <td class="rank-cell">3</td>
+                      <td class="left-align model-cell">Qwen2.5-VL <span class="badge badge-lvlm">LVLM</span></td>
+                      <td class="tabular-nums">40.39%</td>
+                      <td class="tabular-nums">45.12%</td>
+                      <td class="tabular-nums">29.30%</td>
+                      <td class="tabular-nums">63.20%</td>
+                    </tr>
+                    <tr>
+                      <td class="rank-cell">4</td>
+                      <td class="left-align model-cell">LLaVA-1.5-7B <span class="badge badge-lvlm">LVLM</span></td>
+                      <td class="tabular-nums">44.34%</td>
+                      <td class="tabular-nums">23.69%</td>
+                      <td class="tabular-nums">14.05%</td>
+                      <td class="tabular-nums">15.71%</td>
+                    </tr>
+                    <tr>
+                      <td class="rank-cell">5</td>
+                      <td class="left-align model-cell">BLIP-2 <span class="badge badge-lvlm">LVLM</span></td>
+                      <td class="tabular-nums">37.94%</td>
+                      <td class="tabular-nums">11.34%</td>
+                      <td class="tabular-nums">25.05%</td>
+                      <td class="tabular-nums">30.11%</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- Tab 3: Machine-Oriented (Retrieval) -->
+            <div id="tab-retrieval" class="tab-content">
+              <div class="evaluation-card">
+                <table class="evaluation-table" id="table-retrieval">
+                  <thead>
+                    <tr>
+                      <th class="rank-cell" onclick="sortTable('table-retrieval', 0)" style="cursor: pointer;"
+                        title="Reset to original order">#</th>
+                      <th class="left-align" onclick="sortTable('table-retrieval', 1)">Model <span
+                          class="sort-icon">⇅</span></th>
+                      <th onclick="sortTable('table-retrieval', 2)">CUB-200 (mAP) <span class="sort-icon">⇅</span></th>
+                      <th onclick="sortTable('table-retrieval', 3)">Stanford Dogs (mAP) <span class="sort-icon">⇅</span>
+                      </th>
+                      <th onclick="sortTable('table-retrieval', 4)">Stanford Cars (mAP) <span class="sort-icon">⇅</span>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td class="rank-cell">1</td>
+                      <td class="left-align model-cell">EVA-CLIP <span class="badge badge-vlm">VLM</span></td>
+                      <td class="tabular-nums">90.33%</td>
+                      <td class="tabular-nums">89.47%</td>
+                      <td class="tabular-nums highlight-best">95.11%</td>
+                    </tr>
+                    <tr>
+                      <td class="rank-cell">2</td>
+                      <td class="left-align model-cell">InternVL-Chat <span class="badge badge-lvlm">LVLM</span></td>
+                      <td class="tabular-nums">91.47%</td>
+                      <td class="tabular-nums highlight-best">92.33%</td>
+                      <td class="tabular-nums">92.47%</td>
+                    </tr>
+                    <tr>
+                      <td class="rank-cell">3</td>
+                      <td class="left-align model-cell">DINOv2-L <span class="badge badge-vision">Pure Vision</span>
+                      </td>
+                      <td class="tabular-nums highlight-best">91.95%</td>
+                      <td class="tabular-nums">91.72%</td>
+                      <td class="tabular-nums">89.53%</td>
+                    </tr>
+                    <tr>
+                      <td class="rank-cell">4</td>
+                      <td class="left-align model-cell">LLaVA-1.5-7B <span class="badge badge-lvlm">LVLM</span></td>
+                      <td class="tabular-nums">75.63%</td>
+                      <td class="tabular-nums">77.43%</td>
+                      <td class="tabular-nums">85.49%</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <p id="leaderboard-footer" class="evaluation-footnote">
+            Top-1 accuracy performance on fine-grained image classification tasks. Showing representative models; please
+            refer to our paper for the full results of all 12 evaluated models.
+          </p>
+
+          <div class="has-text-right mt-4" style="font-size: 0.8rem; color: #94a3b8;">
+            Last updated: 05/2026
+          </div>
+        </div>
+      </section>
+
+
+      <!-- Key Findings Module -->
+      <section class="section key-findings-section" id="key-findings">
+        <div class="container is-max-desktop">
+          <div class="has-text-centered" style="margin-bottom: 3rem;">
+            <h2 class="title is-3">Key Findings</h2>
+            <p class="whitespace-nowrap" style="color: #64748b; font-size: 1.05rem; max-width: 1200px; margin: 0.5rem auto 0; text-align: center;">
+              Representative findings derived from the human-oriented and machine-oriented evaluation of LVLMs/VLMs on FG-BMK.
             </p>
-            <p>
-              To fill this gap, we introduce a comprehensive fine-grained evaluation benchmark, <strong>FG-BMK</strong>,
-              comprising <strong> 1.01 million questions</strong> and <strong>0.28 million images</strong>. Our
-              evaluation systematically examines LVLMs from both human-oriented (semantic recognition) and
-              machine-oriented (feature representation) perspectives.
-            </p>
-            <p>
-              Through extensive experiments on twelve representative LVLMs/VLMs, this work provides critical insights
-              into the limitations of current models and offers guidance for future data construction and architecture
-              design.
-            </p>
+          </div>
+
+          <!-- Human-Oriented Evaluation -->
+          <div style="margin-bottom: 2.5rem;">
+            <h3 class="title is-5"
+              style="margin-bottom: 1.2rem; color: #1f2937; border-left: 4px solid #3b82f6; padding-left: 12px;">
+              Human-Oriented Evaluation
+            </h3>
+
+            <div class="findings-list">
+              <!-- Finding 1 -->
+              <div class="finding-card">
+                <div class="finding-icon-wrap" style="background: #eff6ff; color: #2563eb;">
+                  <i class="fas fa-search"></i>
+                </div>
+                <div class="finding-content">
+                  <h4>Fine-Grained Category Boundaries</h4>
+                  <p>LVLMs struggle to distinguish excessively fine-grained categories.</p>
+                </div>
+              </div>
+
+              <!-- Finding 2 -->
+              <div class="finding-card">
+                <div class="finding-icon-wrap" style="background: #eef2ff; color: #4f46e5;">
+                  <i class="fas fa-palette"></i>
+                </div>
+                <div class="finding-content">
+                  <h4>Attribute Recognition Limitations</h4>
+                  <p>LVLMs exhibit significant room for improvement in recognizing fine-grained attributes.</p>
+                </div>
+              </div>
+
+              <!-- Finding 3 -->
+              <div class="finding-card">
+                <div class="finding-icon-wrap" style="background: #f5f3ff; color: #7c3aed;">
+                  <i class="fas fa-brain"></i>
+                </div>
+                <div class="finding-content">
+                  <h4>Knowledge Bias Across Fine-Grained Categories</h4>
+                  <p>LVLMs show inconsistent recognition accuracy across fine-grained categories, revealing substantial
+                    knowledge bias.</p>
+                </div>
+              </div>
+
+              <!-- Finding 4 -->
+              <div class="finding-card">
+                <div class="finding-icon-wrap" style="background: #fff7ed; color: #ea580c;">
+                  <i class="fas fa-graduation-cap"></i>
+                </div>
+                <div class="finding-content">
+                  <h4>Fine-Grained Tailored Models Remain Stronger</h4>
+                  <p>LVLMs do not outperform fine-grained tailored models in fine-grained tasks.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Machine-Oriented Evaluation -->
+          <div>
+            <h3 class="title is-5"
+              style="margin-bottom: 1.2rem; color: #1f2937; border-left: 4px solid #10b981; padding-left: 12px;">
+              Machine-Oriented Evaluation
+            </h3>
+
+            <div class="findings-list">
+              <!-- Finding 4 -->
+              <div class="finding-card">
+                <div class="finding-icon-wrap" style="background: #ecfdf5; color: #059669;">
+                  <i class="fas fa-layer-group"></i>
+                </div>
+                <div class="finding-content">
+                  <h4>Training Paradigm</h4>
+                  <p>The contrastive training paradigm in LVLMs effectively enhances the fine-grained discriminability
+                    of visual features.</p>
+                </div>
+              </div>
+
+              <!-- Finding 5 -->
+              <div class="finding-card">
+                <div class="finding-icon-wrap" style="background: #f0fdf4; color: #16a34a;">
+                  <i class="fas fa-link-slash"></i>
+                </div>
+                <div class="finding-content">
+                  <h4>Visual-Text Alignment</h4>
+                  <p>The alignment strategy in LVLMs might impair the fine-grained discriminability of visual features.
+                  </p>
+                </div>
+              </div>
+
+              <!-- Finding 6 -->
+              <div class="finding-card">
+                <div class="finding-icon-wrap" style="background: #fffbeb; color: #d97706;">
+                  <i class="fas fa-expand-arrows-alt"></i>
+                </div>
+                <div class="finding-content">
+                  <h4>Scaling Effects</h4>
+                  <p>Larger vision encoder size or larger scale of web data provides limited improvement in the
+                    fine-grained discriminability of visual features.</p>
+                </div>
+              </div>
+
+              <!-- Finding 7 -->
+              <div class="finding-card">
+                <div class="finding-icon-wrap" style="background: #fef2f2; color: #dc2626;">
+                  <i class="fas fa-shield-virus"></i>
+                </div>
+                <div class="finding-content">
+                  <h4>Robustness to Perturbations</h4>
+                  <p>Visual features in LVLMs are more susceptible to perturbations in fine-grained tasks.</p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
+      </section>
+      <section class="section" id="dataset" style="padding-top: 40px; padding-bottom: 40px;">
+        <div class="container is-max-widescreen">
+          <h2 class="title is-3 has-text-centered" style="margin-bottom: 0.5rem;">Dataset</h2>
+          <p class="has-text-centered" style="color: var(--text-secondary); margin-bottom: 3rem; font-size: 1rem;">
+            12 fine-grained datasets spanning multiple domains &bull; 280K+ images &bull; 1.01M+ questions
+          </p>
+
+          <div class="dataset-dashboard dataset-grid" style="max-width: 1024px; margin: 0 auto; padding: 0 1rem;">
+            <!-- Animals -->
+            <div class="dataset-domain-card domain-animals" style="min-width: 0;">
+              <div class="domain-header"
+                style="display: flex; align-items: center; margin-bottom: 20px; border-bottom: 1px solid rgba(0,0,0,0.05); padding-bottom: 12px;">
+                <div class="domain-icon" style="color: #3b82f6; margin-right: 12px; font-size: 1.2rem;"><i class="fas fa-leaf"></i></div>
+                <h3 class="domain-title-refined" style="margin: 0; font-size: 1.1rem;">Nature & Biology</h3>
+              </div>
+              <div class="tags" style="display: flex; flex-wrap: wrap; gap: 12px;">
+                <a href="https://www.vision.caltech.edu/datasets/cub_200_2011/" class="tag is-info is-light dataset-tag-refined"
+                  target="_blank">CUB-200</a>
+                <a href="http://vision.stanford.edu/aditya86/ImageNetDogs/" class="tag is-info is-light dataset-tag-refined"
+                  target="_blank">Stanford Dogs</a>
+                <a href="https://github.com/visipedia/inat_comp/tree/master/2021" class="tag is-info is-light dataset-tag-refined"
+                  target="_blank">iNat2021</a>
+                <a href="https://www.robots.ox.ac.uk/~vgg/data/flowers/102/" class="tag is-info is-light dataset-tag-refined"
+                  target="_blank">Flowers 102</a>
+                <a href="https://github.com/zhoudaxia241/VegFru" class="tag is-info is-light dataset-tag-refined" target="_blank">VegFru</a>
+              </div>
+            </div>
+
+            <!-- Industrial -->
+            <div class="dataset-domain-card domain-vehicles" style="min-width: 0;">
+              <div class="domain-header"
+                style="display: flex; align-items: center; margin-bottom: 20px; border-bottom: 1px solid rgba(0,0,0,0.05); padding-bottom: 12px;">
+                <div class="domain-icon" style="color: #cf3a3a; margin-right: 12px; font-size: 1.2rem;"><i class="fas fa-industry"></i>
+                </div>
+                <h3 class="domain-title-refined" style="margin: 0; font-size: 1.1rem;">Industrial & Manufactured</h3>
+              </div>
+              <div class="tags" style="display: flex; flex-wrap: wrap; gap: 12px;">
+                <a href="https://www.robots.ox.ac.uk/~vgg/data/fgvc-aircraft/" class="tag is-danger is-light dataset-tag-refined"
+                  target="_blank">FGVC Aircraft</a>
+                <a href="https://www.kaggle.com/datasets/eduardo4jesus/stanford-cars-dataset"
+                  class="tag is-danger is-light dataset-tag-refined" target="_blank">Stanford Cars</a>
+                <a href="https://products-10k.github.io/" class="tag is-danger is-light dataset-tag-refined"
+                  target="_blank">Products-10K</a>
+                <a href="https://tianchi.aliyun.com/dataset/dataDetail?dataId=110147" class="tag is-danger is-light dataset-tag-refined"
+                  target="_blank">Wine</a>
+              </div>
+            </div>
+
+            <!-- Daily Life -->
+            <div class="dataset-domain-card domain-consumer" style="min-width: 0;">
+              <div class="domain-header"
+                style="display: flex; align-items: center; margin-bottom: 20px; border-bottom: 1px solid rgba(0,0,0,0.05); padding-bottom: 12px;">
+                <div class="domain-icon" style="color: #16a34a; margin-right: 12px; font-size: 1.2rem;"><i class="fas fa-shopping-bag"></i>
+                </div>
+                <h3 class="domain-title-refined" style="margin: 0; font-size: 1.1rem;">Daily Life & Specialized</h3>
+              </div>
+              <div class="tags" style="display: flex; flex-wrap: wrap; gap: 12px;">
+                <a href="http://mmlab.ie.cuhk.edu.hk/projects/DeepFashion.html" class="tag is-success is-light dataset-tag-refined"
+                  target="_blank">DeepFashion</a>
+                <a href="https://data.vision.ee.ethz.ch/cvl/datasets_extra/food-101/" class="tag is-success is-light dataset-tag-refined"
+                  target="_blank">Food-101</a>
+                <a href="https://skincon-dataset.github.io/" class="tag is-success is-light dataset-tag-refined" target="_blank">SkinCon</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+
+
+      <div class="columns is-centered is-multiline" style="gap: 30px;">
       </div>
     </section>
-    <!-- End paper abstract -->
 
-    <!-- Key Findings Module -->
-    <section class="section key-findings-section" id="key-findings">
-      <div class="container is-max-desktop">
-        <div class="has-text-centered" style="margin-bottom: 3.5rem;">
-          <h2 class="title is-3">Key Findings</h2>
-          <p style="color: #64748b; font-size: 1.1rem; max-width: 700px; margin: 0.5rem auto 0;">Crucial insights
-            derived from our large-scale evaluation of 12 representative LVLMs/VLMs.</p>
-        </div>
-
-        <div class="findings-list">
-          <!-- Finding 1 -->
-          <div class="finding-card">
-            <div class="finding-icon-wrap" style="background: #eef2ff; color: #4f46e5;">
-              <i class="fas fa-layer-group"></i>
-            </div>
-            <div class="finding-content">
-              <h4>Contrastive Training Prevails</h4>
-              <p>The contrastive training paradigm is significantly more effective at enhancing fine-grained visual
-                feature discriminability than generative or reconstruction-based paradigms.</p>
-            </div>
-          </div>
-
-          <!-- Finding 2 -->
-          <div class="finding-card">
-            <div class="finding-icon-wrap" style="background: #f0fdf4; color: #16a34a;">
-              <i class="fas fa-link-slash"></i>
-            </div>
-            <div class="finding-content">
-              <h4>The Alignment Trap</h4>
-              <p>Aligning visual features with textual features can unexpectedly impair fine-grained discriminability,
-                particularly when granularity mismatches exist in the image-text data.</p>
-            </div>
-          </div>
-
-          <!-- Finding 3 -->
-          <div class="finding-card">
-            <div class="finding-icon-wrap" style="background: #fef2f2; color: #dc2626;">
-              <i class="fas fa-shield-virus"></i>
-            </div>
-            <div class="finding-content">
-              <h4>Vulnerability to Perturbations</h4>
-              <p>Both LVLMs and pure LVMs are much more susceptible to feature perturbations in fine-grained tasks
-                compared to generic vision tasks.</p>
-            </div>
-          </div>
-
-          <!-- Finding 4 -->
-          <div class="finding-card">
-            <div class="finding-icon-wrap" style="background: #f5f3ff; color: #7c3aed;">
-              <i class="fas fa-brain"></i>
-            </div>
-            <div class="finding-content">
-              <h4>Appearance vs. Reasoning</h4>
-              <p>While LVLMs show strong capabilities in perceiving visual appearances, they face notable challenges in
-                fine-grained category reasoning (which depends on recognizing subtle attributes).</p>
-            </div>
-          </div>
-
-          <!-- Finding 5 -->
-          <div class="finding-card">
-            <div class="finding-icon-wrap" style="background: #fff7ed; color: #ea580c;">
-              <i class="fas fa-graduation-cap"></i>
-            </div>
-            <div class="finding-content">
-              <h4>The Specialization Gap</h4>
-              <p>Despite rapid advancements, general-purpose LVLMs still lag behind fine-grained tailored models in
-                handling domain-specific visual tasks.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-
-    <section class="section" id="motivation" style="padding: 4rem 1.5rem;">
-      <div class="container is-max-desktop">
-        <h2 class="title is-3 has-text-centered">Why FG-BMK?</h2>
-        <p class="has-text-centered" style="color: var(--text-secondary); margin-bottom: 2.5rem; font-size: 0.95rem;">
-          Bridging the gap between human perception and machine representation through four core evaluation tasks.
-        </p>
-
-        <!-- Task Selection Tabs -->
-        <div class="qa-tabs-wrapper">
-          <button class="qa-tab-btn is-active" onclick="switchQATab(0, this)">Attribute Recognition</button>
-          <button class="qa-tab-btn" onclick="switchQATab(1, this)">Knowledge Bias</button>
-          <button class="qa-tab-btn" onclick="switchQATab(2, this)">Hierarchical Granularity</button>
-          <button class="qa-tab-btn" onclick="switchQATab(3, this)">Feature Representation</button>
-        </div>
-
-        <!-- Main Showcase Card -->
-        <div class="qa-showcase-container">
-          <div class="qa-image-side">
-            <!-- JS will inject images here based on task paradigm -->
-          </div>
-          <div class="qa-console-side">
-            <div class="qa-console-header">
-              <span id="qa-display-title" class="qa-console-title">The original VL problem: Attribute Recognition</span>
-            </div>
-            <div id="qa-display-content" class="qa-console-content">
-              <div class="qa-q">Q: What is the eye color of the bird in this image? Choose one answer from the following
-                list: [blue, black, ..., red, rufous]</div>
-              <div class="qa-ans">GT: black</div>
-              <div class="qa-q" style="margin-top: 1.5rem;">Q: Is the eye color of the bird in this image black?</div>
-              <div class="qa-ans">GT: True</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <div class="columns is-centered is-multiline" style="gap: 30px;">
-    </div>
-    </section>
-
-    <!-- Core Evaluation Results -->
-    <section class="section" id="leaderboard" style="padding: 3rem 1.5rem;">
-      <div class="container is-max-widescreen">
-        <h2 class="title is-3 has-text-centered" style="margin-bottom: 0.5rem;">Core Evaluation Results</h2>
-        <p class="has-text-centered" id="leaderboard-footnote"
-          style="color: #64748b; margin-bottom: 2.5rem; font-size: 1.1rem; max-width: 800px; margin-left: auto; margin-right: auto;">
-          Top-1 accuracy performance on fine-grained image classification tasks. Showing representative models; please
-          refer to our paper for the full results of all 12 evaluated models.
-        </p>
-
-        <div class="evaluation-tabs-container">
-          <!-- Pill-shaped Tabs -->
-          <div class="evaluation-tabs">
-            <button class="eval-tab is-active" onclick="switchTab(event, 'tab-classification')">Machine:
-              Classification</button>
-            <button class="eval-tab" onclick="switchTab(event, 'tab-attribute')">Human: Attribute</button>
-            <button class="eval-tab" onclick="switchTab(event, 'tab-retrieval')">Machine: Retrieval</button>
-          </div>
-
-          <!-- Tab 1: Machine-Oriented (Classification) -->
-          <div id="tab-classification" class="tab-content is-active">
-            <div class="evaluation-card">
-              <table class="evaluation-table" id="table-classification">
-                <thead>
-                  <tr>
-                    <th class="rank-cell" onclick="sortTable('table-classification', 0)" style="cursor: pointer;"
-                      title="Reset to original order">#</th>
-                    <th class="left-align" onclick="sortTable('table-classification', 1)">Model <span
-                        class="sort-icon">⇅</span></th>
-                    <th onclick="sortTable('table-classification', 2)">Vision Encoder <span class="sort-icon">⇅</span>
-                    </th>
-                    <th onclick="sortTable('table-classification', 3)">CUB-200 <span class="sort-icon">⇅</span></th>
-                    <th onclick="sortTable('table-classification', 4)">Stanford Dogs <span class="sort-icon">⇅</span>
-                    </th>
-                    <th onclick="sortTable('table-classification', 5)">Stanford Cars <span class="sort-icon">⇅</span>
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td class="rank-cell">1</td>
-                    <td class="left-align model-cell">DINOv2-L <span class="badge badge-vision">Pure Vision</span></td>
-                    <td>ViT-L</td>
-                    <td class="tabular-nums highlight-best">91.65%</td>
-                    <td class="tabular-nums highlight-best">90.50%</td>
-                    <td class="tabular-nums highlight-best">94.30%</td>
-                  </tr>
-                  <tr>
-                    <td class="rank-cell">2</td>
-                    <td class="left-align model-cell">InternVL-Chat <span class="badge badge-lvlm">LVLM</span></td>
-                    <td>InternViT-6B</td>
-                    <td class="tabular-nums">89.92%</td>
-                    <td class="tabular-nums">89.09%</td>
-                    <td class="tabular-nums">93.34%</td>
-                  </tr>
-                  <tr>
-                    <td class="rank-cell">3</td>
-                    <td class="left-align model-cell">EVA-CLIP <span class="badge badge-vlm">VLM</span></td>
-                    <td>EVA02-L</td>
-                    <td class="tabular-nums">88.95%</td>
-                    <td class="tabular-nums">87.69%</td>
-                    <td class="tabular-nums highlight-best">94.30%</td>
-                  </tr>
-                  <tr>
-                    <td class="rank-cell">4</td>
-                    <td class="left-align model-cell">LLaVA-1.5-7B <span class="badge badge-lvlm">LVLM</span></td>
-                    <td>CLIP-L</td>
-                    <td class="tabular-nums">79.77%</td>
-                    <td class="tabular-nums">81.24%</td>
-                    <td class="tabular-nums">87.57%</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-
-          <!-- Tab 2: Human-Oriented -->
-          <div id="tab-attribute" class="tab-content">
-            <div class="evaluation-card">
-              <table class="evaluation-table" id="table-attribute">
-                <thead>
-                  <tr>
-                    <th class="rank-cell" onclick="sortTable('table-attribute', 0)" style="cursor: pointer;"
-                      title="Reset to original order">#</th>
-                    <th class="left-align" onclick="sortTable('table-attribute', 1)">Model <span
-                        class="sort-icon">⇅</span></th>
-                    <th onclick="sortTable('table-attribute', 2)">Color Acc <span class="sort-icon">⇅</span></th>
-                    <th onclick="sortTable('table-attribute', 3)">Pattern Acc <span class="sort-icon">⇅</span></th>
-                    <th onclick="sortTable('table-attribute', 4)">Shape Acc <span class="sort-icon">⇅</span></th>
-                    <th onclick="sortTable('table-attribute', 5)">Length Acc <span class="sort-icon">⇅</span></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td class="rank-cell">1</td>
-                    <td class="left-align model-cell">Gemini-2.0-flash <span class="badge badge-lvlm">LVLM</span></td>
-                    <td class="tabular-nums">47.22%</td>
-                    <td class="tabular-nums highlight-best">56.14%</td>
-                    <td class="tabular-nums highlight-best">48.75%</td>
-                    <td class="tabular-nums highlight-best">71.82%</td>
-                  </tr>
-                  <tr>
-                    <td class="rank-cell">2</td>
-                    <td class="left-align model-cell">InternVL3-7B <span class="badge badge-lvlm">LVLM</span></td>
-                    <td class="tabular-nums highlight-best">47.40%</td>
-                    <td class="tabular-nums">50.13%</td>
-                    <td class="tabular-nums">30.95%</td>
-                    <td class="tabular-nums">71.03%</td>
-                  </tr>
-                  <tr>
-                    <td class="rank-cell">3</td>
-                    <td class="left-align model-cell">Qwen2.5-VL <span class="badge badge-lvlm">LVLM</span></td>
-                    <td class="tabular-nums">40.39%</td>
-                    <td class="tabular-nums">45.12%</td>
-                    <td class="tabular-nums">29.30%</td>
-                    <td class="tabular-nums">63.20%</td>
-                  </tr>
-                  <tr>
-                    <td class="rank-cell">4</td>
-                    <td class="left-align model-cell">LLaVA-1.5-7B <span class="badge badge-lvlm">LVLM</span></td>
-                    <td class="tabular-nums">44.34%</td>
-                    <td class="tabular-nums">23.69%</td>
-                    <td class="tabular-nums">14.05%</td>
-                    <td class="tabular-nums">15.71%</td>
-                  </tr>
-                  <tr>
-                    <td class="rank-cell">5</td>
-                    <td class="left-align model-cell">BLIP-2 <span class="badge badge-lvlm">LVLM</span></td>
-                    <td class="tabular-nums">37.94%</td>
-                    <td class="tabular-nums">11.34%</td>
-                    <td class="tabular-nums">25.05%</td>
-                    <td class="tabular-nums">30.11%</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-
-          <!-- Tab 3: Machine-Oriented (Retrieval) -->
-          <div id="tab-retrieval" class="tab-content">
-            <div class="evaluation-card">
-              <table class="evaluation-table" id="table-retrieval">
-                <thead>
-                  <tr>
-                    <th class="rank-cell" onclick="sortTable('table-retrieval', 0)" style="cursor: pointer;"
-                      title="Reset to original order">#</th>
-                    <th class="left-align" onclick="sortTable('table-retrieval', 1)">Model <span
-                        class="sort-icon">⇅</span></th>
-                    <th onclick="sortTable('table-retrieval', 2)">CUB-200 (mAP) <span class="sort-icon">⇅</span></th>
-                    <th onclick="sortTable('table-retrieval', 3)">Stanford Dogs (mAP) <span class="sort-icon">⇅</span>
-                    </th>
-                    <th onclick="sortTable('table-retrieval', 4)">Stanford Cars (mAP) <span class="sort-icon">⇅</span>
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td class="rank-cell">1</td>
-                    <td class="left-align model-cell">EVA-CLIP <span class="badge badge-vlm">VLM</span></td>
-                    <td class="tabular-nums">90.33%</td>
-                    <td class="tabular-nums">89.47%</td>
-                    <td class="tabular-nums highlight-best">95.11%</td>
-                  </tr>
-                  <tr>
-                    <td class="rank-cell">2</td>
-                    <td class="left-align model-cell">InternVL-Chat <span class="badge badge-lvlm">LVLM</span></td>
-                    <td class="tabular-nums">91.47%</td>
-                    <td class="tabular-nums highlight-best">92.33%</td>
-                    <td class="tabular-nums">92.47%</td>
-                  </tr>
-                  <tr>
-                    <td class="rank-cell">3</td>
-                    <td class="left-align model-cell">DINOv2-L <span class="badge badge-vision">Pure Vision</span></td>
-                    <td class="tabular-nums highlight-best">91.95%</td>
-                    <td class="tabular-nums">91.72%</td>
-                    <td class="tabular-nums">89.53%</td>
-                  </tr>
-                  <tr>
-                    <td class="rank-cell">4</td>
-                    <td class="left-align model-cell">LLaVA-1.5-7B <span class="badge badge-lvlm">LVLM</span></td>
-                    <td class="tabular-nums">75.63%</td>
-                    <td class="tabular-nums">77.43%</td>
-                    <td class="tabular-nums">85.49%</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-
-        <p id="leaderboard-footer" class="evaluation-footnote">
-          Top-1 accuracy performance on fine-grained image classification tasks. Showing representative models; please
-          refer to our paper for the full results of all 12 evaluated models.
-        </p>
-
-        <div class="has-text-right mt-4" style="font-size: 0.8rem; color: #94a3b8;">
-          Last updated: 05/2026
-        </div>
-      </div>
-    </section>
 
 
 
     <!-- Per-Dataset Results (MMMU-style) -->
-    <section class="section" id="per-dataset-results">
+    <section class="section" id="results">
       <div class="container is-max-widescreen">
         <h2 class="title is-3 has-text-centered">Per-Dataset Results</h2>
         <p class="has-text-centered" style="color: var(--text-secondary); max-width: 700px; margin: 0 auto 1.5rem;">
