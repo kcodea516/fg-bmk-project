@@ -647,13 +647,17 @@ function switchView(view) {
   }
 }
 
-document.addEventListener('DOMContentLoaded', initCharts);
+document.addEventListener('DOMContentLoaded', () => {
+    initCharts();
+    const firstTabBtn = document.querySelector('.qa-tab-btn');
+    if (firstTabBtn) switchQATab(0, firstTabBtn);
+});
 
 // Interactive QA Showcase Task Data
 const qaTasks = [
   {
     title: "The original VL problem: Attribute Recognition",
-    image: "static/images/task3_attribute.png",
+    images: ["static/images/pic1.png"],
     content: `
       <div class="qa-q">Q: What is the eye color of the bird in this image? Choose one answer from the following list: [blue, black, ..., red, rufous]</div>
       <div class="qa-ans">GT: black</div>
@@ -663,7 +667,7 @@ const qaTasks = [
   },
   {
     title: "The original VL problem: Knowledge Bias Estimation",
-    image: "static/images/intro.png",
+    images: ["static/images/pic2.png"],
     content: `
       <div class="qa-q">Q_P: From your observation, is the species of the dog shown a Chihuahua?</div>
       <div class="qa-ans">GT: Yes</div>
@@ -673,7 +677,7 @@ const qaTasks = [
   },
   {
     title: "The original VL problem: Hierarchical Granularity Recognition",
-    image: "static/images/task1_hierarchical.png",
+    images: ["static/images/pic3.png"],
     content: `
       <div class="qa-q">Class: Is the class of the object aves?</div>
       <div class="qa-ans">GT: True</div>
@@ -684,7 +688,7 @@ const qaTasks = [
   },
   {
     title: "The visual feature problem: Image Retrieval & Classification",
-    image: "static/images/app_dis_math_granularity.png",
+    images: ["static/images/image_retrieval.png", "static/images/image_classification.png"],
     content: `
       <div class="qa-q">Instead of relying on language generation, this paradigm directly evaluates the discriminability of visual features.</div>
       <div class="qa-q" style="margin-top: 1.5rem;"><span style="color: #fbbf24; font-weight: 700;">Task 1: Image Retrieval (mAP)</span><br>Goal: Retrieve images belonging to multiple subordinate categories of a meta-category based on visual feature similarity.</div>
@@ -697,14 +701,30 @@ function switchQATab(index, btn) {
     const task = qaTasks[index];
     if (!task) return;
 
-    // Update Image with fade out/in
-    const imgEl = document.getElementById('qa-display-img');
-    if (imgEl) {
-        imgEl.style.opacity = '0.3';
-        setTimeout(() => {
-            imgEl.src = task.image;
-            imgEl.style.opacity = '1';
-        }, 150);
+    // Update Image Container
+    const imgContainer = document.querySelector('.qa-image-side');
+    if (imgContainer) {
+        // Toggle dual mode class
+        if (task.images.length > 1) {
+            imgContainer.classList.add('is-dual');
+        } else {
+            imgContainer.classList.remove('is-dual');
+        }
+
+        // Reconstruct images with transition
+        imgContainer.innerHTML = '';
+        task.images.forEach(src => {
+            const img = document.createElement('img');
+            img.src = src;
+            img.alt = "Task Example";
+            img.style.opacity = '0.3';
+            imgContainer.appendChild(img);
+            
+            // Fade in effect
+            setTimeout(() => {
+                img.style.opacity = '1';
+            }, 50);
+        });
     }
 
     // Update Title & Content with fade out/in

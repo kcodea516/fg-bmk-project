@@ -1079,177 +1079,205 @@ a:focus {
 
 /* Interactive QA Showcase (MMBench Style) */
 .qa-showcase-container {
-    background: #0f172a; /* Deep dark background */
-    border-radius: 1.5rem;
-    overflow: hidden;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-    display: flex;
-    flex-direction: row;
-    min-height: 480px;
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    margin-top: 1.5rem;
+  background: #0f172a;
+  /* Deep dark background */
+  border-radius: 1.5rem;
+  overflow: hidden;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: row;
+  min-height: 440px;
+  /* Reduced to tighten vertical space */
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  margin-top: 1.5rem;
 }
 
 .qa-image-side {
-    flex: 0 0 45%;
-    background: #1e293b;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 2rem;
-    position: relative;
-    border-right: 1px solid rgba(255, 255, 255, 0.1);
+  flex: 0 0 45%;
+  background: #1e2336;
+  /* Targeted dark background */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  /* Reduced padding for maximum space utility */
+  position: relative;
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.4s ease;
+}
+
+/* Dual mode for Feature Representation */
+.qa-image-side.is-dual {
+  flex-direction: column;
+  gap: 1.5rem;
+  /* Slightly reduced gap for a tighter fit */
+  padding: 0.5rem;
+  /* Minimized padding to reduce empty space */
 }
 
 .qa-image-side img {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;
-    border-radius: 0.75rem;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-    transition: opacity 0.3s ease-in-out;
+  max-width: 98%;
+  /* Maximized width utility */
+  max-height: 95%;
+  /* Maximized height utility for single image tasks */
+  object-fit: contain;
+  border-radius: 0.5rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2), 0 4px 6px -2px rgba(0, 0, 0, 0.1);
+  transition: opacity 0.3s ease-in-out, transform 0.3s ease;
+}
+
+.qa-image-side.is-dual img {
+  width: 98%;
+  max-height: 45%;
+  /* Adjusted for a perfect fit in the shorter container */
+  border: 1px solid rgba(156, 163, 175, 0.3);
 }
 
 .qa-console-side {
-    flex: 0 0 55%;
-    padding: 2.5rem;
-    display: flex;
-    flex-direction: column;
-    background: #0f172a;
+  flex: 0 0 55%;
+  padding: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  background: #0f172a;
 }
 
 .qa-console-header {
-    margin-bottom: 2rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    padding-bottom: 1rem;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 1rem;
 }
 
 .qa-console-title {
-    color: #94a3b8;
-    font-size: 0.8rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
+  color: #94a3b8;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
 }
 
 .qa-console-content {
-    font-family: 'Inter', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-    font-size: 0.95rem;
-    line-height: 1.7;
-    flex: 1;
-    transition: opacity 0.3s ease-in-out;
+  font-family: 'Inter', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 0.95rem;
+  line-height: 1.7;
+  flex: 1;
+  transition: opacity 0.3s ease-in-out;
 }
 
 .qa-q {
-    color: #f87171; /* Coral Red */
-    margin-bottom: 1rem;
-    font-weight: 600;
+  color: #f87171;
+  /* Coral Red */
+  margin-bottom: 1rem;
+  font-weight: 600;
 }
 
 .qa-choices {
-    color: #fbbf24; /* Amber/Yellow Labels */
-    margin-bottom: 1rem;
-    padding-left: 1rem;
+  color: #fbbf24;
+  /* Amber/Yellow Labels */
+  margin-bottom: 1rem;
+  padding-left: 1rem;
 }
 
 .qa-ans {
-    color: #2dd4bf; /* Mint/Emerald Green */
-    font-weight: 700;
-    margin-top: 1rem;
+  color: #2dd4bf;
+  /* Mint/Emerald Green */
+  font-weight: 700;
+  margin-top: 1rem;
 }
 
 .qa-tabs-wrapper {
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-    margin-bottom: 2.5rem;
-    flex-wrap: wrap;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+  flex-wrap: wrap;
 }
 
 .qa-tab-btn {
-    background: #f1f5f9;
-    border: 1px solid #e2e8f0;
-    padding: 0.6rem 1.4rem;
-    border-radius: 50px;
-    font-size: 0.85rem;
-    font-weight: 700;
-    color: #64748b;
-    cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  padding: 0.6rem 1.4rem;
+  border-radius: 50px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #64748b;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .qa-tab-btn.is-active {
-    background: #1e293b;
-    color: #ffffff;
-    border-color: #1e293b;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+  background: #1e293b;
+  color: #ffffff;
+  border-color: #1e293b;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
 }
 
 .qa-tab-btn:hover:not(.is-active) {
-    background: #e2e8f0;
-    color: #334155;
-    transform: translateY(-2px);
+  background: #e2e8f0;
+  color: #334155;
+  transform: translateY(-2px);
 }
 
 @media screen and (max-width: 900px) {
-    .qa-showcase-container {
-        flex-direction: column;
-    }
-    .qa-image-side {
-        flex: 0 0 320px;
-        padding: 1.5rem;
-        border-right: none;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    }
-    .qa-console-side {
-        padding: 2rem 1.5rem;
-    }
+  .qa-showcase-container {
+    flex-direction: column;
+  }
+
+  .qa-image-side {
+    flex: 0 0 320px;
+    padding: 1.5rem;
+    border-right: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .qa-console-side {
+    padding: 2rem 1.5rem;
+  }
 }
+
 /* Key Findings Section Styling */
 .key-findings-section {
-    background-color: #f8fafc;
-    padding: 4rem 1.5rem;
+  background-color: #f8fafc;
+  padding: 4rem 1.5rem;
 }
 
 .finding-card {
-    background: #ffffff;
-    border-radius: 1rem;
-    padding: 1.5rem;
-    margin-bottom: 1.5rem;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
-    display: flex;
-    align-items: flex-start;
-    gap: 1.5rem;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    border: 1px solid #f1f5f9;
+  background: #ffffff;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+  display: flex;
+  align-items: flex-start;
+  gap: 1.5rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border: 1px solid #f1f5f9;
 }
 
 .finding-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.04);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.04);
 }
 
 .finding-icon-wrap {
-    flex-shrink: 0;
-    width: 48px;
-    height: 48px;
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.25rem;
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
 }
 
 .finding-content h4 {
-    margin-bottom: 0.5rem;
-    font-weight: 700;
-    color: #1e293b;
-    font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+  color: #1e293b;
+  font-size: 1.1rem;
 }
 
 .finding-content p {
-    color: #475569;
-    line-height: 1.6;
-    margin: 0;
+  color: #475569;
+  line-height: 1.6;
+  margin: 0;
 }
-
