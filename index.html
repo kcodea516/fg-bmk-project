@@ -589,13 +589,20 @@
           <h2 class="title is-3 has-text-centered" style="margin-bottom: 2rem;">Abstract</h2>
           <div class="content has-text-justified" style="font-size: 1.1rem; line-height: 1.8; color: #374151;">
             <p>
-              Recent advancements in Large Vision-Language Models (LVLMs) have demonstrated remarkable multimodal perception capabilities. However, while numerous evaluation studies have emerged, <strong>fine-grained image tasks</strong>—fundamental to computer vision—remain largely unexplored.
+              Recent advancements in Large Vision-Language Models (LVLMs) have demonstrated remarkable multimodal
+              perception capabilities. However, while numerous evaluation studies have emerged, <strong> fine-grained
+                image tasks</strong>—fundamental to computer vision—remain largely unexplored.
             </p>
             <p>
-              To fill this gap, we introduce a comprehensive fine-grained evaluation benchmark, <strong>FG-BMK</strong>, comprising <strong>1.01 million questions</strong> and <strong>0.28 million images</strong>. Our evaluation systematically examines LVLMs from both human-oriented (semantic recognition) and machine-oriented (feature representation) perspectives.
+              To fill this gap, we introduce a comprehensive fine-grained evaluation benchmark, <strong>FG-BMK</strong>,
+              comprising <strong> 1.01 million questions</strong> and <strong>0.28 million images</strong>. Our
+              evaluation systematically examines LVLMs from both human-oriented (semantic recognition) and
+              machine-oriented (feature representation) perspectives.
             </p>
             <p>
-              Through extensive experiments on twelve representative LVLMs/VLMs, this work provides critical insights into the limitations of current models and offers guidance for future data construction and architecture design.
+              Through extensive experiments on twelve representative LVLMs/VLMs, this work provides critical insights
+              into the limitations of current models and offers guidance for future data construction and architecture
+              design.
             </p>
           </div>
         </div>
@@ -608,9 +615,10 @@
       <div class="container is-max-desktop">
         <div class="has-text-centered" style="margin-bottom: 3.5rem;">
           <h2 class="title is-3">Key Findings from FG-BMK</h2>
-          <p style="color: #64748b; font-size: 1.1rem; max-width: 700px; margin: 0.5rem auto 0;">Crucial insights derived from our large-scale evaluation of 12 representative LVLMs/VLMs.</p>
+          <p style="color: #64748b; font-size: 1.1rem; max-width: 700px; margin: 0.5rem auto 0;">Crucial insights
+            derived from our large-scale evaluation of 12 representative LVLMs/VLMs.</p>
         </div>
-        
+
         <div class="findings-list">
           <!-- Finding 1 -->
           <div class="finding-card">
@@ -619,10 +627,11 @@
             </div>
             <div class="finding-content">
               <h4>Contrastive Training Prevails</h4>
-              <p>The contrastive training paradigm is significantly more effective at enhancing fine-grained visual feature discriminability than generative or reconstruction-based paradigms.</p>
+              <p>The contrastive training paradigm is significantly more effective at enhancing fine-grained visual
+                feature discriminability than generative or reconstruction-based paradigms.</p>
             </div>
           </div>
-          
+
           <!-- Finding 2 -->
           <div class="finding-card">
             <div class="finding-icon-wrap" style="background: #f0fdf4; color: #16a34a;">
@@ -630,10 +639,11 @@
             </div>
             <div class="finding-content">
               <h4>The Alignment Trap</h4>
-              <p>Aligning visual features with textual features can unexpectedly impair fine-grained discriminability, particularly when granularity mismatches exist in the image-text data.</p>
+              <p>Aligning visual features with textual features can unexpectedly impair fine-grained discriminability,
+                particularly when granularity mismatches exist in the image-text data.</p>
             </div>
           </div>
-          
+
           <!-- Finding 3 -->
           <div class="finding-card">
             <div class="finding-icon-wrap" style="background: #fef2f2; color: #dc2626;">
@@ -641,10 +651,11 @@
             </div>
             <div class="finding-content">
               <h4>Vulnerability to Perturbations</h4>
-              <p>Both LVLMs and pure LVMs are much more susceptible to feature perturbations in fine-grained tasks compared to generic vision tasks.</p>
+              <p>Both LVLMs and pure LVMs are much more susceptible to feature perturbations in fine-grained tasks
+                compared to generic vision tasks.</p>
             </div>
           </div>
-          
+
           <!-- Finding 4 -->
           <div class="finding-card">
             <div class="finding-icon-wrap" style="background: #f5f3ff; color: #7c3aed;">
@@ -652,10 +663,11 @@
             </div>
             <div class="finding-content">
               <h4>Appearance vs. Reasoning</h4>
-              <p>While LVLMs show strong capabilities in perceiving visual appearances, they face notable challenges in fine-grained category reasoning (which depends on recognizing subtle attributes).</p>
+              <p>While LVLMs show strong capabilities in perceiving visual appearances, they face notable challenges in
+                fine-grained category reasoning (which depends on recognizing subtle attributes).</p>
             </div>
           </div>
-          
+
           <!-- Finding 5 -->
           <div class="finding-card">
             <div class="finding-icon-wrap" style="background: #fff7ed; color: #ea580c;">
@@ -663,7 +675,8 @@
             </div>
             <div class="finding-content">
               <h4>The Specialization Gap</h4>
-              <p>Despite rapid advancements, general-purpose LVLMs still lag behind fine-grained tailored models in handling domain-specific visual tasks.</p>
+              <p>Despite rapid advancements, general-purpose LVLMs still lag behind fine-grained tailored models in
+                handling domain-specific visual tasks.</p>
             </div>
           </div>
         </div>
@@ -677,7 +690,7 @@
         <p class="has-text-centered" style="color: var(--text-secondary); margin-bottom: 2.5rem; font-size: 0.95rem;">
           Bridging the gap between human perception and machine representation through four core evaluation tasks.
         </p>
-        
+
         <!-- Task Selection Tabs -->
         <div class="qa-tabs-wrapper">
           <button class="qa-tab-btn is-active" onclick="switchQATab(0, this)">Attribute Recognition</button>
@@ -685,18 +698,20 @@
           <button class="qa-tab-btn" onclick="switchQATab(2, this)">Hierarchical Granularity</button>
           <button class="qa-tab-btn" onclick="switchQATab(3, this)">Feature Representation</button>
         </div>
-    
+
         <!-- Main Showcase Card -->
         <div class="qa-showcase-container">
           <div class="qa-image-side">
-            <img id="qa-display-img" src="static/images/task_multimodal_alignment_flowers_1774338441347.png" alt="Task Example">
+            <img id="qa-display-img" src="static/images/task_multimodal_alignment_flowers_1774338441347.png"
+              alt="Task Example">
           </div>
           <div class="qa-console-side">
             <div class="qa-console-header">
               <span id="qa-display-title" class="qa-console-title">The original VL problem: Attribute Recognition</span>
             </div>
             <div id="qa-display-content" class="qa-console-content">
-              <div class="qa-q">Q: What is the eye color of the bird in this image? Choose one answer from the following list: [blue, black, ..., red, rufous]</div>
+              <div class="qa-q">Q: What is the eye color of the bird in this image? Choose one answer from the following
+                list: [blue, black, ..., red, rufous]</div>
               <div class="qa-ans">GT: black</div>
               <div class="qa-q" style="margin-top: 1.5rem;">Q: Is the eye color of the bird in this image black?</div>
               <div class="qa-ans">GT: True</div>
@@ -706,8 +721,8 @@
       </div>
     </section>
 
-        <div class="columns is-centered is-multiline" style="gap: 30px;">
-      </div>
+    <div class="columns is-centered is-multiline" style="gap: 30px;">
+    </div>
     </section>
 
     <!-- Core Evaluation Results -->
@@ -716,7 +731,8 @@
         <h2 class="title is-3 has-text-centered" style="margin-bottom: 0.5rem;">Core Evaluation Results</h2>
         <p class="has-text-centered" id="leaderboard-footnote"
           style="color: #64748b; margin-bottom: 2.5rem; font-size: 1.1rem; max-width: 800px; margin-left: auto; margin-right: auto;">
-          Top-1 accuracy performance on fine-grained image classification tasks. Showing representative models; please refer to our paper for the full results of all 12 evaluated models.
+          Top-1 accuracy performance on fine-grained image classification tasks. Showing representative models; please
+          refer to our paper for the full results of all 12 evaluated models.
         </p>
 
         <div class="evaluation-tabs-container">
@@ -783,10 +799,6 @@
                 </tbody>
               </table>
             </div>
-            <p class="evaluation-footnote">
-              Accuracy performance on fine-grained attribute recognition task (CUB-200-2011). Showing representative
-              models; please refer to our paper for full results of all 12 evaluated models.
-            </p>
           </div>
 
           <!-- Tab 2: Human-Oriented -->
@@ -849,10 +861,6 @@
                 </tbody>
               </table>
             </div>
-            <p class="evaluation-footnote">
-              Accuracy performance on fine-grained attribute recognition task (CUB-200-2011). Showing representative
-              models; please refer to our paper for full results of all 12 evaluated models.
-            </p>
           </div>
 
           <!-- Tab 3: Machine-Oriented (Retrieval) -->
@@ -904,12 +912,12 @@
                 </tbody>
               </table>
             </div>
-            <p class="evaluation-footnote">
-              Accuracy performance on fine-grained attribute recognition task (CUB-200-2011). Showing representative
-              models; please refer to our paper for full results of all 12 evaluated models.
-            </p>
           </div>
         </div>
+
+        <p id="leaderboard-footer" class="evaluation-footnote">
+          Top-1 accuracy performance on fine-grained image classification tasks. Showing representative models; please refer to our paper for the full results of all 12 evaluated models.
+        </p>
 
         <div class="has-text-right mt-4" style="font-size: 0.8rem; color: #94a3b8;">
           Last updated: 05/2026

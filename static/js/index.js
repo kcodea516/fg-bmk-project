@@ -16,16 +16,24 @@ function switchTab(event, tabId) {
   // Activate selected tab (works for both div and button)
   event.currentTarget.classList.add('is-active');
 
-  // Update dynamic footnote
+  // Update dynamic footnote & footer
   const footnote = document.getElementById('leaderboard-footnote');
+  const footer = document.getElementById('leaderboard-footer');
+  
+  const classificationText = 'Top-1 accuracy performance on fine-grained image classification tasks. Showing representative models; please refer to our paper for the full results of all 12 evaluated models.';
+  const attributeText = 'Accuracy performance on fine-grained human-oriented tasks (e.g., Attribute Recognition on CUB-200-2011). Showing representative models; please refer to our paper for full results.';
+  const retrievalText = 'mAP (mean Average Precision) performance on fine-grained image retrieval tasks. Showing representative models; please refer to our paper for the full results of all 12 evaluated models.';
+
   if (footnote) {
-    if (tabId === 'tab-classification') {
-      footnote.textContent = 'Top-1 accuracy performance on fine-grained image classification tasks. Showing representative models; please refer to our paper for the full results of all 12 evaluated models.';
-    } else if (tabId === 'tab-attribute') {
-      footnote.textContent = 'Accuracy performance on fine-grained human-oriented tasks (e.g., Attribute Recognition on CUB-200-2011). Showing representative models; please refer to our paper for full results.';
-    } else if (tabId === 'tab-retrieval') {
-      footnote.textContent = 'mAP (mean Average Precision) performance on fine-grained image retrieval tasks. Showing representative models; please refer to our paper for the full results of all 12 evaluated models.';
-    }
+    if (tabId === 'tab-classification') footnote.textContent = classificationText;
+    else if (tabId === 'tab-attribute') footnote.textContent = attributeText;
+    else if (tabId === 'tab-retrieval') footnote.textContent = retrievalText;
+  }
+  
+  if (footer) {
+    if (tabId === 'tab-classification') footer.textContent = classificationText;
+    else if (tabId === 'tab-attribute') footer.textContent = attributeText;
+    else if (tabId === 'tab-retrieval') footer.textContent = retrievalText;
   }
 }
 
