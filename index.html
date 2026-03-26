@@ -108,7 +108,7 @@
   <script defer src="static/js/bulma-carousel.min.js"></script>
   <script defer src="static/js/bulma-slider.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
-  <script defer src="static/js/index.js?v=2"></script>
+  <script defer src="static/js/index.js?v=3"></script>
 
   <!-- Structured Data for Academic Papers -->
   <script type="application/ld+json">
@@ -315,7 +315,7 @@
 
 
   <main id="main-content">
-    <section class="hero pb-0" style="padding-top: 100px;">
+    <section class="hero pb-0" style="padding-top: 50px;">
       <div class="hero-body">
         <div class="container is-max-desktop">
           <div class="columns is-centered">
@@ -368,7 +368,7 @@
                   </span>
 
                   <span class="link-block">
-                    <a href="#dataset-composition" class="external-link button is-normal is-rounded is-dark">
+                    <a href="#dataset" class="external-link button is-normal is-rounded is-dark">
                       <span class="icon">
                         <i class="fas fa-database"></i>
                       </span>
@@ -534,24 +534,24 @@
           <h2 class="title is-3 has-text-centered" style="margin-bottom: 0.5rem;">Leaderboard</h2>
           <p class="has-text-centered" id="leaderboard-footnote"
             style="color: #64748b; margin-bottom: 2.5rem; font-size: 1.1rem; max-width: 800px; margin-left: auto; margin-right: auto;">
-            Top-1 accuracy performance on fine-grained image classification tasks. Showing representative models; please
-            refer to our paper for the full results of all 12 evaluated models.
+            Accuracy performance on the Attribute Recognition task within the human-oriented evaluation.
           </p>
 
           <div class="evaluation-tabs-container">
             <!-- Pill-shaped Tabs -->
             <div class="evaluation-tabs">
-              <button class="eval-tab is-active" onclick="switchTab(event, 'tab-classification')">Machine:
-                Classification</button>
-              <button class="eval-tab" onclick="switchTab(event, 'tab-attribute')">Human: Attribute</button>
+              <button class="eval-tab is-active" onclick="switchTab(event, 'tab-attribute')">Human: Attribute</button>
               <button class="eval-tab" onclick="switchTab(event, 'tab-hierarchical')">Human: Hierarchical</button>
+              <button class="eval-tab" onclick="switchTab(event, 'tab-classification')">Machine:
+                Classification</button>
               <button class="eval-tab" onclick="switchTab(event, 'tab-retrieval')">Machine: Retrieval</button>
             </div>
 
             <!-- Tab 1: Machine-Oriented (Classification) -->
-            <div id="tab-classification" class="tab-content is-active">
+            <div id="tab-classification" class="tab-content">
               <div class="evaluation-card table-wrapper-scrollable" id="classification-table-wrapper">
-                <table class="evaluation-table compact-table w-full border-separate border-spacing-0" id="table-classification">
+                <table class="evaluation-table compact-table w-full border-separate border-spacing-0"
+                  id="table-classification">
                   <thead id="classification-thead">
                     <!-- Dynamic Headers -->
                   </thead>
@@ -563,7 +563,7 @@
             </div>
 
             <!-- Tab 2: Human-Oriented (Attribute) -->
-            <div id="tab-attribute" class="tab-content">
+            <div id="tab-attribute" class="tab-content is-active">
               <!-- Drill-down Navigation -->
               <div id="attribute-back-btn-container" class="back-btn-container"
                 style="display: none; margin-bottom: 1.5rem;">
@@ -573,7 +573,8 @@
               </div>
 
               <div class="evaluation-card table-wrapper-scrollable" id="attribute-table-wrapper">
-                <table class="evaluation-table compact-table w-full border-separate border-spacing-0" id="table-attribute">
+                <table class="evaluation-table compact-table w-full border-separate border-spacing-0"
+                  id="table-attribute">
                   <thead id="attribute-thead">
                     <!-- Dynamic Headers -->
                   </thead>
@@ -595,7 +596,8 @@
               </div>
 
               <div class="evaluation-card table-wrapper-scrollable" id="hierarchical-table-wrapper">
-                <table class="evaluation-table compact-table w-full border-separate border-spacing-0" id="table-hierarchical">
+                <table class="evaluation-table compact-table w-full border-separate border-spacing-0"
+                  id="table-hierarchical">
                   <thead id="hierarchical-thead">
                     <!-- Dynamic Headers -->
                   </thead>
@@ -609,7 +611,8 @@
             <!-- Tab 3: Machine-Oriented (Retrieval) -->
             <div id="tab-retrieval" class="tab-content">
               <div class="evaluation-card table-wrapper-scrollable" id="retrieval-table-wrapper">
-                <table class="evaluation-table compact-table w-full border-separate border-spacing-0" id="table-retrieval">
+                <table class="evaluation-table compact-table w-full border-separate border-spacing-0"
+                  id="table-retrieval">
                   <thead id="retrieval-thead">
                     <!-- Dynamic Headers -->
                   </thead>
@@ -621,10 +624,6 @@
             </div>
           </div>
 
-          <p id="leaderboard-footer" class="evaluation-footnote">
-            Top-1 accuracy performance on fine-grained image classification tasks. Showing representative models; please
-            refer to our paper for the full results of all 12 evaluated models.
-          </p>
 
           <div class="has-text-right mt-4" style="font-size: 0.8rem; color: #94a3b8;">
             Last updated: 05/2026
@@ -652,51 +651,8 @@
               Human-Oriented Evaluation
             </h3>
 
-            <div class="findings-list">
-              <!-- Finding 1 -->
-              <div class="finding-card">
-                <div class="finding-icon-wrap" style="background: #eff6ff; color: #2563eb;">
-                  <i class="fas fa-search"></i>
-                </div>
-                <div class="finding-content">
-                  <h4>Fine-Grained Category Boundaries</h4>
-                  <p>LVLMs struggle to distinguish excessively fine-grained categories.</p>
-                </div>
-              </div>
-
-              <!-- Finding 2 -->
-              <div class="finding-card">
-                <div class="finding-icon-wrap" style="background: #eef2ff; color: #4f46e5;">
-                  <i class="fas fa-palette"></i>
-                </div>
-                <div class="finding-content">
-                  <h4>Attribute Recognition Limitations</h4>
-                  <p>LVLMs exhibit significant room for improvement in recognizing fine-grained attributes.</p>
-                </div>
-              </div>
-
-              <!-- Finding 3 -->
-              <div class="finding-card">
-                <div class="finding-icon-wrap" style="background: #f5f3ff; color: #7c3aed;">
-                  <i class="fas fa-brain"></i>
-                </div>
-                <div class="finding-content">
-                  <h4>Knowledge Bias Across Fine-Grained Categories</h4>
-                  <p>LVLMs show inconsistent recognition accuracy across fine-grained categories, revealing substantial
-                    knowledge bias.</p>
-                </div>
-              </div>
-
-              <!-- Finding 4 -->
-              <div class="finding-card">
-                <div class="finding-icon-wrap" style="background: #fff7ed; color: #ea580c;">
-                  <i class="fas fa-graduation-cap"></i>
-                </div>
-                <div class="finding-content">
-                  <h4>Fine-Grained Tailored Models Remain Stronger</h4>
-                  <p>LVLMs do not outperform fine-grained tailored models in fine-grained tasks.</p>
-                </div>
-              </div>
+            <div class="findings-list" id="human-findings-list">
+              <!-- Dynamic Human-Oriented Findings -->
             </div>
           </div>
 
@@ -707,73 +663,30 @@
               Machine-Oriented Evaluation
             </h3>
 
-            <div class="findings-list">
-              <!-- Finding 4 -->
-              <div class="finding-card">
-                <div class="finding-icon-wrap" style="background: #ecfdf5; color: #059669;">
-                  <i class="fas fa-layer-group"></i>
-                </div>
-                <div class="finding-content">
-                  <h4>Training Paradigm</h4>
-                  <p>The contrastive training paradigm in LVLMs effectively enhances the fine-grained discriminability
-                    of visual features.</p>
-                </div>
-              </div>
-
-              <!-- Finding 5 -->
-              <div class="finding-card">
-                <div class="finding-icon-wrap" style="background: #f0fdf4; color: #16a34a;">
-                  <i class="fas fa-link-slash"></i>
-                </div>
-                <div class="finding-content">
-                  <h4>Visual-Text Alignment</h4>
-                  <p>The alignment strategy in LVLMs might impair the fine-grained discriminability of visual features.
-                  </p>
-                </div>
-              </div>
-
-              <!-- Finding 6 -->
-              <div class="finding-card">
-                <div class="finding-icon-wrap" style="background: #fffbeb; color: #d97706;">
-                  <i class="fas fa-expand-arrows-alt"></i>
-                </div>
-                <div class="finding-content">
-                  <h4>Scaling Effects</h4>
-                  <p>Larger vision encoder size or larger scale of web data provides limited improvement in the
-                    fine-grained discriminability of visual features.</p>
-                </div>
-              </div>
-
-              <!-- Finding 7 -->
-              <div class="finding-card">
-                <div class="finding-icon-wrap" style="background: #fef2f2; color: #dc2626;">
-                  <i class="fas fa-shield-virus"></i>
-                </div>
-                <div class="finding-content">
-                  <h4>Robustness to Perturbations</h4>
-                  <p>Visual features in LVLMs are more susceptible to perturbations in fine-grained tasks.</p>
-                </div>
-              </div>
+            <div class="findings-list" id="machine-findings-list">
+              <!-- Dynamic Machine-Oriented Findings -->
             </div>
           </div>
         </div>
       </section>
- 
+
       <!-- Why FG-BMK? Section -->
       <section class="section" id="why-fg-bmk" style="padding: 4rem 1.5rem;">
         <div class="container is-max-desktop">
           <h2 class="title is-3 has-text-centered" style="margin-bottom: 2.5rem;">Why FG-BMK?</h2>
-          <div class="flex justify-center w-full">
-            <img src="static/images/intro.png" alt="Why FG-BMK?"
-              class="w-full max-w-3xl h-auto rounded-xl shadow-lg border border-gray-100 mx-auto">
-          </div>
           <p class="text-center text-gray-500 mt-4 px-4 text-sm font-medium">
             "Our Fine-Grained Evaluation Framework (FG-BMK): a new dual perspective (human-oriented and
             machine-oriented) to comprehensively assess models' fine-grained visual capabilities."
           </p>
+          <br>
+          <div class="flex justify-center w-full">
+            <img src="static/images/intro.png" alt="Why FG-BMK?"
+              class="w-full max-w-3xl h-auto rounded-xl shadow-lg border border-gray-100 mx-auto">
+          </div>
+
         </div>
       </section>
- 
+
       <section class="section" id="dataset" style="padding-top: 40px; padding-bottom: 40px;">
         <div class="container is-max-widescreen">
           <h2 class="title is-3 has-text-centered" style="margin-bottom: 0.5rem;">Dataset</h2>

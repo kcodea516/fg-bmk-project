@@ -284,6 +284,65 @@ body {
   border: 1px solid #e0f2fe;
 }
 
+/* --- Finding Cards & Expansion --- */
+.finding-card {
+  position: relative;
+  cursor: pointer;
+  background: #ffffff;
+  border-radius: 1rem;
+  padding: 1.5rem !important;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+  display: flex !important;
+  align-items: flex-start !important;
+  gap: 1.5rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid #f1f5f9;
+  overflow: hidden;
+}
+
+.finding-card:hover {
+  transform: translateY(-3px);
+  border-color: #cbd5e1 !important;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.04) !important;
+}
+
+.finding-expand-btn {
+  position: absolute;
+  bottom: 0.8rem;
+  right: 0.8rem;
+  color: #94a3b8;
+  transition: transform 0.3s ease;
+}
+
+.finding-card.is-expanded .finding-expand-btn {
+  transform: rotate(180deg);
+}
+
+.finding-detail-container {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.3s ease-in-out;
+}
+
+.finding-card.is-expanded .finding-detail-container {
+  grid-template-rows: 1fr;
+}
+
+.finding-detail-content {
+  overflow: hidden;
+}
+
+.finding-detail-inner {
+  padding-top: 1rem;
+  margin-top: 1rem;
+  border-top: 1px solid #f1f5f9;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: #64748b;
+  font-style: italic;
+}
+
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -1476,23 +1535,6 @@ a:focus {
   padding: 4rem 1.5rem;
 }
 
-.finding-card {
-  background: #ffffff;
-  border-radius: 1rem;
-  padding: 1.5rem;
-  margin-bottom: 1.5rem;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
-  display: flex;
-  align-items: flex-start;
-  gap: 1.5rem;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  border: 1px solid #f1f5f9;
-}
-
-.finding-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.04);
-}
 
 .finding-icon-wrap {
   flex-shrink: 0;

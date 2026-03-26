@@ -3,6 +3,7 @@ window.HELP_IMPROVE_VIDEOJS = false;
 // Machine Evaluation Data
 let machineData = null;
 let hierarchicalData = null;
+let keyFindingsData = null;
 let activeHierarchicalView = 'overview';
 
 const datasetNameMap = {
@@ -36,13 +37,12 @@ function switchTab(event, tabId) {
   // Activate selected tab (works for both div and button)
   event.currentTarget.classList.add('is-active');
 
-  // Update dynamic footnote & footer
+  // Update dynamic footnote
   const footnote = document.getElementById('leaderboard-footnote');
-  const footer = document.getElementById('leaderboard-footer');
   
-  const classificationText = 'Top-1 accuracy performance on fine-grained image classification tasks. Showing representative models; please refer to our paper for the full results of all 12 evaluated models.';
-  const attributeText = 'Accuracy performance on fine-grained human-oriented tasks (e.g., Attribute Recognition on CUB-200-2011). Showing representative models; please refer to our paper for full results.';
-  const retrievalText = 'mAP (mean Average Precision) performance on fine-grained image retrieval tasks. Showing representative models; please refer to our paper for the full results of all 12 evaluated models.';
+  const classificationText = 'Top-1 accuracy performance on fine-grained image classification tasks.';
+  const attributeText = 'Accuracy performance on the Attribute Recognition task within the human-oriented evaluation.';
+  const retrievalText = 'mAP (mean Average Precision) performance on fine-grained image retrieval tasks.';
 
   if (footnote) {
     if (tabId === 'tab-classification') {
@@ -56,7 +56,7 @@ function switchTab(event, tabId) {
       else renderAttributeTable('overview');
     }
     else if (tabId === 'tab-hierarchical') {
-      footnote.textContent = 'Hierarchical granularity recognition performance across different taxonomic levels (Kingdom, Phylum, Class, Order, Family, Genus, Species).';
+      footnote.textContent = 'Hierarchical granularity recognition performance. The overview displays Species-level accuracy across all datasets; click on CUB-200 or iNat2021 to view detailed taxonomic breakdowns.';
       if (!hierarchicalData) initHierarchicalTable();
       else renderHierarchicalTable('overview');
     }
@@ -65,12 +65,6 @@ function switchTab(event, tabId) {
       if (!machineData) initMachineTable('retrieval');
       else renderMachineTable('retrieval');
     }
-  }
-  
-  if (footer) {
-    if (tabId === 'tab-classification') footer.textContent = classificationText;
-    else if (tabId === 'tab-attribute') footer.textContent = attributeText;
-    else if (tabId === 'tab-retrieval') footer.textContent = retrievalText;
   }
 }
 
@@ -119,66 +113,7 @@ function sortTable(tableId, colIndex) {
     return;
   }
 
-  // Special Handling for Attribute Table (Sort Data directly then Re-render)
   if (tableId === 'table-attribute' && attributeData.length > 0) {
-    const table = document.getElementById(tableId);
-    if (!table) return;
-
-    // Toggle logic
-    if (!sortStateMap[tableId]) sortStateMap[tableId] = { colIndex: -1, ascending: true };
-    const state = sortStateMap[tableId];
-
-    if (state.colIndex === colIndex) {
-      state.ascending = !state.ascending;
-    } else {
-      state.colIndex = colIndex;
-      state.ascending = (colIndex === 1); // Model name defaults to ascending
-    }
-
-    // Sort the attributeData array
-    attributeData.sort((a, b) => {
-      // 0: Original Index (Rank Reset)
-      if (colIndex === 0) return (a.originalIndex || 0) - (b.originalIndex || 0);
-      
-      // 1: Model Name
-      if (colIndex === 1) {
-        const nameA = a.model.toLowerCase();
-        const nameB = b.model.toLowerCase();
-        return state.ascending ? nameA.localeCompare(nameB) : nameB.localeCompare(nameA);
-      }
-
-      // Performance Values (Dynamic)
-      let valA, valB;
-      if (activeAttributeView === 'overview') {
-        const keys = ['color', 'pattern', 'shape', 'length', 'size'];
-        const key = keys[colIndex - 2];
-        valA = a.overview[key] || 0;
-        valB = b.overview[key] || 0;
-      } else {
-        // Detailed View: Keys are from the current sub-object
-        const subData = a[activeAttributeView];
-        const keys = Object.keys(subData);
-        const key = keys[colIndex - 2];
-        valA = a[activeAttributeView][key] || 0;
-        valB = b[activeAttributeView][key] || 0;
-      }
-
-      return state.ascending ? valA - valB : valB - valA;
-    });
-
-    // Re-render
-    renderAttributeTable(activeAttributeView);
-    
-    // Update Icons manually after render
-    updateSortIcons(tableId, colIndex, state.ascending);
-    return;
-  }
-
-  // Special Handling for Hierarchical Table
-  if (tableId === 'table-hierarchical' && hierarchicalData) {
-    const table = document.getElementById(tableId);
-    if (!table) return;
-
     if (!sortStateMap[tableId]) sortStateMap[tableId] = { colIndex: -1, ascending: true };
     const state = sortStateMap[tableId];
 
@@ -189,9 +124,48 @@ function sortTable(tableId, colIndex) {
       state.ascending = (colIndex === 1); 
     }
 
-    const viewData = Array.isArray(hierarchicalData) ? hierarchicalData : (hierarchicalData[activeHierarchicalView] || hierarchicalData.overview);
+    attributeData.sort((a, b) => {
+      if (colIndex === 0) return (a.originalIndex || 0) - (b.originalIndex || 0);
+      if (colIndex === 1) {
+        return state.ascending ? a.model.localeCompare(b.model) : b.model.localeCompare(a.model);
+      }
 
-    viewData.sort((a, b) => {
+      let valA, valB;
+      if (activeAttributeView === 'overview') {
+        const keys = ['color', 'pattern', 'shape', 'length', 'size'];
+        const key = keys[colIndex - 2];
+        valA = (a.overview && a.overview[key]) || 0;
+        valB = (b.overview && b.overview[key]) || 0;
+      } else {
+        const subA = a[activeAttributeView] || {};
+        const subB = b[activeAttributeView] || {};
+        const keys = Object.keys(subA);
+        const key = keys[colIndex - 2];
+        valA = subA[key] || 0;
+        valB = subB[key] || 0;
+      }
+      return state.ascending ? valA - valB : valB - valA;
+    });
+
+    renderAttributeTable(activeAttributeView);
+    updateSortIcons(tableId, colIndex, state.ascending);
+    return;
+  }
+
+  if (tableId === 'table-hierarchical' && hierarchicalData) {
+    if (!sortStateMap[tableId]) sortStateMap[tableId] = { colIndex: -1, ascending: true };
+    const state = sortStateMap[tableId];
+
+    if (state.colIndex === colIndex) {
+      state.ascending = !state.ascending;
+    } else {
+      state.colIndex = colIndex;
+      state.ascending = (colIndex === 1); 
+    }
+
+    const dataArr = activeHierarchicalView === 'overview' ? hierarchicalData.overview : hierarchicalData[activeHierarchicalView];
+    
+    dataArr.sort((a, b) => {
       if (colIndex === 0) return (a.originalIndex || 0) - (b.originalIndex || 0);
       if (colIndex === 1) {
         return state.ascending ? a.model.localeCompare(b.model) : b.model.localeCompare(a.model);
@@ -199,14 +173,16 @@ function sortTable(tableId, colIndex) {
 
       let valA, valB;
       if (activeHierarchicalView === 'overview') {
-        const keys = ['cub', 'inat'];
-        const key = keys[colIndex - 2];
-        valA = a[key] || 0;
-        valB = b[key] || 0;
+        const key = hierarchicalSubset[colIndex - 2].key;
+        valA = (a.overview && a.overview[key]) || a[key] || 0;
+        valB = (b.overview && b.overview[key]) || b[key] || 0;
       } else {
         const scoresA = a.scores || a;
         const scoresB = b.scores || b;
-        const keys = Object.keys(scoresA).filter(k => k !== 'model' && k !== 'badge' && k !== 'originalIndex');
+        let keys = Object.keys(scoresA).filter(k => k !== 'model' && k !== 'badge' && k !== 'originalIndex');
+        if (activeHierarchicalView === 'cub_details') {
+          keys = keys.filter(k => ['Class', 'Genus', 'Species'].includes(k.charAt(0).toUpperCase() + k.slice(1)));
+        }
         const key = keys[colIndex - 2];
         valA = scoresA[key] || 0;
         valB = scoresB[key] || 0;
@@ -339,11 +315,11 @@ function renderAttributeTable(view) {
   headerHtml += `<th class="left-align sticky-model-col sticky-shadow-right" onclick="sortTable('table-attribute', 1)" style="cursor: pointer;">Model <span class="sort-icon">⇅</span></th>`;
 
   if (view === 'overview') {
-    headerHtml += `<th class="clickable-header" onclick="drillDown('color')">Color Acc <i class="fas fa-chevron-right"></i> <span class="sort-icon">⇅</span></th>`;
-    headerHtml += `<th class="clickable-header" onclick="drillDown('pattern')">Pattern Acc <i class="fas fa-chevron-right"></i> <span class="sort-icon">⇅</span></th>`;
-    headerHtml += `<th class="clickable-header" onclick="drillDown('shape')">Shape Acc <i class="fas fa-chevron-right"></i> <span class="sort-icon">⇅</span></th>`;
-    headerHtml += `<th onclick="sortTable('table-attribute', 5)" style="cursor: pointer;">Length Acc <span class="sort-icon">⇅</span></th>`;
-    headerHtml += `<th onclick="sortTable('table-attribute', 6)" style="cursor: pointer;">Size Acc <span class="sort-icon">⇅</span></th>`;
+    headerHtml += `<th class="clickable-header"><span onclick="event.stopPropagation(); sortTable('table-attribute', 2);">Color Acc <span class="sort-icon">⇅</span></span> <span onclick="event.stopPropagation(); drillDown('color');" class="ml-1 text-blue-500 cursor-pointer"><i class="fas fa-chevron-right text-xs"></i></span></th>`;
+    headerHtml += `<th class="clickable-header"><span onclick="event.stopPropagation(); sortTable('table-attribute', 3);">Pattern Acc <span class="sort-icon">⇅</span></span> <span onclick="event.stopPropagation(); drillDown('pattern');" class="ml-1 text-blue-500 cursor-pointer"><i class="fas fa-chevron-right text-xs"></i></span></th>`;
+    headerHtml += `<th class="clickable-header"><span onclick="event.stopPropagation(); sortTable('table-attribute', 4);">Shape Acc <span class="sort-icon">⇅</span></span> <span onclick="event.stopPropagation(); drillDown('shape');" class="ml-1 text-blue-500 cursor-pointer"><i class="fas fa-chevron-right text-xs"></i></span></th>`;
+    headerHtml += `<th><span onclick="event.stopPropagation(); sortTable('table-attribute', 5);" style="cursor: pointer;">Length Acc <span class="sort-icon">⇅</span></span></th>`;
+    headerHtml += `<th><span onclick="event.stopPropagation(); sortTable('table-attribute', 6);" style="cursor: pointer;">Size Acc <span class="sort-icon">⇅</span></span></th>`;
   } else {
     // Detailed Headers from first model's data
     const subKeys = Object.keys(attributeData[0][view]);
@@ -360,7 +336,7 @@ function renderAttributeTable(view) {
   attributeData.forEach((model, idx) => {
     bodyHtml += '<tr>';
     bodyHtml += `<td class="rank-cell sticky-rank-col">${idx + 1}</td>`;
-    bodyHtml += `<td class="left-align model-cell sticky-model-col sticky-shadow-right">${model.model} <span class="badge badge-${model.badge.toLowerCase()}">${model.badge}</span></td>`;
+    bodyHtml += `<td class="left-align model-cell sticky-model-col sticky-shadow-right">${model.model} <span class="badge badge-${model.badge.toLowerCase().replace(/\s+/g, '-')}">${model.badge}</span></td>`;
     
     if (view === 'overview') {
       const keys = ['color', 'pattern', 'shape', 'length', 'size'];
@@ -447,7 +423,26 @@ function isMachineBest(type, key, value) {
     const val = item.scores[key] || 0;
     if (val > max) max = val;
   });
-  return value === max && max > 0;
+  return value >= max && max > 0;
+}
+
+function isHierarchicalBest(key, value, view) {
+  let max = 0;
+  let data = hierarchicalData[view];
+  if (!data) return false;
+
+  data.forEach(m => {
+    let val = 0;
+    if (view === 'overview') {
+      if (m.overview && m.overview[key] !== undefined) val = m.overview[key];
+      else if (m[key] !== undefined) val = m[key];
+    } else {
+      const scores = m.scores || m;
+      val = scores[key] || 0;
+    }
+    if (val > max) max = val;
+  });
+  return value >= max && max > 0;
 }
 
 function drillDown(view) {
@@ -500,17 +495,16 @@ function renderHierarchicalTable(view) {
   activeHierarchicalView = view;
   backBtn.style.display = (view === 'overview') ? 'none' : 'flex';
 
-  const hierarchicalSubset = [
-    { key: 'cub', name: 'CUB-200', interactive: true },
-    { key: 'inat2021', name: 'INAT2021', interactive: true },
-    { key: 'aircrafts', name: 'FGVC AIRCRAFT', interactive: false },
-    { key: 'clothes', name: 'DEEPFASHION', interactive: false },
-    { key: 'flowers', name: 'FLOWERS 102', interactive: false },
-    { key: 'food101', name: 'FOOD-101', interactive: false },
-    { key: 'cars', name: 'STANFORD CARS', interactive: false },
-    { key: 'dogs', name: 'STANFORD DOGS', interactive: false },
-    { key: 'vegfru', name: 'VEGFRU', interactive: false }
-  ];
+  // Define data subset based on view
+  let data;
+  if (view === 'overview') {
+    data = Array.isArray(hierarchicalData) ? hierarchicalData : hierarchicalData.overview;
+  } else {
+    data = hierarchicalData[view];
+  }
+
+  if (!data) return;
+
 
   // 1. Render Headers
   let headerHtml = '<tr>';
@@ -521,17 +515,31 @@ function renderHierarchicalTable(view) {
     hierarchicalSubset.forEach((ds, idx) => {
       if (ds.interactive) {
           const drillKey = ds.key === 'cub' ? 'cub_details' : 'inat_details';
-          headerHtml += `<th class="clickable-header" onclick="drillDownHierarchical('${drillKey}')">${ds.name} (Hierarchy) <i class="fas fa-chevron-right"></i> <span class="sort-icon">⇅</span></th>`;
+          headerHtml += `<th class="clickable-header">
+            <span onclick="event.stopPropagation(); sortTable('table-hierarchical', ${idx + 2});" style="cursor: pointer;">
+              ${ds.name} <span class="sort-icon">⇅</span>
+            </span>
+            <span onclick="event.stopPropagation(); drillDownHierarchical('${drillKey}');" class="drill-down-indicator ml-1 text-blue-500 cursor-pointer" title="View Details">
+              <i class="fas fa-chevron-right text-xs"></i>
+            </span>
+          </th>`;
       } else {
-          headerHtml += `<th onclick="sortTable('table-hierarchical', ${idx + 2})" style="cursor: pointer;">${ds.name} <span class="sort-icon">⇅</span></th>`;
+          headerHtml += `<th onclick="event.stopPropagation(); sortTable('table-hierarchical', ${idx + 2})" style="cursor: pointer;">${ds.name} <span class="sort-icon">⇅</span></th>`;
       }
     });
   } else {
     // Detailed Headers (Taxonomic levels)
-    const subKeys = Object.keys(data[0].scores || data[0]).filter(k => k !== 'model' && k !== 'badge' && k !== 'originalIndex');
+    let subKeys = Object.keys(data[0].scores || data[0]).filter(k => k !== 'model' && k !== 'badge' && k !== 'originalIndex');
+    
+    // CUB-200 only has 3 taxonomic levels (Class, Genus, Species)
+    if (view === 'cub_details') {
+      const cubAllowed = ['Class', 'Genus', 'Species'];
+      subKeys = subKeys.filter(k => cubAllowed.includes(k.charAt(0).toUpperCase() + k.slice(1)));
+    }
+
     subKeys.forEach((key, idx) => {
       const displayName = key.charAt(0).toUpperCase() + key.slice(1);
-      headerHtml += `<th onclick="sortTable('table-hierarchical', ${idx + 2})" style="cursor: pointer;">${displayName} <span class="sort-icon">⇅</span></th>`;
+      headerHtml += `<th onclick="event.stopPropagation(); sortTable('table-hierarchical', ${idx + 2})" style="cursor: pointer;">${displayName} <span class="sort-icon">⇅</span></th>`;
     });
   }
   headerHtml += '</tr>';
@@ -542,21 +550,31 @@ function renderHierarchicalTable(view) {
   data.forEach((model, idx) => {
     bodyHtml += '<tr>';
     bodyHtml += `<td class="rank-cell sticky-rank-col">${idx + 1}</td>`;
-    bodyHtml += `<td class="left-align model-cell sticky-model-col sticky-shadow-right">${model.model} <span class="badge badge-${(model.badge || 'vlm').toLowerCase()}">${model.badge || 'VLM'}</span></td>`;
+    bodyHtml += `<td class="left-align model-cell sticky-model-col sticky-shadow-right">${model.model} <span class="badge badge-${(model.badge || 'vlm').toLowerCase().replace(/\s+/g, '-')}">${model.badge || 'VLM'}</span></td>`;
     
     if (view === 'overview') {
       hierarchicalSubset.forEach(ds => {
-        let val = "-";
-        if (model.overview && model.overview[ds.key] !== undefined) val = model.overview[ds.key].toFixed(2) + "%";
-        else if (model[ds.key] !== undefined) val = model[ds.key].toFixed(2) + "%";
-        bodyHtml += `<td class="tabular-nums">${val}</td>`;
+        let valNumeric = null;
+        if (model.overview && model.overview[ds.key] !== undefined) valNumeric = model.overview[ds.key];
+        else if (model[ds.key] !== undefined) valNumeric = model[ds.key];
+
+        const val = valNumeric !== null ? valNumeric.toFixed(2) + "%" : "-";
+        const isBest = valNumeric !== null ? isHierarchicalBest(ds.key, valNumeric, view) : false;
+        bodyHtml += `<td class="tabular-nums ${isBest ? 'highlight-best' : ''}">${val}</td>`;
       });
     } else {
       const scores = model.scores || model;
-      const keys = Object.keys(scores).filter(k => k !== 'model' && k !== 'badge' && k !== 'originalIndex');
-      keys.forEach(key => {
+      // Use the SAME subKeys as headers for synchronization
+      let detailKeys = Object.keys(scores).filter(k => k !== 'model' && k !== 'badge' && k !== 'originalIndex');
+      if (view === 'cub_details') {
+        const cubAllowed = ['Class', 'Genus', 'Species'];
+        detailKeys = detailKeys.filter(k => cubAllowed.includes(k.charAt(0).toUpperCase() + k.slice(1)));
+      }
+
+      detailKeys.forEach(key => {
         const val = scores[key];
-        bodyHtml += `<td class="tabular-nums">${typeof val === 'number' ? val.toFixed(2) + '%' : val}</td>`;
+        const isBest = typeof val === 'number' ? isHierarchicalBest(key, val, view) : false;
+        bodyHtml += `<td class="tabular-nums ${isBest ? 'highlight-best' : ''}">${typeof val === 'number' ? val.toFixed(2) + '%' : val}</td>`;
       });
     }
     bodyHtml += '</tr>';
@@ -747,6 +765,22 @@ $(document).ready(function () {
       row.dataset.originalIndex = index;
     });
   });
+
+  // Initialize Leaderboard Data (Attribute by default)
+  initAttributeTable();
+  initMachineTable('classification');
+  initHierarchicalTable();
+
+  // Initialize Key Findings
+  initKeyFindings();
+
+  // Initialize Per-Dataset Charts
+  initCharts();
+  switchView('cls');
+
+  // Initialize QA Showcase
+  const firstTabBtn = document.querySelector('.qa-tab-btn');
+  if (firstTabBtn) switchQATab(0, firstTabBtn);
 })
 
 // --- Per-Dataset Results Chart Logic ---
@@ -1106,11 +1140,6 @@ function switchView(view) {
   }
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-    initCharts();
-    const firstTabBtn = document.querySelector('.qa-tab-btn');
-    if (firstTabBtn) switchQATab(0, firstTabBtn);
-});
 
 // Interactive QA Showcase Task Data
 const qaTasks = [
@@ -1203,4 +1232,107 @@ function switchQATab(index, btn) {
     const btns = document.querySelectorAll('.qa-tab-btn');
     btns.forEach(b => b.classList.remove('is-active'));
     if (btn) btn.classList.add('is-active');
+}
+// --- Key Findings Expansion Logic ---
+async function initKeyFindings() {
+  try {
+    const response = await fetch('static/json/keyFindingsData.json');
+    keyFindingsData = await response.json();
+    renderKeyFindings();
+  } catch (err) {
+    console.error('Failed to load key findings data:', err);
+  }
+}
+
+function renderKeyFindings() {
+  const humanList = document.getElementById('human-findings-list');
+  const machineList = document.getElementById('machine-findings-list');
+  
+  if (!humanList || !machineList || !keyFindingsData) return;
+
+  // Render Human Oriented
+  humanList.innerHTML = keyFindingsData.humanOriented.map(finding => `
+    <div class="finding-card abstract-box" id="card-${finding.id}" onclick="toggleFinding('${finding.id}')">
+      <div class="finding-icon-wrap" style="background: ${getFindingIconBg(finding.id)}; color: ${getFindingIconColor(finding.id)};">
+        <i class="${getFindingIcon(finding.id)}"></i>
+      </div>
+      <div class="finding-content" style="flex-grow: 1; padding-right: 1.5rem;">
+        <h4 style="font-weight: 700; font-size: 1.1rem; color: #1e293b; margin: 0 0 0.5rem 0; line-height: 1.4;">${finding.title}</h4>
+        <p style="font-size: 0.95rem; color: #475569; line-height: 1.6; margin: 0;">${finding.summary}</p>
+        
+        <div class="finding-detail-container">
+          <div class="finding-detail-content">
+            <p class="finding-detail-inner">${finding.detail}</p>
+          </div>
+        </div>
+      </div>
+      <div class="finding-expand-btn">
+        <i class="fas fa-chevron-down"></i>
+      </div>
+    </div>
+  `).join('');
+
+  // Render Machine Oriented
+  machineList.innerHTML = keyFindingsData.machineOriented.map(finding => `
+    <div class="finding-card abstract-box" id="card-${finding.id}" onclick="toggleFinding('${finding.id}')">
+      <div class="finding-icon-wrap" style="background: ${getFindingIconBg(finding.id)}; color: ${getFindingIconColor(finding.id)};">
+        <i class="${getFindingIcon(finding.id)}"></i>
+      </div>
+      <div class="finding-content" style="flex-grow: 1; padding-right: 1.5rem;">
+        <h4 style="font-weight: 700; font-size: 1.1rem; color: #1e293b; margin: 0 0 0.5rem 0; line-height: 1.4;">${finding.title}</h4>
+        <p style="font-size: 0.95rem; color: #475569; line-height: 1.6; margin: 0;">${finding.summary}</p>
+        
+        <div class="finding-detail-container">
+          <div class="finding-detail-content">
+            <p class="finding-detail-inner">${finding.detail}</p>
+          </div>
+        </div>
+      </div>
+      <div class="finding-expand-btn">
+        <i class="fas fa-chevron-down"></i>
+      </div>
+    </div>
+  `).join('');
+}
+
+function toggleFinding(id) {
+  const card = document.getElementById(`card-${id}`);
+  if (!card) return;
+  
+  // Optional: Accordion behavior (close others)
+  // document.querySelectorAll('.finding-card').forEach(c => {
+  //   if (c.id !== `card-${id}`) c.classList.remove('is-expanded');
+  // });
+
+  card.classList.toggle('is-expanded');
+}
+
+function getFindingIcon(id) {
+  const icons = {
+    'h1': 'fas fa-search',
+    'h2': 'fas fa-palette',
+    'h3': 'fas fa-brain',
+    'h4': 'fas fa-graduation-cap',
+    'm1': 'fas fa-layer-group',
+    'm2': 'fas fa-link-slash',
+    'm3': 'fas fa-expand-arrows-alt',
+    'm4': 'fas fa-shield-virus'
+  };
+  return icons[id] || 'fas fa-info-circle';
+}
+
+function getFindingIconBg(id) {
+  const bgs = {
+    'h1': '#eff6ff', 'h2': '#eef2ff', 'h3': '#f5f3ff', 'h4': '#fff7ed',
+    'm1': '#ecfdf5', 'm2': '#f0fdf4', 'm3': '#fffbeb', 'm4': '#fef2f2'
+  };
+  return bgs[id] || '#f3f4f6';
+}
+
+function getFindingIconColor(id) {
+  const colors = {
+    'h1': '#2563eb', 'h2': '#4f46e5', 'h3': '#7c3aed', 'h4': '#ea580c',
+    'm1': '#059669', 'm2': '#16a34a', 'm3': '#d97706', 'm4': '#dc2626'
+  };
+  return colors[id] || '#64748b';
 }

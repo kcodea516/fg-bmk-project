@@ -1,7 +1,7 @@
 {
   "overview": [
     { 
-      "model": "InternVL-Chat-V1.1", 
+      "model": "InternVL", 
       "badge": "LVLM", 
       "cub": 89.92, 
       "inat2021": 57.90,
@@ -27,8 +27,8 @@
       "vegfru": 96.44
     },
     { 
-      "model": "EVA02_CLIP_L_psz14", 
-      "badge": "PURE VISION", 
+      "model": "EVA-CLIP", 
+      "badge": "VLM", 
       "cub": 88.95, 
       "inat2021": 64.70,
       "aircrafts": 70.27,
@@ -38,14 +38,76 @@
       "cars": 94.30,
       "dogs": 87.69,
       "vegfru": 94.73
+    },
+    { 
+      "model": "BEIT3", 
+      "badge": "VLM", 
+      "cub": 82.67, 
+      "inat2021": 43.55,
+      "aircrafts": 50.47,
+      "clothes": 65.45,
+      "flowers": 95.59,
+      "food101": 89.13,
+      "cars": 88.43,
+      "dogs": 80.07,
+      "vegfru": 85.84
+    },
+    { 
+      "model": "Qwen", 
+      "badge": "LVLM", 
+      "cub": 80.08, 
+      "inat2021": 38.90,
+      "aircrafts": 51.15,
+      "clothes": 69.37,
+      "flowers": 97.43,
+      "food101": 88.90,
+      "cars": 90.67,
+      "dogs": 77.02,
+      "vegfru": 86.98
+    },
+    { 
+      "model": "CoCa", 
+      "badge": "VLM", 
+      "cub": 79.89, 
+      "inat2021": 40.59,
+      "aircrafts": 63.40,
+      "clothes": 71.45,
+      "flowers": 98.46,
+      "food101": 92.38,
+      "cars": 92.36,
+      "dogs": 81.24,
+      "vegfru": 91.08
+    },
+    { 
+      "model": "LLaVA-1.5-7B", 
+      "badge": "LVLM", 
+      "cub": 79.54, 
+      "inat2021": 39.77,
+      "aircrafts": 62.46,
+      "clothes": 68.69,
+      "flowers": 98.04,
+      "food101": 94.53,
+      "cars": 87.56,
+      "dogs": 80.73,
+      "vegfru": 90.72
     }
   ],
   "cub_details": [
-    { "model": "InternVL-Chat-V1.1", "badge": "LVLM", "scores": { "Kingdom": 100.0, "Phylum": 100.0, "Class": 98.4, "Order": 94.2, "Family": 91.5, "Genus": 89.9, "Species": 87.2 } },
-    { "model": "DINOv2-L", "badge": "PURE VISION", "scores": { "Kingdom": 100.0, "Phylum": 100.0, "Class": 98.9, "Order": 95.6, "Family": 93.1, "Genus": 91.7, "Species": 89.5 } }
+    { "model": "InternVL", "badge": "LVLM", "scores": { "Kingdom": 100.0, "Phylum": 100.0, "Class": 98.4, "Order": 94.2, "Family": 91.5, "Genus": 89.9, "Species": 87.2 } },
+    { "model": "DINOv2-L", "badge": "PURE VISION", "scores": { "Kingdom": 100.0, "Phylum": 100.0, "Class": 98.9, "Order": 95.6, "Family": 93.1, "Genus": 91.7, "Species": 89.5 } },
+    { "model": "EVA-CLIP", "badge": "VLM", "scores": { "Kingdom": 100.0, "Phylum": 100.0, "Class": 98.2, "Order": 93.1, "Family": 90.5, "Genus": 88.9, "Species": 85.1 } },
+    { "model": "BEIT3", "badge": "VLM", "scores": { "Kingdom": 100.0, "Phylum": 100.0, "Class": 95.4, "Order": 88.2, "Family": 84.1, "Genus": 82.7, "Species": 78.4 } },
+    { "model": "Qwen", "badge": "LVLM", "scores": { "Kingdom": 100.0, "Phylum": 100.0, "Class": 94.1, "Order": 85.6, "Family": 81.2, "Genus": 80.1, "Species": 75.3 } },
+    { "model": "CoCa", "badge": "VLM", "scores": { "Kingdom": 100.0, "Phylum": 100.0, "Class": 94.8, "Order": 86.4, "Family": 81.8, "Genus": 79.9, "Species": 74.5 } },
+    { "model": "LLaVA-1.5-7B", "badge": "LVLM", "scores": { "Kingdom": 100.0, "Phylum": 100.0, "Class": 93.9, "Order": 85.1, "Family": 80.5, "Genus": 79.5, "Species": 73.1 } }
   ],
   "inat_details": [
     { "model": "DINOv2-L", "badge": "PURE VISION", "scores": { "Kingdom": 99.8, "Phylum": 98.2, "Class": 94.5, "Order": 88.7, "Family": 82.4, "Genus": 77.1, "Species": 72.8 } },
-    { "model": "InternVL-Chat-V1.1", "badge": "LVLM", "scores": { "Kingdom": 99.5, "Phylum": 97.4, "Class": 92.1, "Order": 84.5, "Family": 71.8, "Genus": 57.9, "Species": 52.1 } }
+    { "model": "InternVL", "badge": "LVLM", "scores": { "Kingdom": 99.5, "Phylum": 97.4, "Class": 92.1, "Order": 84.5, "Family": 71.8, "Genus": 57.9, "Species": 52.1 } },
+    { "model": "EVA-CLIP", "badge": "VLM", "scores": { "Kingdom": 99.6, "Phylum": 97.8, "Class": 93.2, "Order": 86.1, "Family": 78.5, "Genus": 64.7, "Species": 60.3 } },
+    { "model": "BEIT3", "badge": "VLM", "scores": { "Kingdom": 98.4, "Phylum": 95.1, "Class": 88.2, "Order": 74.5, "Family": 61.2, "Genus": 43.6, "Species": 38.4 } },
+    { "model": "Qwen", "badge": "LVLM", "scores": { "Kingdom": 97.2, "Phylum": 93.1, "Class": 85.4, "Order": 70.1, "Family": 55.4, "Genus": 38.9, "Species": 32.1 } },
+    { "model": "CoCa", "badge": "VLM", "scores": { "Kingdom": 97.8, "Phylum": 93.6, "Class": 86.2, "Order": 71.8, "Family": 58.2, "Genus": 40.6, "Species": 34.5 } },
+    { "model": "LLaVA-1.5-7B", "badge": "LVLM", "scores": { "Kingdom": 97.4, "Phylum": 93.2, "Class": 85.9, "Order": 71.2, "Family": 57.1, "Genus": 39.8, "Species": 33.1 } }
   ]
 }
