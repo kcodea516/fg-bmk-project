@@ -21,6 +21,18 @@ const datasetNameMap = {
   "inat2021": "INAT2021"
 };
 
+const hierarchicalSubset = [
+  { key: 'cub', name: 'CUB-200', interactive: true },
+  { key: 'inat2021', name: 'Inat2021', interactive: true }, // Map inat2021 to inat_details
+  { key: 'aircrafts', name: 'Aircraft', interactive: false },
+  { key: 'clothes', name: 'Clothes', interactive: false },
+  { key: 'flowers', name: 'Flowers', interactive: false },
+  { key: 'food101', name: 'Food', interactive: false },
+  { key: 'cars', name: 'Cars', interactive: false },
+  { key: 'dogs', name: 'Dogs', interactive: false },
+  { key: 'vegfru', name: 'Vegfru', interactive: false }
+];
+
 // Evaluation Results Tab Switching
 function switchTab(event, tabId) {
   // Hide all tab content
@@ -72,35 +84,29 @@ function switchTab(event, tabId) {
 const sortStateMap = {};
 
 function sortTable(tableId, colIndex) {
-  // Special Handling for Machine Tables (Sort Data then Re-render)
+  // Initialization of sort state
+  if (!sortStateMap[tableId]) sortStateMap[tableId] = { colIndex: -1, ascending: true };
+  const state = sortStateMap[tableId];
+
+  // Logic: NEW column -> Descending (for scores), SAME column -> Toggle
+  if (state.colIndex === colIndex) {
+    state.ascending = !state.ascending;
+  } else {
+    state.colIndex = colIndex;
+    // Rank (0) and Model (1) default to Ascending, performance scores default to Descending
+    state.ascending = (colIndex === 0 || colIndex === 1); 
+  }
+
+  // 1. Machine Tables (Classification / Retrieval)
   if ((tableId === 'table-classification' || tableId === 'table-retrieval') && machineData) {
     const type = tableId.replace('table-', '');
-    const data = machineData[type];
+    const currentData = machineData[type];
     
-    // Toggle logic
-    if (!sortStateMap[tableId]) sortStateMap[tableId] = { colIndex: -1, ascending: true };
-    const state = sortStateMap[tableId];
-
-    if (state.colIndex === colIndex) {
-      state.ascending = !state.ascending;
-    } else {
-      state.colIndex = colIndex;
-      state.ascending = (colIndex === 1); // Model name defaults to ascending
-    }
-
-    // Sort machineData type array
-    data.sort((a, b) => {
-      // 0: Original Index (Rank Reset)
+    // Immutable Sort: Create a new copy then sort
+    const sortedData = [...currentData].sort((a, b) => {
       if (colIndex === 0) return (a.originalIndex || 0) - (b.originalIndex || 0);
+      if (colIndex === 1) return state.ascending ? a.model.localeCompare(b.model) : b.model.localeCompare(a.model);
       
-      // 1: Model Name
-      if (colIndex === 1) {
-        const nameA = a.model.toLowerCase();
-        const nameB = b.model.toLowerCase();
-        return state.ascending ? nameA.localeCompare(nameB) : nameB.localeCompare(nameA);
-      }
-
-      // Dataset scores (2 to 13)
       const datasetKeys = Object.keys(a.scores);
       const key = datasetKeys[colIndex - 2];
       const valA = a.scores[key] || 0;
@@ -108,27 +114,17 @@ function sortTable(tableId, colIndex) {
       return state.ascending ? valA - valB : valB - valA;
     });
 
+    machineData[type] = sortedData; 
     renderMachineTable(type);
     updateSortIcons(tableId, colIndex, state.ascending);
     return;
   }
 
+  // 2. Attribute Table
   if (tableId === 'table-attribute' && attributeData.length > 0) {
-    if (!sortStateMap[tableId]) sortStateMap[tableId] = { colIndex: -1, ascending: true };
-    const state = sortStateMap[tableId];
-
-    if (state.colIndex === colIndex) {
-      state.ascending = !state.ascending;
-    } else {
-      state.colIndex = colIndex;
-      state.ascending = (colIndex === 1); 
-    }
-
-    attributeData.sort((a, b) => {
+    const sortedData = [...attributeData].sort((a, b) => {
       if (colIndex === 0) return (a.originalIndex || 0) - (b.originalIndex || 0);
-      if (colIndex === 1) {
-        return state.ascending ? a.model.localeCompare(b.model) : b.model.localeCompare(a.model);
-      }
+      if (colIndex === 1) return state.ascending ? a.model.localeCompare(b.model) : b.model.localeCompare(a.model);
 
       let valA, valB;
       if (activeAttributeView === 'overview') {
@@ -147,29 +143,21 @@ function sortTable(tableId, colIndex) {
       return state.ascending ? valA - valB : valB - valA;
     });
 
+    attributeData = sortedData;
     renderAttributeTable(activeAttributeView);
     updateSortIcons(tableId, colIndex, state.ascending);
     return;
   }
 
+  // 3. Hierarchical Table
   if (tableId === 'table-hierarchical' && hierarchicalData) {
-    if (!sortStateMap[tableId]) sortStateMap[tableId] = { colIndex: -1, ascending: true };
-    const state = sortStateMap[tableId];
+    const currentViewKey = activeHierarchicalView === 'overview' ? 'overview' : activeHierarchicalView;
+    const currentData = hierarchicalData[currentViewKey];
+    if (!currentData) return;
 
-    if (state.colIndex === colIndex) {
-      state.ascending = !state.ascending;
-    } else {
-      state.colIndex = colIndex;
-      state.ascending = (colIndex === 1); 
-    }
-
-    const dataArr = activeHierarchicalView === 'overview' ? hierarchicalData.overview : hierarchicalData[activeHierarchicalView];
-    
-    dataArr.sort((a, b) => {
+    const sortedData = [...currentData].sort((a, b) => {
       if (colIndex === 0) return (a.originalIndex || 0) - (b.originalIndex || 0);
-      if (colIndex === 1) {
-        return state.ascending ? a.model.localeCompare(b.model) : b.model.localeCompare(a.model);
-      }
+      if (colIndex === 1) return state.ascending ? a.model.localeCompare(b.model) : b.model.localeCompare(a.model);
 
       let valA, valB;
       if (activeHierarchicalView === 'overview') {
@@ -190,71 +178,10 @@ function sortTable(tableId, colIndex) {
       return state.ascending ? valA - valB : valB - valA;
     });
 
+    hierarchicalData[currentViewKey] = sortedData;
     renderHierarchicalTable(activeHierarchicalView);
     updateSortIcons(tableId, colIndex, state.ascending);
-    return;
   }
-
-  const table = document.getElementById(tableId);
-  if (!table) return;
-  const tbody = table.querySelector('tbody');
-  const rows = Array.from(tbody.querySelectorAll('tr'));
-
-  // Initialize or toggle sort state
-  if (!sortStateMap[tableId]) sortStateMap[tableId] = { colIndex: -1, ascending: true };
-  const state = sortStateMap[tableId];
-
-  if (state.colIndex === colIndex) {
-    state.ascending = !state.ascending;
-  } else {
-    state.colIndex = colIndex;
-    // Default to descending for numbers (performance scores), ascending for text
-    state.ascending = (colIndex === 1 || colIndex === 2); // Model and Vision Encoder default ascending
-  }
-
-  updateSortIcons(tableId, colIndex, state.ascending);
-
-  // Sort rows
-  rows.sort((a, b) => {
-    // Special case for colIndex 0: Reset to original order
-    if (colIndex === 0) {
-      const indexA = parseInt(a.dataset.originalIndex || 0);
-      const indexB = parseInt(b.dataset.originalIndex || 0);
-      return indexA - indexB;
-    }
-
-    const tdA = a.cells[colIndex];
-    const tdB = b.cells[colIndex];
-    if (!tdA || !tdB) return 0;
-
-    let valA = tdA.textContent.trim();
-    let valB = tdB.textContent.trim();
-
-    // Handle numerical values (including percentages)
-    const numA = parseFloat(valA.replace(/[^0-9.-]/g, ''));
-    const numB = parseFloat(valB.replace(/[^0-9.-]/g, ''));
-
-    if (!isNaN(numA) && !isNaN(numB) && !valA.match(/[a-zA-Z]{5,}/)) { // Simple heuristic to ignore model names with numbers
-      return state.ascending ? numA - numB : numB - numA;
-    }
-
-    // String sort
-    valA = valA.toLowerCase();
-    valB = valB.toLowerCase();
-    if (valA < valB) return state.ascending ? -1 : 1;
-    if (valA > valB) return state.ascending ? 1 : -1;
-    return 0;
-  });
-
-  // Re-append rows and update rank numbers (#)
-  rows.forEach((row, index) => {
-    tbody.appendChild(row);
-    // Correct the rank column (#) to always be 1, 2, 3... based on current view
-    const rankTd = row.cells[0]; // Assumes first column is rank
-    if (rankTd && rankTd.classList.contains('rank-cell')) {
-      rankTd.textContent = index + 1;
-    }
-  });
 }
 
 /**
@@ -315,11 +242,25 @@ function renderAttributeTable(view) {
   headerHtml += `<th class="left-align sticky-model-col sticky-shadow-right" onclick="sortTable('table-attribute', 1)" style="cursor: pointer;">Model <span class="sort-icon">⇅</span></th>`;
 
   if (view === 'overview') {
-    headerHtml += `<th class="clickable-header"><span onclick="event.stopPropagation(); sortTable('table-attribute', 2);">Color Acc <span class="sort-icon">⇅</span></span> <span onclick="event.stopPropagation(); drillDown('color');" class="ml-1 text-blue-500 cursor-pointer"><i class="fas fa-chevron-right text-xs"></i></span></th>`;
-    headerHtml += `<th class="clickable-header"><span onclick="event.stopPropagation(); sortTable('table-attribute', 3);">Pattern Acc <span class="sort-icon">⇅</span></span> <span onclick="event.stopPropagation(); drillDown('pattern');" class="ml-1 text-blue-500 cursor-pointer"><i class="fas fa-chevron-right text-xs"></i></span></th>`;
-    headerHtml += `<th class="clickable-header"><span onclick="event.stopPropagation(); sortTable('table-attribute', 4);">Shape Acc <span class="sort-icon">⇅</span></span> <span onclick="event.stopPropagation(); drillDown('shape');" class="ml-1 text-blue-500 cursor-pointer"><i class="fas fa-chevron-right text-xs"></i></span></th>`;
-    headerHtml += `<th><span onclick="event.stopPropagation(); sortTable('table-attribute', 5);" style="cursor: pointer;">Length Acc <span class="sort-icon">⇅</span></span></th>`;
-    headerHtml += `<th><span onclick="event.stopPropagation(); sortTable('table-attribute', 6);" style="cursor: pointer;">Size Acc <span class="sort-icon">⇅</span></span></th>`;
+    const categories = [
+      { key: 'color', label: 'Color Acc', interactive: true },
+      { key: 'pattern', label: 'Pattern Acc', interactive: true },
+      { key: 'shape', label: 'Shape Acc', interactive: true },
+      { key: 'length', label: 'Length Acc', interactive: false },
+      { key: 'size', label: 'Size Acc', interactive: false }
+    ];
+
+    categories.forEach((cat, idx) => {
+      headerHtml += `<th class="clickable-header">
+        <div class="header-container" onclick="event.stopPropagation(); sortTable('table-attribute', ${idx + 2});" style="cursor: pointer; display: flex; align-items: center; justify-content: center; width: 100%;">
+          ${cat.label} <span class="sort-icon ml-1">⇅</span>
+          ${cat.interactive ? `
+            <span onclick="event.stopPropagation(); drillDown('${cat.key}');" class="drill-down-indicator ml-1 text-blue-500 cursor-pointer" title="View Details">
+              <i class="fas fa-chevron-right text-xs"></i>
+            </span>` : ''}
+        </div>
+      </th>`;
+    });
   } else {
     // Detailed Headers from first model's data
     const subKeys = Object.keys(attributeData[0][view]);
@@ -395,7 +336,11 @@ function renderMachineTable(type) {
 
   datasetKeys.forEach((key, idx) => {
     const displayName = datasetNameMap[key] || key.toUpperCase();
-    headerHtml += `<th onclick="sortTable('${tableId}', ${idx + 2})" style="cursor: pointer;">${displayName} <span class="sort-icon">⇅</span></th>`;
+    headerHtml += `<th class="clickable-header">
+      <div class="header-container" onclick="event.stopPropagation(); sortTable('${tableId}', ${idx + 2});" style="cursor: pointer; display: flex; align-items: center; justify-content: center; width: 100%;">
+        ${displayName} <span class="sort-icon ml-1">⇅</span>
+      </div>
+    </th>`;
   });
   headerHtml += '</tr>';
   thead.innerHTML = headerHtml;
@@ -405,7 +350,7 @@ function renderMachineTable(type) {
   data.forEach((item, idx) => {
     bodyHtml += '<tr>';
     bodyHtml += `<td class="rank-cell sticky-rank-col">${idx + 1}</td>`;
-    bodyHtml += `<td class="left-align model-cell sticky-model-col sticky-shadow-right">${item.model} <span class="badge badge-${item.badge.toLowerCase().replace(' ', '-')}">${item.badge}</span></td>`;
+    bodyHtml += `<td class="left-align model-cell sticky-model-col sticky-shadow-right">${item.model} <span class="badge badge-${item.badge.toLowerCase().replace(/\s+/g, '-')}">${item.badge}</span></td>`;
     
     datasetKeys.forEach(key => {
       const val = item.scores[key];
@@ -513,19 +458,16 @@ function renderHierarchicalTable(view) {
 
   if (view === 'overview') {
     hierarchicalSubset.forEach((ds, idx) => {
-      if (ds.interactive) {
-          const drillKey = ds.key === 'cub' ? 'cub_details' : 'inat_details';
-          headerHtml += `<th class="clickable-header">
-            <span onclick="event.stopPropagation(); sortTable('table-hierarchical', ${idx + 2});" style="cursor: pointer;">
-              ${ds.name} <span class="sort-icon">⇅</span>
-            </span>
+      const drillKey = ds.key === 'cub' ? 'cub_details' : 'inat_details';
+      headerHtml += `<th class="clickable-header">
+        <div class="header-container" onclick="event.stopPropagation(); sortTable('table-hierarchical', ${idx + 2});" style="cursor: pointer; display: flex; align-items: center; justify-content: center; width: 100%;">
+          ${ds.name} <span class="sort-icon ml-1">⇅</span>
+          ${ds.interactive ? `
             <span onclick="event.stopPropagation(); drillDownHierarchical('${drillKey}');" class="drill-down-indicator ml-1 text-blue-500 cursor-pointer" title="View Details">
               <i class="fas fa-chevron-right text-xs"></i>
-            </span>
-          </th>`;
-      } else {
-          headerHtml += `<th onclick="event.stopPropagation(); sortTable('table-hierarchical', ${idx + 2})" style="cursor: pointer;">${ds.name} <span class="sort-icon">⇅</span></th>`;
-      }
+            </span>` : ''}
+        </div>
+      </th>`;
     });
   } else {
     // Detailed Headers (Taxonomic levels)
@@ -539,7 +481,11 @@ function renderHierarchicalTable(view) {
 
     subKeys.forEach((key, idx) => {
       const displayName = key.charAt(0).toUpperCase() + key.slice(1);
-      headerHtml += `<th onclick="event.stopPropagation(); sortTable('table-hierarchical', ${idx + 2})" style="cursor: pointer;">${displayName} <span class="sort-icon">⇅</span></th>`;
+      headerHtml += `<th class="clickable-header">
+        <div class="header-container" onclick="event.stopPropagation(); sortTable('table-hierarchical', ${idx + 2})" style="cursor: pointer; display: flex; align-items: center; justify-content: center; width: 100%;">
+          ${displayName} <span class="sort-icon ml-1">⇅</span>
+        </div>
+      </th>`;
     });
   }
   headerHtml += '</tr>';

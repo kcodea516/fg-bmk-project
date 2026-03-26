@@ -183,6 +183,36 @@ body {
   opacity: 0.5;
 }
 
+.header-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 12px;
+  margin: -16px -12px; /* Negate TH padding to fill area */
+  width: calc(100% + 24px);
+  height: calc(100% + 32px);
+  transition: all 0.2s ease;
+  border-radius: 4px;
+}
+
+.header-container:hover {
+  background: rgba(37, 99, 235, 0.05);
+}
+
+.clickable-header {
+  padding: 0 !important; /* Move padding to inner container */
+}
+
+.drill-down-indicator {
+  transition: transform 0.2s ease, opacity 0.2s ease;
+  opacity: 0.7;
+}
+
+.drill-down-indicator:hover {
+  transform: translateX(2px);
+  opacity: 1;
+}
+
 .evaluation-table th:first-child {
   text-align: left;
   padding-left: 20px;
