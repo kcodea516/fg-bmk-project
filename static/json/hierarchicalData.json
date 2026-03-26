@@ -1,0 +1,51 @@
+{
+  "overview": [
+    { 
+      "model": "InternVL-Chat-V1.1", 
+      "badge": "LVLM", 
+      "cub": 89.92, 
+      "inat2021": 57.90,
+      "aircrafts": 79.05,
+      "clothes": 71.12,
+      "flowers": 99.41,
+      "food101": 96.07,
+      "cars": 93.34,
+      "dogs": 89.09,
+      "vegfru": 95.57
+    },
+    { 
+      "model": "DINOv2-L", 
+      "badge": "PURE VISION", 
+      "cub": 91.65, 
+      "inat2021": 77.07,
+      "aircrafts": 78.88,
+      "clothes": 66.70,
+      "flowers": 99.69,
+      "food101": 95.12,
+      "cars": 91.72,
+      "dogs": 90.50,
+      "vegfru": 96.44
+    },
+    { 
+      "model": "EVA02_CLIP_L_psz14", 
+      "badge": "PURE VISION", 
+      "cub": 88.95, 
+      "inat2021": 64.70,
+      "aircrafts": 70.27,
+      "clothes": 72.03,
+      "flowers": 99.45,
+      "food101": 95.67,
+      "cars": 94.30,
+      "dogs": 87.69,
+      "vegfru": 94.73
+    }
+  ],
+  "cub_details": [
+    { "model": "InternVL-Chat-V1.1", "badge": "LVLM", "scores": { "Kingdom": 100.0, "Phylum": 100.0, "Class": 98.4, "Order": 94.2, "Family": 91.5, "Genus": 89.9, "Species": 87.2 } },
+    { "model": "DINOv2-L", "badge": "PURE VISION", "scores": { "Kingdom": 100.0, "Phylum": 100.0, "Class": 98.9, "Order": 95.6, "Family": 93.1, "Genus": 91.7, "Species": 89.5 } }
+  ],
+  "inat_details": [
+    { "model": "DINOv2-L", "badge": "PURE VISION", "scores": { "Kingdom": 99.8, "Phylum": 98.2, "Class": 94.5, "Order": 88.7, "Family": 82.4, "Genus": 77.1, "Species": 72.8 } },
+    { "model": "InternVL-Chat-V1.1", "badge": "LVLM", "scores": { "Kingdom": 99.5, "Phylum": 97.4, "Class": 92.1, "Order": 84.5, "Family": 71.8, "Genus": 57.9, "Species": 52.1 } }
+  ]
+}

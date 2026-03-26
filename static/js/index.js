@@ -1,5 +1,25 @@
 window.HELP_IMPROVE_VIDEOJS = false;
 
+// Machine Evaluation Data
+let machineData = null;
+let hierarchicalData = null;
+let activeHierarchicalView = 'overview';
+
+const datasetNameMap = {
+  "cub": "CUB-200",
+  "flowers": "FLOWERS 102",
+  "dogs": "STANFORD DOGS",
+  "cars": "STANFORD CARS",
+  "aircrafts": "FGVC AIRCRAFT",
+  "products": "PRODUCTS-10K",
+  "food101": "FOOD-101",
+  "clothes": "DEEPFASHION",
+  "vegfru": "VEGFRU",
+  "skincon": "SKINCON",
+  "wine": "WINE",
+  "inat2021": "INAT2021"
+};
+
 // Evaluation Results Tab Switching
 function switchTab(event, tabId) {
   // Hide all tab content
@@ -25,9 +45,26 @@ function switchTab(event, tabId) {
   const retrievalText = 'mAP (mean Average Precision) performance on fine-grained image retrieval tasks. Showing representative models; please refer to our paper for the full results of all 12 evaluated models.';
 
   if (footnote) {
-    if (tabId === 'tab-classification') footnote.textContent = classificationText;
-    else if (tabId === 'tab-attribute') footnote.textContent = attributeText;
-    else if (tabId === 'tab-retrieval') footnote.textContent = retrievalText;
+    if (tabId === 'tab-classification') {
+      footnote.textContent = classificationText;
+      if (!machineData) initMachineTable('classification');
+      else renderMachineTable('classification');
+    }
+    else if (tabId === 'tab-attribute') {
+      footnote.textContent = attributeText;
+      if (attributeData.length === 0) initAttributeTable();
+      else renderAttributeTable('overview');
+    }
+    else if (tabId === 'tab-hierarchical') {
+      footnote.textContent = 'Hierarchical granularity recognition performance across different taxonomic levels (Kingdom, Phylum, Class, Order, Family, Genus, Species).';
+      if (!hierarchicalData) initHierarchicalTable();
+      else renderHierarchicalTable('overview');
+    }
+    else if (tabId === 'tab-retrieval') {
+      footnote.textContent = retrievalText;
+      if (!machineData) initMachineTable('retrieval');
+      else renderMachineTable('retrieval');
+    }
   }
   
   if (footer) {
@@ -40,12 +77,148 @@ function switchTab(event, tabId) {
 // Global sort state per table
 const sortStateMap = {};
 
-/**
- * Robust Sorting function for AIBench-style tables
- * @param {string} tableId - ID of the table to sort
- * @param {number} colIndex - Index of the column to sort
- */
 function sortTable(tableId, colIndex) {
+  // Special Handling for Machine Tables (Sort Data then Re-render)
+  if ((tableId === 'table-classification' || tableId === 'table-retrieval') && machineData) {
+    const type = tableId.replace('table-', '');
+    const data = machineData[type];
+    
+    // Toggle logic
+    if (!sortStateMap[tableId]) sortStateMap[tableId] = { colIndex: -1, ascending: true };
+    const state = sortStateMap[tableId];
+
+    if (state.colIndex === colIndex) {
+      state.ascending = !state.ascending;
+    } else {
+      state.colIndex = colIndex;
+      state.ascending = (colIndex === 1); // Model name defaults to ascending
+    }
+
+    // Sort machineData type array
+    data.sort((a, b) => {
+      // 0: Original Index (Rank Reset)
+      if (colIndex === 0) return (a.originalIndex || 0) - (b.originalIndex || 0);
+      
+      // 1: Model Name
+      if (colIndex === 1) {
+        const nameA = a.model.toLowerCase();
+        const nameB = b.model.toLowerCase();
+        return state.ascending ? nameA.localeCompare(nameB) : nameB.localeCompare(nameA);
+      }
+
+      // Dataset scores (2 to 13)
+      const datasetKeys = Object.keys(a.scores);
+      const key = datasetKeys[colIndex - 2];
+      const valA = a.scores[key] || 0;
+      const valB = b.scores[key] || 0;
+      return state.ascending ? valA - valB : valB - valA;
+    });
+
+    renderMachineTable(type);
+    updateSortIcons(tableId, colIndex, state.ascending);
+    return;
+  }
+
+  // Special Handling for Attribute Table (Sort Data directly then Re-render)
+  if (tableId === 'table-attribute' && attributeData.length > 0) {
+    const table = document.getElementById(tableId);
+    if (!table) return;
+
+    // Toggle logic
+    if (!sortStateMap[tableId]) sortStateMap[tableId] = { colIndex: -1, ascending: true };
+    const state = sortStateMap[tableId];
+
+    if (state.colIndex === colIndex) {
+      state.ascending = !state.ascending;
+    } else {
+      state.colIndex = colIndex;
+      state.ascending = (colIndex === 1); // Model name defaults to ascending
+    }
+
+    // Sort the attributeData array
+    attributeData.sort((a, b) => {
+      // 0: Original Index (Rank Reset)
+      if (colIndex === 0) return (a.originalIndex || 0) - (b.originalIndex || 0);
+      
+      // 1: Model Name
+      if (colIndex === 1) {
+        const nameA = a.model.toLowerCase();
+        const nameB = b.model.toLowerCase();
+        return state.ascending ? nameA.localeCompare(nameB) : nameB.localeCompare(nameA);
+      }
+
+      // Performance Values (Dynamic)
+      let valA, valB;
+      if (activeAttributeView === 'overview') {
+        const keys = ['color', 'pattern', 'shape', 'length', 'size'];
+        const key = keys[colIndex - 2];
+        valA = a.overview[key] || 0;
+        valB = b.overview[key] || 0;
+      } else {
+        // Detailed View: Keys are from the current sub-object
+        const subData = a[activeAttributeView];
+        const keys = Object.keys(subData);
+        const key = keys[colIndex - 2];
+        valA = a[activeAttributeView][key] || 0;
+        valB = b[activeAttributeView][key] || 0;
+      }
+
+      return state.ascending ? valA - valB : valB - valA;
+    });
+
+    // Re-render
+    renderAttributeTable(activeAttributeView);
+    
+    // Update Icons manually after render
+    updateSortIcons(tableId, colIndex, state.ascending);
+    return;
+  }
+
+  // Special Handling for Hierarchical Table
+  if (tableId === 'table-hierarchical' && hierarchicalData) {
+    const table = document.getElementById(tableId);
+    if (!table) return;
+
+    if (!sortStateMap[tableId]) sortStateMap[tableId] = { colIndex: -1, ascending: true };
+    const state = sortStateMap[tableId];
+
+    if (state.colIndex === colIndex) {
+      state.ascending = !state.ascending;
+    } else {
+      state.colIndex = colIndex;
+      state.ascending = (colIndex === 1); 
+    }
+
+    const viewData = Array.isArray(hierarchicalData) ? hierarchicalData : (hierarchicalData[activeHierarchicalView] || hierarchicalData.overview);
+
+    viewData.sort((a, b) => {
+      if (colIndex === 0) return (a.originalIndex || 0) - (b.originalIndex || 0);
+      if (colIndex === 1) {
+        return state.ascending ? a.model.localeCompare(b.model) : b.model.localeCompare(a.model);
+      }
+
+      let valA, valB;
+      if (activeHierarchicalView === 'overview') {
+        const keys = ['cub', 'inat'];
+        const key = keys[colIndex - 2];
+        valA = a[key] || 0;
+        valB = b[key] || 0;
+      } else {
+        const scoresA = a.scores || a;
+        const scoresB = b.scores || b;
+        const keys = Object.keys(scoresA).filter(k => k !== 'model' && k !== 'badge' && k !== 'originalIndex');
+        const key = keys[colIndex - 2];
+        valA = scoresA[key] || 0;
+        valB = scoresB[key] || 0;
+      }
+      return state.ascending ? valA - valB : valB - valA;
+    });
+
+    renderHierarchicalTable(activeHierarchicalView);
+    updateSortIcons(tableId, colIndex, state.ascending);
+    return;
+  }
+
   const table = document.getElementById(tableId);
   if (!table) return;
   const tbody = table.querySelector('tbody');
@@ -63,22 +236,7 @@ function sortTable(tableId, colIndex) {
     state.ascending = (colIndex === 1 || colIndex === 2); // Model and Vision Encoder default ascending
   }
 
-  // Update icons in header
-  const ths = table.querySelectorAll('thead th');
-  ths.forEach((th, i) => {
-    const icon = th.querySelector('.sort-icon');
-    if (icon) {
-      if (i === colIndex) {
-        icon.innerHTML = state.ascending ? '▲' : '▼';
-        icon.style.opacity = '1';
-        icon.style.color = '#2563eb';
-      } else {
-        icon.innerHTML = '⇅';
-        icon.style.opacity = '0.5';
-        icon.style.color = 'inherit';
-      }
-    }
-  });
+  updateSortIcons(tableId, colIndex, state.ascending);
 
   // Sort rows
   rows.sort((a, b) => {
@@ -121,6 +279,307 @@ function sortTable(tableId, colIndex) {
       rankTd.textContent = index + 1;
     }
   });
+}
+
+/**
+ * Shared icon update logic
+ */
+function updateSortIcons(tableId, colIndex, ascending) {
+  const table = document.getElementById(tableId);
+  const ths = table.querySelectorAll('thead th');
+  ths.forEach((th, i) => {
+    const icon = th.querySelector('.sort-icon');
+    if (icon) {
+      if (i === colIndex) {
+        icon.innerHTML = ascending ? '▲' : '▼';
+        icon.style.opacity = '1';
+        icon.style.color = '#2563eb';
+      } else {
+        icon.innerHTML = '⇅';
+        icon.style.opacity = '0.5';
+        icon.style.color = 'inherit';
+      }
+    }
+  });
+}
+
+// --- Attribute Table Interactive Logic ---
+let attributeData = [];
+let activeAttributeView = 'overview';
+
+async function initAttributeTable() {
+  try {
+    const response = await fetch('static/json/attributeData.json');
+    attributeData = await response.json();
+    
+    // Store original index for rank reset
+    attributeData.forEach((item, idx) => {
+      item.originalIndex = idx;
+    });
+
+    renderAttributeTable('overview');
+  } catch (err) {
+    console.error('Failed to load attribute data:', err);
+  }
+}
+
+function renderAttributeTable(view) {
+  const thead = document.getElementById('attribute-thead');
+  const tbody = document.getElementById('attribute-tbody');
+  const backBtn = document.getElementById('attribute-back-btn-container');
+  
+  if (!thead || !tbody) return;
+
+  activeAttributeView = view;
+  backBtn.style.display = (view === 'overview') ? 'none' : 'flex';
+
+  // 1. Render Headers
+  let headerHtml = '<tr>';
+  headerHtml += `<th class="rank-cell sticky-rank-col" onclick="sortTable('table-attribute', 0)" style="cursor: pointer;" title="Reset Order">#</th>`;
+  headerHtml += `<th class="left-align sticky-model-col sticky-shadow-right" onclick="sortTable('table-attribute', 1)" style="cursor: pointer;">Model <span class="sort-icon">⇅</span></th>`;
+
+  if (view === 'overview') {
+    headerHtml += `<th class="clickable-header" onclick="drillDown('color')">Color Acc <i class="fas fa-chevron-right"></i> <span class="sort-icon">⇅</span></th>`;
+    headerHtml += `<th class="clickable-header" onclick="drillDown('pattern')">Pattern Acc <i class="fas fa-chevron-right"></i> <span class="sort-icon">⇅</span></th>`;
+    headerHtml += `<th class="clickable-header" onclick="drillDown('shape')">Shape Acc <i class="fas fa-chevron-right"></i> <span class="sort-icon">⇅</span></th>`;
+    headerHtml += `<th onclick="sortTable('table-attribute', 5)" style="cursor: pointer;">Length Acc <span class="sort-icon">⇅</span></th>`;
+    headerHtml += `<th onclick="sortTable('table-attribute', 6)" style="cursor: pointer;">Size Acc <span class="sort-icon">⇅</span></th>`;
+  } else {
+    // Detailed Headers from first model's data
+    const subKeys = Object.keys(attributeData[0][view]);
+    subKeys.forEach((key, idx) => {
+      const formattedKey = key.charAt(0).toUpperCase() + key.slice(1).replace('_', ' ');
+      headerHtml += `<th onclick="sortTable('table-attribute', ${idx + 2})" style="cursor: pointer; white-space: nowrap;">${formattedKey} <span class="sort-icon">⇅</span></th>`;
+    });
+  }
+  headerHtml += '</tr>';
+  thead.innerHTML = headerHtml;
+
+  // 2. Render Body
+  let bodyHtml = '';
+  attributeData.forEach((model, idx) => {
+    bodyHtml += '<tr>';
+    bodyHtml += `<td class="rank-cell sticky-rank-col">${idx + 1}</td>`;
+    bodyHtml += `<td class="left-align model-cell sticky-model-col sticky-shadow-right">${model.model} <span class="badge badge-${model.badge.toLowerCase()}">${model.badge}</span></td>`;
+    
+    if (view === 'overview') {
+      const keys = ['color', 'pattern', 'shape', 'length', 'size'];
+      keys.forEach(key => {
+        const val = model.overview[key];
+        const isBest = isGlobalBest(key, val, 'overview');
+        bodyHtml += `<td class="tabular-nums ${isBest ? 'highlight-best' : ''}">${val.toFixed(2)}%</td>`;
+      });
+    } else {
+      const subKeys = Object.keys(model[view]);
+      subKeys.forEach(key => {
+        const val = model[view][key];
+        const isBest = isGlobalBest(key, val, view);
+        bodyHtml += `<td class="tabular-nums ${isBest ? 'highlight-best' : ''}">${val.toFixed(2)}%</td>`;
+      });
+    }
+    bodyHtml += '</tr>';
+  });
+  tbody.innerHTML = bodyHtml;
+}
+
+// --- Machine Evaluation Table Logic ---
+async function initMachineTable(initialType) {
+  try {
+    const response = await fetch('static/json/machineEvaluationData.json');
+    machineData = await response.json();
+    
+    // Prepare data (store original index)
+    Object.keys(machineData).forEach(type => {
+      machineData[type].forEach((item, idx) => {
+        item.originalIndex = idx;
+      });
+    });
+
+    renderMachineTable(initialType);
+  } catch (err) {
+    console.error('Failed to load machine evaluation data:', err);
+  }
+}
+
+function renderMachineTable(type) {
+  const data = machineData[type];
+  const thead = document.getElementById(`${type}-thead`);
+  const tbody = document.getElementById(`${type}-tbody`);
+  const tableId = `table-${type}`;
+  
+  if (!thead || !tbody || !data) return;
+
+  // 1. Render Headers
+  const firstItem = data[0];
+  const datasetKeys = Object.keys(firstItem.scores);
+
+  let headerHtml = '<tr>';
+  headerHtml += `<th class="rank-cell sticky-rank-col" onclick="sortTable('${tableId}', 0)" style="cursor: pointer;" title="Reset Order">#</th>`;
+  headerHtml += `<th class="left-align sticky-model-col sticky-shadow-right" onclick="sortTable('${tableId}', 1)" style="cursor: pointer;">Model <span class="sort-icon">⇅</span></th>`;
+
+  datasetKeys.forEach((key, idx) => {
+    const displayName = datasetNameMap[key] || key.toUpperCase();
+    headerHtml += `<th onclick="sortTable('${tableId}', ${idx + 2})" style="cursor: pointer;">${displayName} <span class="sort-icon">⇅</span></th>`;
+  });
+  headerHtml += '</tr>';
+  thead.innerHTML = headerHtml;
+
+  // 2. Render Body
+  let bodyHtml = '';
+  data.forEach((item, idx) => {
+    bodyHtml += '<tr>';
+    bodyHtml += `<td class="rank-cell sticky-rank-col">${idx + 1}</td>`;
+    bodyHtml += `<td class="left-align model-cell sticky-model-col sticky-shadow-right">${item.model} <span class="badge badge-${item.badge.toLowerCase().replace(' ', '-')}">${item.badge}</span></td>`;
+    
+    datasetKeys.forEach(key => {
+      const val = item.scores[key];
+      const isBest = isMachineBest(type, key, val);
+      bodyHtml += `<td class="tabular-nums ${isBest ? 'highlight-best' : ''}">${val.toFixed(2)}%</td>`;
+    });
+    bodyHtml += '</tr>';
+  });
+  tbody.innerHTML = bodyHtml;
+}
+
+function isMachineBest(type, key, value) {
+  let max = 0;
+  machineData[type].forEach(item => {
+    const val = item.scores[key] || 0;
+    if (val > max) max = val;
+  });
+  return value === max && max > 0;
+}
+
+function drillDown(view) {
+  // Clear any existing sort state for the attribute table when switching views
+  sortStateMap['table-attribute'] = { colIndex: -1, ascending: true };
+  renderAttributeTable(view);
+  
+  // Smooth scroll to table top if needed
+  document.getElementById('leaderboard').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function backToOverview(tab = 'attribute') {
+  if (tab === 'attribute') {
+    sortStateMap['table-attribute'] = { colIndex: -1, ascending: true };
+    renderAttributeTable('overview');
+  } else if (tab === 'hierarchical') {
+    sortStateMap['table-hierarchical'] = { colIndex: -1, ascending: true };
+    renderHierarchicalTable('overview');
+  }
+}
+
+// --- Hierarchical Table Interactive Logic ---
+async function initHierarchicalTable() {
+  try {
+    const response = await fetch('static/json/hierarchicalData.json');
+    hierarchicalData = await response.json();
+    
+    // Support plural data if it's an object with keys
+    const data = Array.isArray(hierarchicalData) ? hierarchicalData : hierarchicalData.overview;
+    
+    // Store original index
+    data.forEach((item, idx) => {
+      item.originalIndex = idx;
+    });
+
+    renderHierarchicalTable('overview');
+  } catch (err) {
+    console.error('Failed to load hierarchical data:', err);
+    // Silent fail or show error in table
+  }
+}
+
+function renderHierarchicalTable(view) {
+  const thead = document.getElementById('hierarchical-thead');
+  const tbody = document.getElementById('hierarchical-tbody');
+  const backBtn = document.getElementById('hierarchical-back-btn-container');
+  
+  if (!thead || !tbody || !hierarchicalData) return;
+
+  activeHierarchicalView = view;
+  backBtn.style.display = (view === 'overview') ? 'none' : 'flex';
+
+  const hierarchicalSubset = [
+    { key: 'cub', name: 'CUB-200', interactive: true },
+    { key: 'inat2021', name: 'INAT2021', interactive: true },
+    { key: 'aircrafts', name: 'FGVC AIRCRAFT', interactive: false },
+    { key: 'clothes', name: 'DEEPFASHION', interactive: false },
+    { key: 'flowers', name: 'FLOWERS 102', interactive: false },
+    { key: 'food101', name: 'FOOD-101', interactive: false },
+    { key: 'cars', name: 'STANFORD CARS', interactive: false },
+    { key: 'dogs', name: 'STANFORD DOGS', interactive: false },
+    { key: 'vegfru', name: 'VEGFRU', interactive: false }
+  ];
+
+  // 1. Render Headers
+  let headerHtml = '<tr>';
+  headerHtml += `<th class="rank-cell sticky-rank-col" onclick="sortTable('table-hierarchical', 0)" style="cursor: pointer;" title="Reset Order">#</th>`;
+  headerHtml += `<th class="left-align sticky-model-col sticky-shadow-right" onclick="sortTable('table-hierarchical', 1)" style="cursor: pointer;">Model <span class="sort-icon">⇅</span></th>`;
+
+  if (view === 'overview') {
+    hierarchicalSubset.forEach((ds, idx) => {
+      if (ds.interactive) {
+          const drillKey = ds.key === 'cub' ? 'cub_details' : 'inat_details';
+          headerHtml += `<th class="clickable-header" onclick="drillDownHierarchical('${drillKey}')">${ds.name} (Hierarchy) <i class="fas fa-chevron-right"></i> <span class="sort-icon">⇅</span></th>`;
+      } else {
+          headerHtml += `<th onclick="sortTable('table-hierarchical', ${idx + 2})" style="cursor: pointer;">${ds.name} <span class="sort-icon">⇅</span></th>`;
+      }
+    });
+  } else {
+    // Detailed Headers (Taxonomic levels)
+    const subKeys = Object.keys(data[0].scores || data[0]).filter(k => k !== 'model' && k !== 'badge' && k !== 'originalIndex');
+    subKeys.forEach((key, idx) => {
+      const displayName = key.charAt(0).toUpperCase() + key.slice(1);
+      headerHtml += `<th onclick="sortTable('table-hierarchical', ${idx + 2})" style="cursor: pointer;">${displayName} <span class="sort-icon">⇅</span></th>`;
+    });
+  }
+  headerHtml += '</tr>';
+  thead.innerHTML = headerHtml;
+
+  // 2. Render Body
+  let bodyHtml = '';
+  data.forEach((model, idx) => {
+    bodyHtml += '<tr>';
+    bodyHtml += `<td class="rank-cell sticky-rank-col">${idx + 1}</td>`;
+    bodyHtml += `<td class="left-align model-cell sticky-model-col sticky-shadow-right">${model.model} <span class="badge badge-${(model.badge || 'vlm').toLowerCase()}">${model.badge || 'VLM'}</span></td>`;
+    
+    if (view === 'overview') {
+      hierarchicalSubset.forEach(ds => {
+        let val = "-";
+        if (model.overview && model.overview[ds.key] !== undefined) val = model.overview[ds.key].toFixed(2) + "%";
+        else if (model[ds.key] !== undefined) val = model[ds.key].toFixed(2) + "%";
+        bodyHtml += `<td class="tabular-nums">${val}</td>`;
+      });
+    } else {
+      const scores = model.scores || model;
+      const keys = Object.keys(scores).filter(k => k !== 'model' && k !== 'badge' && k !== 'originalIndex');
+      keys.forEach(key => {
+        const val = scores[key];
+        bodyHtml += `<td class="tabular-nums">${typeof val === 'number' ? val.toFixed(2) + '%' : val}</td>`;
+      });
+    }
+    bodyHtml += '</tr>';
+  });
+  tbody.innerHTML = bodyHtml;
+}
+
+function drillDownHierarchical(view) {
+  sortStateMap['table-hierarchical'] = { colIndex: -1, ascending: true };
+  renderHierarchicalTable(view);
+  document.getElementById('leaderboard').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+/**
+ * Helper to find if a value is the best in its column
+ */
+function isGlobalBest(key, value, view) {
+  let max = 0;
+  attributeData.forEach(m => {
+    const val = (view === 'overview') ? m.overview[key] : m[view][key];
+    if (val > max) max = val;
+  });
+  return value === max && max > 0;
 }
 
 

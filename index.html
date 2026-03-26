@@ -420,7 +420,8 @@
                   </div>
 
                   <!-- Title Zone -->
-                  <div style="height: 4.5rem; display: flex; align-items: center; justify-content: center; margin-bottom: 12px;">
+                  <div
+                    style="height: 4.5rem; display: flex; align-items: center; justify-content: center; margin-bottom: 12px;">
                     <h3 class="title is-5" style="margin: 0;">Massive Scale</h3>
                   </div>
 
@@ -448,7 +449,8 @@
                   </div>
 
                   <!-- Title Zone -->
-                  <div style="height: 4.5rem; display: flex; align-items: center; justify-content: center; margin-bottom: 12px;">
+                  <div
+                    style="height: 4.5rem; display: flex; align-items: center; justify-content: center; margin-bottom: 12px;">
                     <h3 class="title is-5" style="margin: 0;">Dual Evaluation</h3>
                   </div>
 
@@ -456,7 +458,8 @@
                   <div class="is-flex-grow-1 is-flex is-flex-direction-column is-justify-content-center"
                     style="width: 100%;">
                     <p style="font-size: 0.95rem; color: #64748b; line-height: 1.6;">
-                      <b>Human-oriented:</b><br>Dialogue-based Understanding</p>
+                      <b>Human-oriented:</b><br>Dialogue-based Understanding
+                    </p>
                     <p style="font-size: 0.95rem; color: #64748b; line-height: 1.6;"><b>Machine-oriented:</b><br>Feature
                       Representation</p>
                   </div>
@@ -475,7 +478,8 @@
                   </div>
 
                   <!-- Title Zone -->
-                  <div style="height: 4.5rem; display: flex; align-items: center; justify-content: center; margin-bottom: 12px;">
+                  <div
+                    style="height: 4.5rem; display: flex; align-items: center; justify-content: center; margin-bottom: 12px;">
                     <h3 class="title is-5" style="margin: 0;">Diverse Fine-Grained Tasks</h3>
                   </div>
 
@@ -509,15 +513,11 @@
                 Recent advancements in Large Vision-Language Models (LVLMs) have demonstrated remarkable multimodal
                 perception capabilities. However, while numerous evaluation studies have emerged, <strong> fine-grained
                   image tasks</strong>—fundamental to computer vision—remain largely unexplored.
-              </p>
-              <p>
                 To fill this gap, we introduce a comprehensive fine-grained evaluation benchmark,
                 <strong>FG-BMK</strong>,
                 comprising <strong> 1.01 million questions</strong> and <strong>0.28 million images</strong>. Our
                 evaluation systematically examines LVLMs from both human-oriented (semantic recognition) and
                 machine-oriented (feature representation) perspectives.
-              </p>
-              <p>
                 Through extensive experiments on twelve representative LVLMs/VLMs, this work provides critical insights
                 into the limitations of current models and offers guidance for future data construction and architecture
                 design.
@@ -544,124 +544,63 @@
               <button class="eval-tab is-active" onclick="switchTab(event, 'tab-classification')">Machine:
                 Classification</button>
               <button class="eval-tab" onclick="switchTab(event, 'tab-attribute')">Human: Attribute</button>
+              <button class="eval-tab" onclick="switchTab(event, 'tab-hierarchical')">Human: Hierarchical</button>
               <button class="eval-tab" onclick="switchTab(event, 'tab-retrieval')">Machine: Retrieval</button>
             </div>
 
             <!-- Tab 1: Machine-Oriented (Classification) -->
             <div id="tab-classification" class="tab-content is-active">
-              <div class="evaluation-card">
-                <table class="evaluation-table" id="table-classification">
-                  <thead>
-                    <tr>
-                      <th class="rank-cell" onclick="sortTable('table-classification', 0)" style="cursor: pointer;"
-                        title="Reset to original order">#</th>
-                      <th class="left-align" onclick="sortTable('table-classification', 1)">Model <span
-                          class="sort-icon">⇅</span></th>
-                      <th onclick="sortTable('table-classification', 2)">Vision Encoder <span class="sort-icon">⇅</span>
-                      </th>
-                      <th onclick="sortTable('table-classification', 3)">CUB-200 <span class="sort-icon">⇅</span></th>
-                      <th onclick="sortTable('table-classification', 4)">Stanford Dogs <span class="sort-icon">⇅</span>
-                      </th>
-                      <th onclick="sortTable('table-classification', 5)">Stanford Cars <span class="sort-icon">⇅</span>
-                      </th>
-                    </tr>
+              <div class="evaluation-card table-wrapper-scrollable" id="classification-table-wrapper">
+                <table class="evaluation-table compact-table w-full border-separate border-spacing-0" id="table-classification">
+                  <thead id="classification-thead">
+                    <!-- Dynamic Headers -->
                   </thead>
-                  <tbody>
-                    <tr>
-                      <td class="rank-cell">1</td>
-                      <td class="left-align model-cell">DINOv2-L <span class="badge badge-vision">Pure Vision</span>
-                      </td>
-                      <td>ViT-L</td>
-                      <td class="tabular-nums highlight-best">91.65%</td>
-                      <td class="tabular-nums highlight-best">90.50%</td>
-                      <td class="tabular-nums highlight-best">94.30%</td>
-                    </tr>
-                    <tr>
-                      <td class="rank-cell">2</td>
-                      <td class="left-align model-cell">InternVL-Chat <span class="badge badge-lvlm">LVLM</span></td>
-                      <td>InternViT-6B</td>
-                      <td class="tabular-nums">89.92%</td>
-                      <td class="tabular-nums">89.09%</td>
-                      <td class="tabular-nums">93.34%</td>
-                    </tr>
-                    <tr>
-                      <td class="rank-cell">3</td>
-                      <td class="left-align model-cell">EVA-CLIP <span class="badge badge-vlm">VLM</span></td>
-                      <td>EVA02-L</td>
-                      <td class="tabular-nums">88.95%</td>
-                      <td class="tabular-nums">87.69%</td>
-                      <td class="tabular-nums highlight-best">94.30%</td>
-                    </tr>
-                    <tr>
-                      <td class="rank-cell">4</td>
-                      <td class="left-align model-cell">LLaVA-1.5-7B <span class="badge badge-lvlm">LVLM</span></td>
-                      <td>CLIP-L</td>
-                      <td class="tabular-nums">79.77%</td>
-                      <td class="tabular-nums">81.24%</td>
-                      <td class="tabular-nums">87.57%</td>
-                    </tr>
+                  <tbody id="classification-tbody">
+                    <!-- Dynamic Rows -->
                   </tbody>
                 </table>
               </div>
             </div>
 
-            <!-- Tab 2: Human-Oriented -->
+            <!-- Tab 2: Human-Oriented (Attribute) -->
             <div id="tab-attribute" class="tab-content">
-              <div class="evaluation-card">
-                <table class="evaluation-table" id="table-attribute">
-                  <thead>
-                    <tr>
-                      <th class="rank-cell" onclick="sortTable('table-attribute', 0)" style="cursor: pointer;"
-                        title="Reset to original order">#</th>
-                      <th class="left-align" onclick="sortTable('table-attribute', 1)">Model <span
-                          class="sort-icon">⇅</span></th>
-                      <th onclick="sortTable('table-attribute', 2)">Color Acc <span class="sort-icon">⇅</span></th>
-                      <th onclick="sortTable('table-attribute', 3)">Pattern Acc <span class="sort-icon">⇅</span></th>
-                      <th onclick="sortTable('table-attribute', 4)">Shape Acc <span class="sort-icon">⇅</span></th>
-                      <th onclick="sortTable('table-attribute', 5)">Length Acc <span class="sort-icon">⇅</span></th>
-                    </tr>
+              <!-- Drill-down Navigation -->
+              <div id="attribute-back-btn-container" class="back-btn-container"
+                style="display: none; margin-bottom: 1.5rem;">
+                <button class="back-to-overview-btn" onclick="backToOverview('attribute')">
+                  <i class="fas fa-arrow-left"></i> Back to Overview
+                </button>
+              </div>
+
+              <div class="evaluation-card table-wrapper-scrollable" id="attribute-table-wrapper">
+                <table class="evaluation-table compact-table w-full border-separate border-spacing-0" id="table-attribute">
+                  <thead id="attribute-thead">
+                    <!-- Dynamic Headers -->
                   </thead>
-                  <tbody>
-                    <tr>
-                      <td class="rank-cell">1</td>
-                      <td class="left-align model-cell">Gemini-2.0-flash <span class="badge badge-lvlm">LVLM</span></td>
-                      <td class="tabular-nums">47.22%</td>
-                      <td class="tabular-nums highlight-best">56.14%</td>
-                      <td class="tabular-nums highlight-best">48.75%</td>
-                      <td class="tabular-nums highlight-best">71.82%</td>
-                    </tr>
-                    <tr>
-                      <td class="rank-cell">2</td>
-                      <td class="left-align model-cell">InternVL3-7B <span class="badge badge-lvlm">LVLM</span></td>
-                      <td class="tabular-nums highlight-best">47.40%</td>
-                      <td class="tabular-nums">50.13%</td>
-                      <td class="tabular-nums">30.95%</td>
-                      <td class="tabular-nums">71.03%</td>
-                    </tr>
-                    <tr>
-                      <td class="rank-cell">3</td>
-                      <td class="left-align model-cell">Qwen2.5-VL <span class="badge badge-lvlm">LVLM</span></td>
-                      <td class="tabular-nums">40.39%</td>
-                      <td class="tabular-nums">45.12%</td>
-                      <td class="tabular-nums">29.30%</td>
-                      <td class="tabular-nums">63.20%</td>
-                    </tr>
-                    <tr>
-                      <td class="rank-cell">4</td>
-                      <td class="left-align model-cell">LLaVA-1.5-7B <span class="badge badge-lvlm">LVLM</span></td>
-                      <td class="tabular-nums">44.34%</td>
-                      <td class="tabular-nums">23.69%</td>
-                      <td class="tabular-nums">14.05%</td>
-                      <td class="tabular-nums">15.71%</td>
-                    </tr>
-                    <tr>
-                      <td class="rank-cell">5</td>
-                      <td class="left-align model-cell">BLIP-2 <span class="badge badge-lvlm">LVLM</span></td>
-                      <td class="tabular-nums">37.94%</td>
-                      <td class="tabular-nums">11.34%</td>
-                      <td class="tabular-nums">25.05%</td>
-                      <td class="tabular-nums">30.11%</td>
-                    </tr>
+                  <tbody id="attribute-tbody">
+                    <!-- Dynamic Rows -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- Tab 3: Human-Oriented (Hierarchical) -->
+            <div id="tab-hierarchical" class="tab-content">
+              <!-- Drill-down Navigation -->
+              <div id="hierarchical-back-btn-container" class="back-btn-container"
+                style="display: none; margin-bottom: 1.5rem;">
+                <button class="back-to-overview-btn" onclick="backToOverview('hierarchical')">
+                  <i class="fas fa-arrow-left"></i> Back to Overview
+                </button>
+              </div>
+
+              <div class="evaluation-card table-wrapper-scrollable" id="hierarchical-table-wrapper">
+                <table class="evaluation-table compact-table w-full border-separate border-spacing-0" id="table-hierarchical">
+                  <thead id="hierarchical-thead">
+                    <!-- Dynamic Headers -->
+                  </thead>
+                  <tbody id="hierarchical-tbody">
+                    <!-- Dynamic Rows -->
                   </tbody>
                 </table>
               </div>
@@ -669,51 +608,13 @@
 
             <!-- Tab 3: Machine-Oriented (Retrieval) -->
             <div id="tab-retrieval" class="tab-content">
-              <div class="evaluation-card">
-                <table class="evaluation-table" id="table-retrieval">
-                  <thead>
-                    <tr>
-                      <th class="rank-cell" onclick="sortTable('table-retrieval', 0)" style="cursor: pointer;"
-                        title="Reset to original order">#</th>
-                      <th class="left-align" onclick="sortTable('table-retrieval', 1)">Model <span
-                          class="sort-icon">⇅</span></th>
-                      <th onclick="sortTable('table-retrieval', 2)">CUB-200 (mAP) <span class="sort-icon">⇅</span></th>
-                      <th onclick="sortTable('table-retrieval', 3)">Stanford Dogs (mAP) <span class="sort-icon">⇅</span>
-                      </th>
-                      <th onclick="sortTable('table-retrieval', 4)">Stanford Cars (mAP) <span class="sort-icon">⇅</span>
-                      </th>
-                    </tr>
+              <div class="evaluation-card table-wrapper-scrollable" id="retrieval-table-wrapper">
+                <table class="evaluation-table compact-table w-full border-separate border-spacing-0" id="table-retrieval">
+                  <thead id="retrieval-thead">
+                    <!-- Dynamic Headers -->
                   </thead>
-                  <tbody>
-                    <tr>
-                      <td class="rank-cell">1</td>
-                      <td class="left-align model-cell">EVA-CLIP <span class="badge badge-vlm">VLM</span></td>
-                      <td class="tabular-nums">90.33%</td>
-                      <td class="tabular-nums">89.47%</td>
-                      <td class="tabular-nums highlight-best">95.11%</td>
-                    </tr>
-                    <tr>
-                      <td class="rank-cell">2</td>
-                      <td class="left-align model-cell">InternVL-Chat <span class="badge badge-lvlm">LVLM</span></td>
-                      <td class="tabular-nums">91.47%</td>
-                      <td class="tabular-nums highlight-best">92.33%</td>
-                      <td class="tabular-nums">92.47%</td>
-                    </tr>
-                    <tr>
-                      <td class="rank-cell">3</td>
-                      <td class="left-align model-cell">DINOv2-L <span class="badge badge-vision">Pure Vision</span>
-                      </td>
-                      <td class="tabular-nums highlight-best">91.95%</td>
-                      <td class="tabular-nums">91.72%</td>
-                      <td class="tabular-nums">89.53%</td>
-                    </tr>
-                    <tr>
-                      <td class="rank-cell">4</td>
-                      <td class="left-align model-cell">LLaVA-1.5-7B <span class="badge badge-lvlm">LVLM</span></td>
-                      <td class="tabular-nums">75.63%</td>
-                      <td class="tabular-nums">77.43%</td>
-                      <td class="tabular-nums">85.49%</td>
-                    </tr>
+                  <tbody id="retrieval-tbody">
+                    <!-- Dynamic Rows -->
                   </tbody>
                 </table>
               </div>
@@ -737,8 +638,10 @@
         <div class="container is-max-desktop">
           <div class="has-text-centered" style="margin-bottom: 3rem;">
             <h2 class="title is-3">Key Findings</h2>
-            <p class="whitespace-nowrap" style="color: #64748b; font-size: 1.05rem; max-width: 1200px; margin: 0.5rem auto 0; text-align: center;">
-              Representative findings derived from the human-oriented and machine-oriented evaluation of LVLMs/VLMs on FG-BMK.
+            <p class="whitespace-nowrap"
+              style="color: #64748b; font-size: 1.05rem; max-width: 1200px; margin: 0.5rem auto 0; text-align: center;">
+              Representative findings derived from the human-oriented and machine-oriented evaluation of LVLMs/VLMs on
+              FG-BMK.
             </p>
           </div>
 
@@ -855,6 +758,22 @@
           </div>
         </div>
       </section>
+ 
+      <!-- Why FG-BMK? Section -->
+      <section class="section" id="why-fg-bmk" style="padding: 4rem 1.5rem;">
+        <div class="container is-max-desktop">
+          <h2 class="title is-3 has-text-centered" style="margin-bottom: 2.5rem;">Why FG-BMK?</h2>
+          <div class="flex justify-center w-full">
+            <img src="static/images/intro.png" alt="Why FG-BMK?"
+              class="w-full max-w-3xl h-auto rounded-xl shadow-lg border border-gray-100 mx-auto">
+          </div>
+          <p class="text-center text-gray-500 mt-4 px-4 text-sm font-medium">
+            "Our Fine-Grained Evaluation Framework (FG-BMK): a new dual perspective (human-oriented and
+            machine-oriented) to comprehensively assess models' fine-grained visual capabilities."
+          </p>
+        </div>
+      </section>
+ 
       <section class="section" id="dataset" style="padding-top: 40px; padding-bottom: 40px;">
         <div class="container is-max-widescreen">
           <h2 class="title is-3 has-text-centered" style="margin-bottom: 0.5rem;">Dataset</h2>
@@ -867,19 +786,21 @@
             <div class="dataset-domain-card domain-animals" style="min-width: 0;">
               <div class="domain-header"
                 style="display: flex; align-items: center; margin-bottom: 20px; border-bottom: 1px solid rgba(0,0,0,0.05); padding-bottom: 12px;">
-                <div class="domain-icon" style="color: #3b82f6; margin-right: 12px; font-size: 1.2rem;"><i class="fas fa-leaf"></i></div>
+                <div class="domain-icon" style="color: #3b82f6; margin-right: 12px; font-size: 1.2rem;"><i
+                    class="fas fa-leaf"></i></div>
                 <h3 class="domain-title-refined" style="margin: 0; font-size: 1.1rem;">Nature & Biology</h3>
               </div>
               <div class="tags" style="display: flex; flex-wrap: wrap; gap: 12px;">
-                <a href="https://www.vision.caltech.edu/datasets/cub_200_2011/" class="tag is-info is-light dataset-tag-refined"
-                  target="_blank">CUB-200</a>
-                <a href="http://vision.stanford.edu/aditya86/ImageNetDogs/" class="tag is-info is-light dataset-tag-refined"
-                  target="_blank">Stanford Dogs</a>
-                <a href="https://github.com/visipedia/inat_comp/tree/master/2021" class="tag is-info is-light dataset-tag-refined"
-                  target="_blank">iNat2021</a>
-                <a href="https://www.robots.ox.ac.uk/~vgg/data/flowers/102/" class="tag is-info is-light dataset-tag-refined"
-                  target="_blank">Flowers 102</a>
-                <a href="https://github.com/zhoudaxia241/VegFru" class="tag is-info is-light dataset-tag-refined" target="_blank">VegFru</a>
+                <a href="https://www.vision.caltech.edu/datasets/cub_200_2011/"
+                  class="tag is-info is-light dataset-tag-refined" target="_blank">CUB-200</a>
+                <a href="http://vision.stanford.edu/aditya86/ImageNetDogs/"
+                  class="tag is-info is-light dataset-tag-refined" target="_blank">Stanford Dogs</a>
+                <a href="https://github.com/visipedia/inat_comp/tree/master/2021"
+                  class="tag is-info is-light dataset-tag-refined" target="_blank">iNat2021</a>
+                <a href="https://www.robots.ox.ac.uk/~vgg/data/flowers/102/"
+                  class="tag is-info is-light dataset-tag-refined" target="_blank">Flowers 102</a>
+                <a href="https://github.com/zhoudaxia241/VegFru" class="tag is-info is-light dataset-tag-refined"
+                  target="_blank">VegFru</a>
               </div>
             </div>
 
@@ -887,19 +808,20 @@
             <div class="dataset-domain-card domain-vehicles" style="min-width: 0;">
               <div class="domain-header"
                 style="display: flex; align-items: center; margin-bottom: 20px; border-bottom: 1px solid rgba(0,0,0,0.05); padding-bottom: 12px;">
-                <div class="domain-icon" style="color: #cf3a3a; margin-right: 12px; font-size: 1.2rem;"><i class="fas fa-industry"></i>
+                <div class="domain-icon" style="color: #cf3a3a; margin-right: 12px; font-size: 1.2rem;"><i
+                    class="fas fa-industry"></i>
                 </div>
                 <h3 class="domain-title-refined" style="margin: 0; font-size: 1.1rem;">Industrial & Manufactured</h3>
               </div>
               <div class="tags" style="display: flex; flex-wrap: wrap; gap: 12px;">
-                <a href="https://www.robots.ox.ac.uk/~vgg/data/fgvc-aircraft/" class="tag is-danger is-light dataset-tag-refined"
-                  target="_blank">FGVC Aircraft</a>
+                <a href="https://www.robots.ox.ac.uk/~vgg/data/fgvc-aircraft/"
+                  class="tag is-danger is-light dataset-tag-refined" target="_blank">FGVC Aircraft</a>
                 <a href="https://www.kaggle.com/datasets/eduardo4jesus/stanford-cars-dataset"
                   class="tag is-danger is-light dataset-tag-refined" target="_blank">Stanford Cars</a>
                 <a href="https://products-10k.github.io/" class="tag is-danger is-light dataset-tag-refined"
                   target="_blank">Products-10K</a>
-                <a href="https://tianchi.aliyun.com/dataset/dataDetail?dataId=110147" class="tag is-danger is-light dataset-tag-refined"
-                  target="_blank">Wine</a>
+                <a href="https://tianchi.aliyun.com/dataset/dataDetail?dataId=110147"
+                  class="tag is-danger is-light dataset-tag-refined" target="_blank">Wine</a>
               </div>
             </div>
 
@@ -907,16 +829,18 @@
             <div class="dataset-domain-card domain-consumer" style="min-width: 0;">
               <div class="domain-header"
                 style="display: flex; align-items: center; margin-bottom: 20px; border-bottom: 1px solid rgba(0,0,0,0.05); padding-bottom: 12px;">
-                <div class="domain-icon" style="color: #16a34a; margin-right: 12px; font-size: 1.2rem;"><i class="fas fa-shopping-bag"></i>
+                <div class="domain-icon" style="color: #16a34a; margin-right: 12px; font-size: 1.2rem;"><i
+                    class="fas fa-shopping-bag"></i>
                 </div>
                 <h3 class="domain-title-refined" style="margin: 0; font-size: 1.1rem;">Daily Life & Specialized</h3>
               </div>
               <div class="tags" style="display: flex; flex-wrap: wrap; gap: 12px;">
-                <a href="http://mmlab.ie.cuhk.edu.hk/projects/DeepFashion.html" class="tag is-success is-light dataset-tag-refined"
-                  target="_blank">DeepFashion</a>
-                <a href="https://data.vision.ee.ethz.ch/cvl/datasets_extra/food-101/" class="tag is-success is-light dataset-tag-refined"
-                  target="_blank">Food-101</a>
-                <a href="https://skincon-dataset.github.io/" class="tag is-success is-light dataset-tag-refined" target="_blank">SkinCon</a>
+                <a href="http://mmlab.ie.cuhk.edu.hk/projects/DeepFashion.html"
+                  class="tag is-success is-light dataset-tag-refined" target="_blank">DeepFashion</a>
+                <a href="https://data.vision.ee.ethz.ch/cvl/datasets_extra/food-101/"
+                  class="tag is-success is-light dataset-tag-refined" target="_blank">Food-101</a>
+                <a href="https://skincon-dataset.github.io/" class="tag is-success is-light dataset-tag-refined"
+                  target="_blank">SkinCon</a>
               </div>
             </div>
           </div>
