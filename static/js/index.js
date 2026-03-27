@@ -238,8 +238,8 @@ function renderAttributeTable(view) {
 
   // 1. Render Headers
   let headerHtml = '<tr>';
-  headerHtml += `<th class="rank-cell sticky-rank-col" onclick="sortTable('table-attribute', 0)" style="cursor: pointer;" title="Reset Order">#</th>`;
-  headerHtml += `<th class="left-align sticky-model-col sticky-shadow-right" onclick="sortTable('table-attribute', 1)" style="cursor: pointer;">Model <span class="sort-icon">⇅</span></th>`;
+  headerHtml += `<th class="rank-cell sticky-rank-col align-middle py-4 text-center select-none cursor-pointer active:bg-gray-100" onclick="sortTable('table-attribute', 0)" style="cursor: pointer;" title="Reset Order">#</th>`;
+  headerHtml += `<th class="left-align sticky-model-col sticky-shadow-right pl-6 align-middle py-4 text-left select-none cursor-pointer active:bg-gray-100" onclick="sortTable('table-attribute', 1)" style="cursor: pointer;">Model <span class="sort-icon">⇅</span></th>`;
 
   if (view === 'overview') {
     const categories = [
@@ -251,11 +251,12 @@ function renderAttributeTable(view) {
     ];
 
     categories.forEach((cat, idx) => {
-      headerHtml += `<th class="clickable-header">
-        <div class="header-container" onclick="event.stopPropagation(); sortTable('table-attribute', ${idx + 2});" style="cursor: pointer; display: flex; align-items: center; justify-content: center; width: 100%;">
-          ${cat.label} <span class="sort-icon ml-1">⇅</span>
+      headerHtml += `<th class="clickable-header align-middle py-4 text-center select-none cursor-pointer active:bg-gray-100" onclick="sortTable('table-attribute', ${idx + 2})">
+        <div class="flex items-center justify-center gap-1.5 w-full h-full">
+          <span style="white-space: nowrap;">${cat.label}</span>
+          <span class="sort-icon">⇅</span>
           ${cat.interactive ? `
-            <span onclick="event.stopPropagation(); drillDown('${cat.key}');" class="drill-down-indicator ml-1 text-blue-500 cursor-pointer" title="View Details">
+            <span onclick="event.stopPropagation(); drillDown('${cat.key}');" class="drill-down-indicator text-blue-500 cursor-pointer" title="View Details">
               <i class="fas fa-chevron-right text-xs"></i>
             </span>` : ''}
         </div>
@@ -266,7 +267,12 @@ function renderAttributeTable(view) {
     const subKeys = Object.keys(attributeData[0][view]);
     subKeys.forEach((key, idx) => {
       const formattedKey = key.charAt(0).toUpperCase() + key.slice(1).replace('_', ' ');
-      headerHtml += `<th onclick="sortTable('table-attribute', ${idx + 2})" style="cursor: pointer; white-space: nowrap;">${formattedKey} <span class="sort-icon">⇅</span></th>`;
+      headerHtml += `<th class="align-middle py-4 text-center select-none cursor-pointer active:bg-gray-100" onclick="sortTable('table-attribute', ${idx + 2})">
+        <div class="flex items-center justify-center gap-1.5 w-full h-full">
+          <span style="white-space: nowrap;">${formattedKey}</span>
+          <span class="sort-icon">⇅</span>
+        </div>
+      </th>`;
     });
   }
   headerHtml += '</tr>';
@@ -276,22 +282,25 @@ function renderAttributeTable(view) {
   let bodyHtml = '';
   attributeData.forEach((model, idx) => {
     bodyHtml += '<tr>';
-    bodyHtml += `<td class="rank-cell sticky-rank-col">${idx + 1}</td>`;
-    bodyHtml += `<td class="left-align model-cell sticky-model-col sticky-shadow-right">${model.model} <span class="badge badge-${model.badge.toLowerCase().replace(/\s+/g, '-')}">${model.badge}</span></td>`;
+    bodyHtml += `<td class="rank-cell sticky-rank-col align-middle py-4 text-center">${idx + 1}</td>`;
+    bodyHtml += `<td class="left-align model-cell sticky-model-col sticky-shadow-right pl-6 align-middle py-4 text-left truncate" title="${model.model}">
+      <span class="truncate">${model.model}</span>
+      <span class="badge badge-${model.badge.toLowerCase().replace(/\s+/g, '-')}">${model.badge}</span>
+    </td>`;
     
     if (view === 'overview') {
       const keys = ['color', 'pattern', 'shape', 'length', 'size'];
       keys.forEach(key => {
         const val = model.overview[key];
         const isBest = isGlobalBest(key, val, 'overview');
-        bodyHtml += `<td class="tabular-nums ${isBest ? 'highlight-best' : ''}">${val.toFixed(2)}%</td>`;
+        bodyHtml += `<td class="tabular-nums align-middle py-4 text-center ${isBest ? 'highlight-best' : ''}">${val.toFixed(2)}%</td>`;
       });
     } else {
       const subKeys = Object.keys(model[view]);
       subKeys.forEach(key => {
         const val = model[view][key];
         const isBest = isGlobalBest(key, val, view);
-        bodyHtml += `<td class="tabular-nums ${isBest ? 'highlight-best' : ''}">${val.toFixed(2)}%</td>`;
+        bodyHtml += `<td class="tabular-nums px-4 ${isBest ? 'highlight-best' : ''}">${val.toFixed(2)}%</td>`;
       });
     }
     bodyHtml += '</tr>';
@@ -331,14 +340,15 @@ function renderMachineTable(type) {
   const datasetKeys = Object.keys(firstItem.scores);
 
   let headerHtml = '<tr>';
-  headerHtml += `<th class="rank-cell sticky-rank-col" onclick="sortTable('${tableId}', 0)" style="cursor: pointer;" title="Reset Order">#</th>`;
-  headerHtml += `<th class="left-align sticky-model-col sticky-shadow-right" onclick="sortTable('${tableId}', 1)" style="cursor: pointer;">Model <span class="sort-icon">⇅</span></th>`;
+  headerHtml += `<th class="rank-cell sticky-rank-col align-middle py-4 text-center select-none cursor-pointer active:bg-gray-100" onclick="sortTable('${tableId}', 0)" style="cursor: pointer;" title="Reset Order">#</th>`;
+  headerHtml += `<th class="left-align sticky-model-col sticky-shadow-right pl-6 align-middle py-4 text-left select-none cursor-pointer active:bg-gray-100" onclick="sortTable('${tableId}', 1)" style="cursor: pointer;">Model <span class="sort-icon">⇅</span></th>`;
 
   datasetKeys.forEach((key, idx) => {
     const displayName = datasetNameMap[key] || key.toUpperCase();
-    headerHtml += `<th class="clickable-header">
-      <div class="header-container" onclick="event.stopPropagation(); sortTable('${tableId}', ${idx + 2});" style="cursor: pointer; display: flex; align-items: center; justify-content: center; width: 100%;">
-        ${displayName} <span class="sort-icon ml-1">⇅</span>
+    headerHtml += `<th class="clickable-header align-middle py-4 text-center select-none cursor-pointer active:bg-gray-100" onclick="sortTable('${tableId}', ${idx + 2})">
+      <div class="flex items-center justify-center gap-1.5 w-full h-full">
+        <span style="white-space: nowrap;">${displayName}</span>
+        <span class="sort-icon">⇅</span>
       </div>
     </th>`;
   });
@@ -348,14 +358,17 @@ function renderMachineTable(type) {
   // 2. Render Body
   let bodyHtml = '';
   data.forEach((item, idx) => {
-    bodyHtml += '<tr>';
-    bodyHtml += `<td class="rank-cell sticky-rank-col">${idx + 1}</td>`;
-    bodyHtml += `<td class="left-align model-cell sticky-model-col sticky-shadow-right">${item.model} <span class="badge badge-${item.badge.toLowerCase().replace(/\s+/g, '-')}">${item.badge}</span></td>`;
+    bodyHtml += `<tr>`;
+    bodyHtml += `<td class="rank-cell sticky-rank-col align-middle py-4 text-center">${idx + 1}</td>`;
+    bodyHtml += `<td class="left-align model-cell sticky-model-col sticky-shadow-right pl-6 align-middle py-4 text-left truncate" title="${item.model}">
+      <span class="truncate">${item.model}</span>
+      <span class="badge badge-${item.badge.toLowerCase().replace(/\s+/g, '-')}">${item.badge}</span>
+    </td>`;
     
     datasetKeys.forEach(key => {
       const val = item.scores[key];
       const isBest = isMachineBest(type, key, val);
-      bodyHtml += `<td class="tabular-nums ${isBest ? 'highlight-best' : ''}">${val.toFixed(2)}%</td>`;
+      bodyHtml += `<td class="tabular-nums align-middle py-4 text-center ${isBest ? 'highlight-best' : ''}">${val.toFixed(2)}%</td>`;
     });
     bodyHtml += '</tr>';
   });
@@ -453,17 +466,18 @@ function renderHierarchicalTable(view) {
 
   // 1. Render Headers
   let headerHtml = '<tr>';
-  headerHtml += `<th class="rank-cell sticky-rank-col" onclick="sortTable('table-hierarchical', 0)" style="cursor: pointer;" title="Reset Order">#</th>`;
-  headerHtml += `<th class="left-align sticky-model-col sticky-shadow-right" onclick="sortTable('table-hierarchical', 1)" style="cursor: pointer;">Model <span class="sort-icon">⇅</span></th>`;
+  headerHtml += `<th class="rank-cell sticky-rank-col align-middle py-4 text-center select-none cursor-pointer active:bg-gray-100" onclick="sortTable('table-hierarchical', 0)" style="cursor: pointer;" title="Reset Order">#</th>`;
+  headerHtml += `<th class="left-align sticky-model-col sticky-shadow-right pl-6 align-middle py-4 text-left select-none cursor-pointer active:bg-gray-100" onclick="sortTable('table-hierarchical', 1)" style="cursor: pointer;">Model <span class="sort-icon">⇅</span></th>`;
 
   if (view === 'overview') {
     hierarchicalSubset.forEach((ds, idx) => {
       const drillKey = ds.key === 'cub' ? 'cub_details' : 'inat_details';
-      headerHtml += `<th class="clickable-header">
-        <div class="header-container" onclick="event.stopPropagation(); sortTable('table-hierarchical', ${idx + 2});" style="cursor: pointer; display: flex; align-items: center; justify-content: center; width: 100%;">
-          ${ds.name} <span class="sort-icon ml-1">⇅</span>
+      headerHtml += `<th class="clickable-header align-middle py-4 text-center select-none cursor-pointer active:bg-gray-100" onclick="sortTable('table-hierarchical', ${idx + 2})">
+        <div class="flex items-center justify-center gap-1.5 w-full h-full">
+          <span style="white-space: nowrap;">${ds.name}</span>
+          <span class="sort-icon">⇅</span>
           ${ds.interactive ? `
-            <span onclick="event.stopPropagation(); drillDownHierarchical('${drillKey}');" class="drill-down-indicator ml-1 text-blue-500 cursor-pointer" title="View Details">
+            <span onclick="event.stopPropagation(); drillDownHierarchical('${drillKey}');" class="drill-down-indicator text-blue-500 cursor-pointer" title="View Details">
               <i class="fas fa-chevron-right text-xs"></i>
             </span>` : ''}
         </div>
@@ -481,9 +495,10 @@ function renderHierarchicalTable(view) {
 
     subKeys.forEach((key, idx) => {
       const displayName = key.charAt(0).toUpperCase() + key.slice(1);
-      headerHtml += `<th class="clickable-header">
-        <div class="header-container" onclick="event.stopPropagation(); sortTable('table-hierarchical', ${idx + 2})" style="cursor: pointer; display: flex; align-items: center; justify-content: center; width: 100%;">
-          ${displayName} <span class="sort-icon ml-1">⇅</span>
+      headerHtml += `<th class="clickable-header align-middle py-4 text-center select-none cursor-pointer active:bg-gray-100" onclick="sortTable('table-hierarchical', ${idx + 2})">
+        <div class="flex items-center justify-center gap-1.5 w-full h-full">
+          <span style="white-space: nowrap;">${displayName}</span>
+          <span class="sort-icon">⇅</span>
         </div>
       </th>`;
     });
@@ -496,7 +511,10 @@ function renderHierarchicalTable(view) {
   data.forEach((model, idx) => {
     bodyHtml += '<tr>';
     bodyHtml += `<td class="rank-cell sticky-rank-col">${idx + 1}</td>`;
-    bodyHtml += `<td class="left-align model-cell sticky-model-col sticky-shadow-right">${model.model} <span class="badge badge-${(model.badge || 'vlm').toLowerCase().replace(/\s+/g, '-')}">${model.badge || 'VLM'}</span></td>`;
+    bodyHtml += `<td class="left-align model-cell sticky-model-col sticky-shadow-right pl-6 truncate" title="${model.model}">
+      <span class="truncate">${model.model}</span>
+      <span class="badge badge-${(model.badge || 'vlm').toLowerCase().replace(/\s+/g, '-')}">${model.badge || 'VLM'}</span>
+    </td>`;
     
     if (view === 'overview') {
       hierarchicalSubset.forEach(ds => {
@@ -506,7 +524,7 @@ function renderHierarchicalTable(view) {
 
         const val = valNumeric !== null ? valNumeric.toFixed(2) + "%" : "-";
         const isBest = valNumeric !== null ? isHierarchicalBest(ds.key, valNumeric, view) : false;
-        bodyHtml += `<td class="tabular-nums ${isBest ? 'highlight-best' : ''}">${val}</td>`;
+        bodyHtml += `<td class="tabular-nums align-middle py-4 text-center ${isBest ? 'highlight-best' : ''}">${val}</td>`;
       });
     } else {
       const scores = model.scores || model;
@@ -520,7 +538,7 @@ function renderHierarchicalTable(view) {
       detailKeys.forEach(key => {
         const val = scores[key];
         const isBest = typeof val === 'number' ? isHierarchicalBest(key, val, view) : false;
-        bodyHtml += `<td class="tabular-nums ${isBest ? 'highlight-best' : ''}">${typeof val === 'number' ? val.toFixed(2) + '%' : val}</td>`;
+        bodyHtml += `<td class="tabular-nums align-middle py-4 text-center ${isBest ? 'highlight-best' : ''}">${typeof val === 'number' ? val.toFixed(2) + '%' : val}</td>`;
       });
     }
     bodyHtml += '</tr>';
@@ -1072,16 +1090,23 @@ function switchView(view) {
     }
   });
 
-  // Toggle Pill-tab styles using classes
+  // Toggle Pill-tab styles using Tailwind classes
   const btnCls = document.getElementById('btn-cls');
   const btnRetri = document.getElementById('btn-retri');
   if (btnCls && btnRetri) {
+    const activeClasses = ['bg-gray-900', 'text-white', 'shadow', 'is-active'];
+    const inactiveClasses = ['text-gray-600', 'hover:text-gray-900'];
+
     if (view === 'cls') {
-      btnCls.classList.add('is-active');
-      btnRetri.classList.remove('is-active');
+      btnCls.classList.add(...activeClasses);
+      btnCls.classList.remove(...inactiveClasses);
+      btnRetri.classList.add(...inactiveClasses);
+      btnRetri.classList.remove(...activeClasses);
     } else {
-      btnCls.classList.remove('is-active');
-      btnRetri.classList.add('is-active');
+      btnRetri.classList.add(...activeClasses);
+      btnRetri.classList.remove(...inactiveClasses);
+      btnCls.classList.add(...inactiveClasses);
+      btnCls.classList.remove(...activeClasses);
     }
   }
 }
