@@ -1,113 +1,536 @@
 {
   "overview": [
-    { 
-      "model": "InternVL", 
-      "badge": "LVLM", 
-      "cub": 89.92, 
-      "inat2021": 57.90,
-      "aircrafts": 79.05,
-      "clothes": 71.12,
-      "flowers": 99.41,
-      "food101": 96.07,
-      "cars": 93.34,
-      "dogs": 89.09,
-      "vegfru": 95.57
+    {
+      "model": "InternVL3-7B",
+      "badge": "LVLM",
+      "aircrafts": {
+        "choice": 85.48,
+        "judgment": 86.92
+      },
+      "clothes": {
+        "choice": 89.08,
+        "judgment": 87.68
+      },
+      "flowers": {
+        "choice": 88.24,
+        "judgment": 88.75
+      },
+      "food101": {
+        "choice": 97.69,
+        "judgment": 96.14
+      },
+      "dogs": {
+        "choice": 93.11,
+        "judgment": 92.02
+      },
+      "vegfru": {
+        "choice": 93.07,
+        "judgment": 90.14
+      },
+      "cub": {
+        "choice": 61.18,
+        "judgment": 62.48
+      },
+      "inat2021": {
+        "choice": 42.37,
+        "judgment": 55.52
+      }
     },
-    { 
-      "model": "DINOv2-L", 
-      "badge": "PURE VISION", 
-      "cub": 91.65, 
-      "inat2021": 77.07,
-      "aircrafts": 78.88,
-      "clothes": 66.70,
-      "flowers": 99.69,
-      "food101": 95.12,
-      "cars": 91.72,
-      "dogs": 90.50,
-      "vegfru": 96.44
+    {
+      "model": "InternVL",
+      "badge": "LVLM",
+      "aircrafts": {
+        "choice": 75.73,
+        "judgment": 68.86
+      },
+      "clothes": {
+        "choice": 88.88,
+        "judgment": 80.33
+      },
+      "flowers": {
+        "choice": 82.84,
+        "judgment": 80.19
+      },
+      "food101": {
+        "choice": 97.47,
+        "judgment": 85.54
+      },
+      "dogs": {
+        "choice": 81.2,
+        "judgment": 83.73
+      },
+      "vegfru": {
+        "choice": 88.2,
+        "judgment": 75.27
+      },
+      "cub": {
+        "choice": 50.64,
+        "judgment": 61.06
+      },
+      "inat2021": {
+        "choice": 28.84,
+        "judgment": 51.26
+      }
     },
-    { 
-      "model": "EVA-CLIP", 
-      "badge": "VLM", 
-      "cub": 88.95, 
-      "inat2021": 64.70,
-      "aircrafts": 70.27,
-      "clothes": 72.03,
-      "flowers": 99.45,
-      "food101": 95.67,
-      "cars": 94.30,
-      "dogs": 87.69,
-      "vegfru": 94.73
+    {
+      "model": "LLaVA-1.5-7B",
+      "badge": "LVLM",
+      "aircrafts": {
+        "choice": 58.75,
+        "judgment": 77.62
+      },
+      "clothes": {
+        "choice": 86.05,
+        "judgment": 82.25
+      },
+      "flowers": {
+        "choice": 66.81,
+        "judgment": 76.53
+      },
+      "food101": {
+        "choice": 94.56,
+        "judgment": 93.58
+      },
+      "dogs": {
+        "choice": 68.81,
+        "judgment": 77.45
+      },
+      "vegfru": {
+        "choice": 80.94,
+        "judgment": 83.57
+      },
+      "cub": {
+        "choice": 44.55,
+        "judgment": 58.84
+      },
+      "inat2021": {
+        "choice": 27.81,
+        "judgment": 51.17
+      }
     },
-    { 
-      "model": "BEIT3", 
-      "badge": "VLM", 
-      "cub": 82.67, 
-      "inat2021": 43.55,
-      "aircrafts": 50.47,
-      "clothes": 65.45,
-      "flowers": 95.59,
-      "food101": 89.13,
-      "cars": 88.43,
-      "dogs": 80.07,
-      "vegfru": 85.84
+    {
+      "model": "Qwen2.5-VL",
+      "badge": "LVLM",
+      "aircrafts": {
+        "choice": 94.84,
+        "judgment": 89.56
+      },
+      "clothes": {
+        "choice": 89.35,
+        "judgment": 81.53
+      },
+      "flowers": {
+        "choice": 95.69,
+        "judgment": 93.32
+      },
+      "food101": {
+        "choice": 98.4,
+        "judgment": 92.1
+      },
+      "dogs": {
+        "choice": 96.74,
+        "judgment": 94.5
+      },
+      "vegfru": {
+        "choice": 95.72,
+        "judgment": 83.04
+      },
+      "cub": {
+        "choice": 74.04,
+        "judgment": 71.49
+      },
+      "inat2021": {
+        "choice": 44.54,
+        "judgment": 56.97
+      }
     },
-    { 
-      "model": "Qwen", 
-      "badge": "LVLM", 
-      "cub": 80.08, 
-      "inat2021": 38.90,
-      "aircrafts": 51.15,
-      "clothes": 69.37,
-      "flowers": 97.43,
-      "food101": 88.90,
-      "cars": 90.67,
-      "dogs": 77.02,
-      "vegfru": 86.98
+    {
+      "model": "Qwen-VL-Chat",
+      "badge": "LVLM",
+      "aircrafts": {
+        "choice": 81.49,
+        "judgment": 86.14
+      },
+      "clothes": {
+        "choice": 88.65,
+        "judgment": 83.23
+      },
+      "flowers": {
+        "choice": 89.51,
+        "judgment": 87.18
+      },
+      "food101": {
+        "choice": 96.94,
+        "judgment": 96.76
+      },
+      "dogs": {
+        "choice": 86.66,
+        "judgment": 92.75
+      },
+      "vegfru": {
+        "choice": 88.72,
+        "judgment": 87.5
+      },
+      "cub": {
+        "choice": 57.68,
+        "judgment": 62.6
+      },
+      "inat2021": {
+        "choice": 26.45,
+        "judgment": 50.37
+      }
     },
-    { 
-      "model": "CoCa", 
-      "badge": "VLM", 
-      "cub": 79.89, 
-      "inat2021": 40.59,
-      "aircrafts": 63.40,
-      "clothes": 71.45,
-      "flowers": 98.46,
-      "food101": 92.38,
-      "cars": 92.36,
-      "dogs": 81.24,
-      "vegfru": 91.08
-    },
-    { 
-      "model": "LLaVA-1.5-7B", 
-      "badge": "LVLM", 
-      "cub": 79.54, 
-      "inat2021": 39.77,
-      "aircrafts": 62.46,
-      "clothes": 68.69,
-      "flowers": 98.04,
-      "food101": 94.53,
-      "cars": 87.56,
-      "dogs": 80.73,
-      "vegfru": 90.72
+    {
+      "model": "BLIP-2",
+      "badge": "LVLM",
+      "aircrafts": {
+        "choice": 42.21,
+        "judgment": 54.73
+      },
+      "clothes": {
+        "choice": 86.35,
+        "judgment": 76.78
+      },
+      "flowers": {
+        "choice": 70.61,
+        "judgment": 74.45
+      },
+      "food101": {
+        "choice": 95.03,
+        "judgment": 74.02
+      },
+      "dogs": {
+        "choice": 67.72,
+        "judgment": 68.57
+      },
+      "vegfru": {
+        "choice": 76.55,
+        "judgment": 63.9
+      },
+      "cub": {
+        "choice": 38.78,
+        "judgment": 53.92
+      },
+      "inat2021": {
+        "choice": 25.71,
+        "judgment": 50.83
+      }
     }
   ],
   "cub_details": [
-    { "model": "InternVL", "badge": "LVLM", "scores": { "Kingdom": 100.0, "Phylum": 100.0, "Class": 98.4, "Order": 94.2, "Family": 91.5, "Genus": 89.9, "Species": 87.2 } },
-    { "model": "DINOv2-L", "badge": "PURE VISION", "scores": { "Kingdom": 100.0, "Phylum": 100.0, "Class": 98.9, "Order": 95.6, "Family": 93.1, "Genus": 91.7, "Species": 89.5 } },
-    { "model": "EVA-CLIP", "badge": "VLM", "scores": { "Kingdom": 100.0, "Phylum": 100.0, "Class": 98.2, "Order": 93.1, "Family": 90.5, "Genus": 88.9, "Species": 85.1 } },
-    { "model": "BEIT3", "badge": "VLM", "scores": { "Kingdom": 100.0, "Phylum": 100.0, "Class": 95.4, "Order": 88.2, "Family": 84.1, "Genus": 82.7, "Species": 78.4 } },
-    { "model": "Qwen", "badge": "LVLM", "scores": { "Kingdom": 100.0, "Phylum": 100.0, "Class": 94.1, "Order": 85.6, "Family": 81.2, "Genus": 80.1, "Species": 75.3 } },
-    { "model": "CoCa", "badge": "VLM", "scores": { "Kingdom": 100.0, "Phylum": 100.0, "Class": 94.8, "Order": 86.4, "Family": 81.8, "Genus": 79.9, "Species": 74.5 } },
-    { "model": "LLaVA-1.5-7B", "badge": "LVLM", "scores": { "Kingdom": 100.0, "Phylum": 100.0, "Class": 93.9, "Order": 85.1, "Family": 80.5, "Genus": 79.5, "Species": 73.1 } }
+    {
+      "model": "InternVL3-7B",
+      "badge": "LVLM",
+      "scores": {
+        "Class": {
+          "choice": 99.76,
+          "judgment": 97.77
+        },
+        "Genus": {
+          "choice": 90.75,
+          "judgment": 87.59
+        },
+        "Species": {
+          "choice": 61.18,
+          "judgment": 62.48
+        }
+      }
+    },
+    {
+      "model": "InternVL",
+      "badge": "LVLM",
+      "scores": {
+        "Class": {
+          "choice": 99.97,
+          "judgment": 98.0
+        },
+        "Genus": {
+          "choice": 87.12,
+          "judgment": 77.8
+        },
+        "Species": {
+          "choice": 50.64,
+          "judgment": 61.06
+        }
+      }
+    },
+    {
+      "model": "LLaVA-1.5-7B",
+      "badge": "LVLM",
+      "scores": {
+        "Class": {
+          "choice": 99.79,
+          "judgment": 97.96
+        },
+        "Genus": {
+          "choice": 71.56,
+          "judgment": 78.93
+        },
+        "Species": {
+          "choice": 44.55,
+          "judgment": 58.84
+        }
+      }
+    },
+    {
+      "model": "Qwen2.5-VL",
+      "badge": "LVLM",
+      "scores": {
+        "Class": {
+          "choice": 99.98,
+          "judgment": 99.71
+        },
+        "Genus": {
+          "choice": 97.07,
+          "judgment": 95.39
+        },
+        "Species": {
+          "choice": 74.04,
+          "judgment": 71.49
+        }
+      }
+    },
+    {
+      "model": "Qwen-VL-Chat",
+      "badge": "LVLM",
+      "scores": {
+        "Class": {
+          "choice": 99.95,
+          "judgment": 87.85
+        },
+        "Genus": {
+          "choice": 88.75,
+          "judgment": 86.73
+        },
+        "Species": {
+          "choice": 57.68,
+          "judgment": 62.6
+        }
+      }
+    },
+    {
+      "model": "BLIP-2",
+      "badge": "LVLM",
+      "scores": {
+        "Class": {
+          "choice": 99.95,
+          "judgment": 86.61
+        },
+        "Genus": {
+          "choice": 66.86,
+          "judgment": 70.8
+        },
+        "Species": {
+          "choice": 38.78,
+          "judgment": 53.92
+        }
+      }
+    }
   ],
   "inat_details": [
-    { "model": "DINOv2-L", "badge": "PURE VISION", "scores": { "Kingdom": 99.8, "Phylum": 98.2, "Class": 94.5, "Order": 88.7, "Family": 82.4, "Genus": 77.1, "Species": 72.8 } },
-    { "model": "InternVL", "badge": "LVLM", "scores": { "Kingdom": 99.5, "Phylum": 97.4, "Class": 92.1, "Order": 84.5, "Family": 71.8, "Genus": 57.9, "Species": 52.1 } },
-    { "model": "EVA-CLIP", "badge": "VLM", "scores": { "Kingdom": 99.6, "Phylum": 97.8, "Class": 93.2, "Order": 86.1, "Family": 78.5, "Genus": 64.7, "Species": 60.3 } },
-    { "model": "BEIT3", "badge": "VLM", "scores": { "Kingdom": 98.4, "Phylum": 95.1, "Class": 88.2, "Order": 74.5, "Family": 61.2, "Genus": 43.6, "Species": 38.4 } },
-    { "model": "Qwen", "badge": "LVLM", "scores": { "Kingdom": 97.2, "Phylum": 93.1, "Class": 85.4, "Order": 70.1, "Family": 55.4, "Genus": 38.9, "Species": 32.1 } },
-    { "model": "CoCa", "badge": "VLM", "scores": { "Kingdom": 97.8, "Phylum": 93.6, "Class": 86.2, "Order": 71.8, "Family": 58.2, "Genus": 40.6, "Species": 34.5 } },
-    { "model": "LLaVA-1.5-7B", "badge": "LVLM", "scores": { "Kingdom": 97.4, "Phylum": 93.2, "Class": 85.9, "Order": 71.2, "Family": 57.1, "Genus": 39.8, "Species": 33.1 } }
+    {
+      "model": "InternVL3-7B",
+      "badge": "LVLM",
+      "scores": {
+        "Kingdom": {
+          "choice": 96.19,
+          "judgment": 91.43
+        },
+        "Phylum": {
+          "choice": 77.31,
+          "judgment": 81.15
+        },
+        "Class": {
+          "choice": 70.87,
+          "judgment": 74.45
+        },
+        "Order": {
+          "choice": 63.69,
+          "judgment": 69.35
+        },
+        "Family": {
+          "choice": 56.57,
+          "judgment": 65.01
+        },
+        "Genus": {
+          "choice": 50.91,
+          "judgment": 62.29
+        },
+        "Species": {
+          "choice": 42.37,
+          "judgment": 55.52
+        }
+      }
+    },
+    {
+      "model": "InternVL",
+      "badge": "LVLM",
+      "scores": {
+        "Kingdom": {
+          "choice": 96.19,
+          "judgment": 89.52
+        },
+        "Phylum": {
+          "choice": 63.85,
+          "judgment": 71.15
+        },
+        "Class": {
+          "choice": 58.15,
+          "judgment": 64.97
+        },
+        "Order": {
+          "choice": 47.71,
+          "judgment": 56.98
+        },
+        "Family": {
+          "choice": 40.94,
+          "judgment": 56.22
+        },
+        "Genus": {
+          "choice": 32.78,
+          "judgment": 52.99
+        },
+        "Species": {
+          "choice": 28.84,
+          "judgment": 51.26
+        }
+      }
+    },
+    {
+      "model": "LLaVA-1.5-7B",
+      "badge": "LVLM",
+      "scores": {
+        "Kingdom": {
+          "choice": 87.62,
+          "judgment": 85.71
+        },
+        "Phylum": {
+          "choice": 56.92,
+          "judgment": 67.31
+        },
+        "Class": {
+          "choice": 41.62,
+          "judgment": 62.08
+        },
+        "Order": {
+          "choice": 40.75,
+          "judgment": 57.27
+        },
+        "Family": {
+          "choice": 35.89,
+          "judgment": 54.46
+        },
+        "Genus": {
+          "choice": 31.33,
+          "judgment": 53.41
+        },
+        "Species": {
+          "choice": 27.81,
+          "judgment": 51.17
+        }
+      }
+    },
+    {
+      "model": "Qwen2.5-VL",
+      "badge": "LVLM",
+      "scores": {
+        "Kingdom": {
+          "choice": 99.05,
+          "judgment": 91.43
+        },
+        "Phylum": {
+          "choice": 83.85,
+          "judgment": 83.46
+        },
+        "Class": {
+          "choice": 78.15,
+          "judgment": 78.61
+        },
+        "Order": {
+          "choice": 70.69,
+          "judgment": 73.33
+        },
+        "Family": {
+          "choice": 62.92,
+          "judgment": 69.19
+        },
+        "Genus": {
+          "choice": 53.38,
+          "judgment": 63.31
+        },
+        "Species": {
+          "choice": 44.54,
+          "judgment": 56.97
+        }
+      }
+    },
+    {
+      "model": "Qwen-VL-Chat",
+      "badge": "LVLM",
+      "scores": {
+        "Kingdom": {
+          "choice": 93.33,
+          "judgment": 81.9
+        },
+        "Phylum": {
+          "choice": 63.85,
+          "judgment": 59.62
+        },
+        "Class": {
+          "choice": 52.6,
+          "judgment": 60.46
+        },
+        "Order": {
+          "choice": 44.99,
+          "judgment": 55.05
+        },
+        "Family": {
+          "choice": 39.33,
+          "judgment": 53.65
+        },
+        "Genus": {
+          "choice": 33.18,
+          "judgment": 52.44
+        },
+        "Species": {
+          "choice": 26.45,
+          "judgment": 50.37
+        }
+      }
+    },
+    {
+      "model": "BLIP-2",
+      "badge": "LVLM",
+      "scores": {
+        "Kingdom": {
+          "choice": 92.38,
+          "judgment": 86.67
+        },
+        "Phylum": {
+          "choice": 35.0,
+          "judgment": 53.85
+        },
+        "Class": {
+          "choice": 35.49,
+          "judgment": 57.69
+        },
+        "Order": {
+          "choice": 29.6,
+          "judgment": 52.79
+        },
+        "Family": {
+          "choice": 27.62,
+          "judgment": 51.99
+        },
+        "Genus": {
+          "choice": 26.94,
+          "judgment": 50.58
+        },
+        "Species": {
+          "choice": 25.71,
+          "judgment": 50.83
+        }
+      }
+    }
   ]
 }

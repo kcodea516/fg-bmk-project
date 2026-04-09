@@ -28,7 +28,6 @@ const hierarchicalSubset = [
   { key: 'clothes', name: 'Clothes', interactive: false },
   { key: 'flowers', name: 'Flowers', interactive: false },
   { key: 'food101', name: 'Food', interactive: false },
-  { key: 'cars', name: 'Cars', interactive: false },
   { key: 'dogs', name: 'Dogs', interactive: false },
   { key: 'vegfru', name: 'Vegfru', interactive: false }
 ];
@@ -160,20 +159,34 @@ function sortTable(tableId, colIndex) {
       if (colIndex === 1) return state.ascending ? a.model.localeCompare(b.model) : b.model.localeCompare(a.model);
 
       let valA, valB;
+      const getVal = (item, key) => {
+        let v = 0;
+        if (activeHierarchicalView === 'overview') {
+          v = (item.overview && item.overview[key] !== undefined) ? item.overview[key] : (item[key] || 0);
+        } else {
+          const scores = item.scores || item;
+          v = scores[key] || 0;
+        }
+        // If it's the new dual-score object, use average for sorting
+        if (typeof v === 'object' && v !== null) {
+          return (v.choice + v.judgment) / 2;
+        }
+        return v;
+      };
+
       if (activeHierarchicalView === 'overview') {
         const key = hierarchicalSubset[colIndex - 2].key;
-        valA = (a.overview && a.overview[key]) || a[key] || 0;
-        valB = (b.overview && b.overview[key]) || b[key] || 0;
+        valA = getVal(a, key);
+        valB = getVal(b, key);
       } else {
         const scoresA = a.scores || a;
-        const scoresB = b.scores || b;
         let keys = Object.keys(scoresA).filter(k => k !== 'model' && k !== 'badge' && k !== 'originalIndex');
         if (activeHierarchicalView === 'cub_details') {
           keys = keys.filter(k => ['Class', 'Genus', 'Species'].includes(k.charAt(0).toUpperCase() + k.slice(1)));
         }
         const key = keys[colIndex - 2];
-        valA = scoresA[key] || 0;
-        valB = scoresB[key] || 0;
+        valA = getVal(a, key);
+        valB = getVal(b, key);
       }
       return state.ascending ? valA - valB : valB - valA;
     });
@@ -238,71 +251,86 @@ function renderAttributeTable(view) {
 
   // 1. Render Headers
   let headerHtml = '<tr>';
-  headerHtml += `<th class="rank-cell sticky-rank-col align-middle py-4 text-center select-none cursor-pointer active:bg-gray-100" onclick="sortTable('table-attribute', 0)" style="cursor: pointer;" title="Reset Order">#</th>`;
-  headerHtml += `<th class="left-align sticky-model-col sticky-shadow-right pl-6 align-middle py-4 text-left select-none cursor-pointer active:bg-gray-100" onclick="sortTable('table-attribute', 1)" style="cursor: pointer;">Model <span class="sort-icon">⇅</span></th>`;
+    headerHtml += `<th class="rank-cell sticky-rank-col align-middle py-4 text-center select-none cursor-pointer active:bg-gray-100" onclick="sortTable('table-attribute', 0)" style="cursor: pointer;" title="Reset Order">#</th>`;
+    headerHtml += `<th class="sticky-model-col sticky-shadow-right pl-8 align-middle py-4 text-left select-none cursor-pointer active:bg-gray-100" onclick="sortTable('table-attribute', 1)" style="cursor: pointer;">Model <span class="sort-icon">⇅</span></th>`;
 
-  if (view === 'overview') {
-    const categories = [
-      { key: 'color', label: 'Color Acc', interactive: true },
-      { key: 'pattern', label: 'Pattern Acc', interactive: true },
-      { key: 'shape', label: 'Shape Acc', interactive: true },
-      { key: 'length', label: 'Length Acc', interactive: false },
-      { key: 'size', label: 'Size Acc', interactive: false }
-    ];
+    if (view === 'overview') {
+      const categories = [
+        { key: 'color', label: 'Color Acc', interactive: true },
+        { key: 'pattern', label: 'Pattern Acc', interactive: true },
+        { key: 'shape', label: 'Shape Acc', interactive: true },
+        { key: 'length', label: 'Length Acc', interactive: false },
+        { key: 'size', label: 'Size Acc', interactive: false }
+      ];
 
-    categories.forEach((cat, idx) => {
-      headerHtml += `<th class="clickable-header align-middle py-4 text-center select-none cursor-pointer active:bg-gray-100" onclick="sortTable('table-attribute', ${idx + 2})">
-        <div class="flex items-center justify-center gap-1.5 w-full h-full">
-          <span style="white-space: nowrap;">${cat.label}</span>
-          <span class="sort-icon">⇅</span>
-          ${cat.interactive ? `
-            <span onclick="event.stopPropagation(); drillDown('${cat.key}');" class="drill-down-indicator text-blue-500 cursor-pointer" title="View Details">
-              <i class="fas fa-chevron-right text-xs"></i>
-            </span>` : ''}
-        </div>
-      </th>`;
-    });
-  } else {
-    // Detailed Headers from first model's data
-    const subKeys = Object.keys(attributeData[0][view]);
-    subKeys.forEach((key, idx) => {
-      const formattedKey = key.charAt(0).toUpperCase() + key.slice(1).replace('_', ' ');
-      headerHtml += `<th class="align-middle py-4 text-center select-none cursor-pointer active:bg-gray-100" onclick="sortTable('table-attribute', ${idx + 2})">
-        <div class="flex items-center justify-center gap-1.5 w-full h-full">
-          <span style="white-space: nowrap;">${formattedKey}</span>
-          <span class="sort-icon">⇅</span>
-        </div>
-      </th>`;
-    });
-  }
-  headerHtml += '</tr>';
-  thead.innerHTML = headerHtml;
+      categories.forEach((cat, idx) => {
+        headerHtml += `<th class="clickable-header align-middle py-4 text-center select-none cursor-pointer active:bg-gray-100" onclick="sortTable('table-attribute', ${idx + 2})">
+          <div class="header-center-force gap-1.5 h-full">
+            <span style="white-space: nowrap;">${cat.label}</span>
+            <span class="sort-icon">⇅</span>
+            ${cat.interactive ? `
+              <span onclick="event.stopPropagation(); drillDown('${cat.key}');" class="drill-down-indicator text-blue-500 cursor-pointer" title="View Details">
+                <i class="fas fa-chevron-right text-xs"></i>
+              </span>` : ''}
+          </div>
+        </th>`;
+      });
 
-  // 2. Render Body
-  let bodyHtml = '';
-  attributeData.forEach((model, idx) => {
-    bodyHtml += '<tr>';
-    bodyHtml += `<td class="rank-cell sticky-rank-col align-middle py-4 text-center">${idx + 1}</td>`;
-    bodyHtml += `<td class="left-align model-cell sticky-model-col sticky-shadow-right pl-6 align-middle py-4 text-left truncate" title="${model.model}">
-      <span class="truncate">${model.model}</span>
-      <span class="badge badge-${model.badge.toLowerCase().replace(/\s+/g, '-')}">${model.badge}</span>
-    </td>`;
+
+    } else {
+      // Detailed Headers from first model's data
+      const subKeys = Object.keys(attributeData[0][view]);
+      subKeys.forEach((key, idx) => {
+        const formattedKey = key.charAt(0).toUpperCase() + key.slice(1).replace('_', ' ');
+        headerHtml += `<th class="align-middle py-4 text-center select-none cursor-pointer active:bg-gray-100" onclick="sortTable('table-attribute', ${idx + 2})">
+          <div class="header-center-force gap-1.5 h-full">
+            <span style="white-space: nowrap;">${formattedKey}</span>
+            <span class="sort-icon">⇅</span>
+          </div>
+        </th>`;
+      });
+
+    }
+    headerHtml += '</tr>';
+    thead.innerHTML = headerHtml;
+
+    // 2. Render Body
+    let bodyHtml = '';
+    attributeData.forEach((model, idx) => {
+      bodyHtml += '<tr>';
+      bodyHtml += `<td class="rank-cell sticky-rank-col align-middle py-4 text-center">${idx + 1}</td>`;
+      bodyHtml += `<td class="sticky-model-col sticky-shadow-right left-align model-cell align-middle py-4 truncate" title="${model.model}">
+        <span class="model-name-bold pr-2">${model.model}</span>
+        <span class="badge badge-${model.badge.toLowerCase().replace(/\s+/g, '-')}">${model.badge}</span>
+      </td>`;
+
+
+
     
     if (view === 'overview') {
       const keys = ['color', 'pattern', 'shape', 'length', 'size'];
       keys.forEach(key => {
         const val = model.overview[key];
         const isBest = isGlobalBest(key, val, 'overview');
-        bodyHtml += `<td class="tabular-nums align-middle py-4 text-center ${isBest ? 'highlight-best' : ''}">${val.toFixed(2)}%</td>`;
+        bodyHtml += `<td class="tabular-nums align-middle py-4 text-center">
+          <div class="score-chip chip-single ${isBest ? 'highlight-best' : ''}">
+            <span class="score-main">${val.toFixed(2)}%</span>
+          </div>
+        </td>`;
       });
     } else {
       const subKeys = Object.keys(model[view]);
       subKeys.forEach(key => {
         const val = model[view][key];
         const isBest = isGlobalBest(key, val, view);
-        bodyHtml += `<td class="tabular-nums px-4 ${isBest ? 'highlight-best' : ''}">${val.toFixed(2)}%</td>`;
+        bodyHtml += `<td class="tabular-nums px-4 align-middle py-4 text-center">
+          <div class="score-chip chip-single ${isBest ? 'highlight-best' : ''}">
+            <span class="score-main">${val.toFixed(2)}%</span>
+          </div>
+        </td>`;
       });
     }
+
     bodyHtml += '</tr>';
   });
   tbody.innerHTML = bodyHtml;
@@ -341,17 +369,18 @@ function renderMachineTable(type) {
 
   let headerHtml = '<tr>';
   headerHtml += `<th class="rank-cell sticky-rank-col align-middle py-4 text-center select-none cursor-pointer active:bg-gray-100" onclick="sortTable('${tableId}', 0)" style="cursor: pointer;" title="Reset Order">#</th>`;
-  headerHtml += `<th class="left-align sticky-model-col sticky-shadow-right pl-6 align-middle py-4 text-left select-none cursor-pointer active:bg-gray-100" onclick="sortTable('${tableId}', 1)" style="cursor: pointer;">Model <span class="sort-icon">⇅</span></th>`;
+  headerHtml += `<th class="sticky-model-col sticky-shadow-right pl-8 align-middle py-4 text-left select-none cursor-pointer active:bg-gray-100" onclick="sortTable('${tableId}', 1)" style="cursor: pointer;">Model <span class="sort-icon">⇅</span></th>`;
 
   datasetKeys.forEach((key, idx) => {
     const displayName = datasetNameMap[key] || key.toUpperCase();
     headerHtml += `<th class="clickable-header align-middle py-4 text-center select-none cursor-pointer active:bg-gray-100" onclick="sortTable('${tableId}', ${idx + 2})">
-      <div class="flex items-center justify-center gap-1.5 w-full h-full">
+      <div class="header-center-force gap-1.5 h-full">
         <span style="white-space: nowrap;">${displayName}</span>
         <span class="sort-icon">⇅</span>
       </div>
     </th>`;
   });
+
   headerHtml += '</tr>';
   thead.innerHTML = headerHtml;
 
@@ -360,20 +389,27 @@ function renderMachineTable(type) {
   data.forEach((item, idx) => {
     bodyHtml += `<tr>`;
     bodyHtml += `<td class="rank-cell sticky-rank-col align-middle py-4 text-center">${idx + 1}</td>`;
-    bodyHtml += `<td class="left-align model-cell sticky-model-col sticky-shadow-right pl-6 align-middle py-4 text-left truncate" title="${item.model}">
-      <span class="truncate">${item.model}</span>
+    bodyHtml += `<td class="sticky-model-col sticky-shadow-right left-align model-cell align-middle py-4 truncate" title="${item.model}">
+      <span style="font-weight: 700;">${item.model}</span>
       <span class="badge badge-${item.badge.toLowerCase().replace(/\s+/g, '-')}">${item.badge}</span>
     </td>`;
-    
+
+
     datasetKeys.forEach(key => {
       const val = item.scores[key];
       const isBest = isMachineBest(type, key, val);
-      bodyHtml += `<td class="tabular-nums align-middle py-4 text-center ${isBest ? 'highlight-best' : ''}">${val.toFixed(2)}%</td>`;
+      bodyHtml += `<td class="tabular-nums align-middle py-4 text-center">
+        <div class="score-chip chip-single ${isBest ? 'highlight-best' : ''}">
+          <span class="score-main">${val.toFixed(2)}%</span>
+        </div>
+      </td>`;
     });
-    bodyHtml += '</tr>';
+
+  bodyHtml += '</tr>';
   });
   tbody.innerHTML = bodyHtml;
 }
+
 
 function isMachineBest(type, key, value) {
   let max = 0;
@@ -389,18 +425,22 @@ function isHierarchicalBest(key, value, view) {
   let data = hierarchicalData[view];
   if (!data) return false;
 
+  const currentVal = (typeof value === 'object' && value !== null) ? (value.choice + value.judgment) / 2 : (value || 0);
+
   data.forEach(m => {
-    let val = 0;
+    let valRaw = 0;
     if (view === 'overview') {
-      if (m.overview && m.overview[key] !== undefined) val = m.overview[key];
-      else if (m[key] !== undefined) val = m[key];
+      if (m.overview && m.overview[key] !== undefined) valRaw = m.overview[key];
+      else if (m[key] !== undefined) valRaw = m[key];
     } else {
       const scores = m.scores || m;
-      val = scores[key] || 0;
+      valRaw = scores[key] || 0;
     }
+
+    const val = (typeof valRaw === 'object' && valRaw !== null) ? (valRaw.choice + valRaw.judgment) / 2 : (valRaw || 0);
     if (val > max) max = val;
   });
-  return value >= max && max > 0;
+  return currentVal >= max && max > 0;
 }
 
 function drillDown(view) {
@@ -463,17 +503,22 @@ function renderHierarchicalTable(view) {
 
   if (!data) return;
 
+  // Update subtitle/info if needed
+  const footnote = document.getElementById('leaderboard-footnote');
+  if (view === 'overview' && footnote) {
+    footnote.innerHTML = 'Hierarchical granularity recognition performance. Values are shown as <b>Choice / Judgment</b> accuracy. The overview displays Species-level accuracy across all datasets.';
+  }
 
   // 1. Render Headers
   let headerHtml = '<tr>';
   headerHtml += `<th class="rank-cell sticky-rank-col align-middle py-4 text-center select-none cursor-pointer active:bg-gray-100" onclick="sortTable('table-hierarchical', 0)" style="cursor: pointer;" title="Reset Order">#</th>`;
-  headerHtml += `<th class="left-align sticky-model-col sticky-shadow-right pl-6 align-middle py-4 text-left select-none cursor-pointer active:bg-gray-100" onclick="sortTable('table-hierarchical', 1)" style="cursor: pointer;">Model <span class="sort-icon">⇅</span></th>`;
+  headerHtml += `<th class="sticky-model-col sticky-shadow-right pl-8 align-middle py-4 text-left select-none cursor-pointer active:bg-gray-100" onclick="sortTable('table-hierarchical', 1)" style="cursor: pointer;">Model <span class="sort-icon">⇅</span></th>`;
 
   if (view === 'overview') {
     hierarchicalSubset.forEach((ds, idx) => {
       const drillKey = ds.key === 'cub' ? 'cub_details' : 'inat_details';
       headerHtml += `<th class="clickable-header align-middle py-4 text-center select-none cursor-pointer active:bg-gray-100" onclick="sortTable('table-hierarchical', ${idx + 2})">
-        <div class="flex items-center justify-center gap-1.5 w-full h-full">
+        <div class="header-center-force gap-1.5 h-full">
           <span style="white-space: nowrap;">${ds.name}</span>
           <span class="sort-icon">⇅</span>
           ${ds.interactive ? `
@@ -483,11 +528,13 @@ function renderHierarchicalTable(view) {
         </div>
       </th>`;
     });
+
+
   } else {
     // Detailed Headers (Taxonomic levels)
     let subKeys = Object.keys(data[0].scores || data[0]).filter(k => k !== 'model' && k !== 'badge' && k !== 'originalIndex');
     
-    // CUB-200 only has 3 taxonomic levels (Class, Genus, Species)
+    // ONLY restrict for CUB-200, show EVERYTHING for others (like INAT2021)
     if (view === 'cub_details') {
       const cubAllowed = ['Class', 'Genus', 'Species'];
       subKeys = subKeys.filter(k => cubAllowed.includes(k.charAt(0).toUpperCase() + k.slice(1)));
@@ -496,12 +543,15 @@ function renderHierarchicalTable(view) {
     subKeys.forEach((key, idx) => {
       const displayName = key.charAt(0).toUpperCase() + key.slice(1);
       headerHtml += `<th class="clickable-header align-middle py-4 text-center select-none cursor-pointer active:bg-gray-100" onclick="sortTable('table-hierarchical', ${idx + 2})">
-        <div class="flex items-center justify-center gap-1.5 w-full h-full">
+        <div class="header-center-force gap-1.5 h-full">
           <span style="white-space: nowrap;">${displayName}</span>
           <span class="sort-icon">⇅</span>
         </div>
       </th>`;
     });
+
+
+
   }
   headerHtml += '</tr>';
   thead.innerHTML = headerHtml;
@@ -510,35 +560,67 @@ function renderHierarchicalTable(view) {
   let bodyHtml = '';
   data.forEach((model, idx) => {
     bodyHtml += '<tr>';
-    bodyHtml += `<td class="rank-cell sticky-rank-col">${idx + 1}</td>`;
-    bodyHtml += `<td class="left-align model-cell sticky-model-col sticky-shadow-right pl-6 truncate" title="${model.model}">
-      <span class="truncate">${model.model}</span>
+    bodyHtml += `<td class="rank-cell sticky-rank-col align-middle py-4 text-center">${idx + 1}</td>`;
+    bodyHtml += `<td class="sticky-model-col sticky-shadow-right left-align model-cell align-middle py-4 truncate" title="${model.model}">
+      <span class="model-name-bold pr-2">${model.model}</span>
       <span class="badge badge-${(model.badge || 'vlm').toLowerCase().replace(/\s+/g, '-')}">${model.badge || 'VLM'}</span>
     </td>`;
+
+
     
     if (view === 'overview') {
       hierarchicalSubset.forEach(ds => {
-        let valNumeric = null;
-        if (model.overview && model.overview[ds.key] !== undefined) valNumeric = model.overview[ds.key];
-        else if (model[ds.key] !== undefined) valNumeric = model[ds.key];
+        let valRaw = null;
+        if (model.overview && model.overview[ds.key] !== undefined) valRaw = model.overview[ds.key];
+        else if (model[ds.key] !== undefined) valRaw = model[ds.key];
 
-        const val = valNumeric !== null ? valNumeric.toFixed(2) + "%" : "-";
-        const isBest = valNumeric !== null ? isHierarchicalBest(ds.key, valNumeric, view) : false;
-        bodyHtml += `<td class="tabular-nums align-middle py-4 text-center ${isBest ? 'highlight-best' : ''}">${val}</td>`;
+        let displayVal = "-";
+        let isBest = false;
+        if (valRaw !== null) {
+          if (typeof valRaw === 'object') {
+            displayVal = `<span class="score-choice">${valRaw.choice.toFixed(2)}%</span> / <span class="score-judgment">${valRaw.judgment.toFixed(2)}%</span>`;
+            isBest = isHierarchicalBest(ds.key, valRaw, view);
+          } else {
+            displayVal = valRaw.toFixed(2) + "%";
+            isBest = isHierarchicalBest(ds.key, valRaw, view);
+          }
+        }
+        bodyHtml += `<td class="tabular-nums align-middle py-4 text-center">
+          <div class="score-chip chip-dual ${isBest ? 'highlight-best' : ''}">
+            ${displayVal}
+          </div>
+        </td>`;
       });
+
     } else {
       const scores = model.scores || model;
-      // Use the SAME subKeys as headers for synchronization
       let detailKeys = Object.keys(scores).filter(k => k !== 'model' && k !== 'badge' && k !== 'originalIndex');
+      
+      // ONLY restrict for CUB-200, show EVERYTHING for others (like INAT2021)
       if (view === 'cub_details') {
         const cubAllowed = ['Class', 'Genus', 'Species'];
         detailKeys = detailKeys.filter(k => cubAllowed.includes(k.charAt(0).toUpperCase() + k.slice(1)));
       }
 
       detailKeys.forEach(key => {
-        const val = scores[key];
-        const isBest = typeof val === 'number' ? isHierarchicalBest(key, val, view) : false;
-        bodyHtml += `<td class="tabular-nums align-middle py-4 text-center ${isBest ? 'highlight-best' : ''}">${typeof val === 'number' ? val.toFixed(2) + '%' : val}</td>`;
+
+        const valRaw = scores[key];
+        let displayVal = "-";
+        let isBest = false;
+        if (valRaw !== null && valRaw !== undefined) {
+          if (typeof valRaw === 'object') {
+            displayVal = `<span class="score-choice">${valRaw.choice.toFixed(2)}%</span> / <span class="score-judgment">${valRaw.judgment.toFixed(2)}%</span>`;
+            isBest = isHierarchicalBest(key, valRaw, view);
+          } else {
+            displayVal = typeof valRaw === 'number' ? valRaw.toFixed(2) + '%' : valRaw;
+            isBest = typeof valRaw === 'number' ? isHierarchicalBest(key, valRaw, view) : false;
+          }
+        }
+        bodyHtml += `<td class="tabular-nums align-middle py-4 text-center">
+          <div class="score-chip chip-dual ${isBest ? 'highlight-best' : ''}">
+            ${displayVal}
+          </div>
+        </td>`;
       });
     }
     bodyHtml += '</tr>';
