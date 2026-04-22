@@ -1086,7 +1086,7 @@ function createChart(canvasId, data) {
         data: data,
         backgroundColor: modelColors.map(c => c + 'dd'), // Muted transparency
         hoverBackgroundColor: modelColors, // Solid on hover
-        borderRadius: { topLeft: 6, topRight: 6, bottomLeft: 0, bottomRight: 0 },
+        borderRadius: 0,
         borderSkipped: false,
         barPercentage: 0.65,
         categoryPercentage: 0.8
